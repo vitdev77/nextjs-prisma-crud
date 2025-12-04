@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Brand {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String @unique
+
+  @@map("brands")
+}
+
+model Series {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String @unique
+
+  products Product[]
+
+  @@map("series")
+}
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name           String @unique
+  seriesId       Int
+  productColorId Int
+
+  series Series @relation(fields: [seriesId], references: [id])
+  // productColor   ProductColor @relation(fields: [productColorId], references: [id])
+
+  @@map("products")
+}
+
+model ProductColor {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatadAt DateTime @updatedAt
+
+  name     String  @unique
+  atribute String?
+
+  // products Product[]
+
+  @@map("product_colors")
+}
