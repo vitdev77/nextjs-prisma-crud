@@ -14,8 +14,8 @@ model Brand {
 
   name String @unique
 
-  products Product[]
-  series   Series[]
+  models Model[]
+  series Series[]
 
   @@map("brands")
 }
@@ -27,30 +27,30 @@ model Series {
 
   name String @unique
 
-  products Product[]
-  brands   Brand[]
+  models Model[]
+  brands Brand[]
 
   @@map("series")
 }
 
-model Product {
+model Model {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name           String @unique
-  seriesId       Int
-  brandId        Int
-  productColorId Int
+  name         String @unique
+  seriesId     Int
+  brandId      Int
+  modelColorId Int
 
   series Series @relation(fields: [seriesId], references: [id])
   brand  Brand  @relation(fields: [brandId], references: [id])
-  // productColor ProductColor @relation(fields: [productColorId], references: [id])
+  // modelColor ModelColor @relation(fields: [modelColorId], references: [id])
 
-  @@map("products")
+  @@map("models")
 }
 
-model ProductColor {
+model ModelColor {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatadAt DateTime @updatedAt
@@ -58,7 +58,7 @@ model ProductColor {
   name     String  @unique
   atribute String?
 
-  // products Product[]
+  // models Model[]
 
-  @@map("product_colors")
+  @@map("model_colors")
 }

@@ -4,8 +4,8 @@ import Link from "next/link";
 const nav = [
   { title: "Series", link: "/series" },
   { title: "Brands", link: "/brands" },
-  { title: "Products", link: "/products" },
-  { title: "Product Colors", link: "/product-colors" },
+  { title: "Models", link: "/models" },
+  { title: "Model Colors", link: "/model-colors" },
 ];
 
 export default async function Home() {

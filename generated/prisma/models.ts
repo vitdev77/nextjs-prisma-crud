@@ -10,6 +10,6 @@
  */
 export type * from './models/Brand'
 export type * from './models/Series'
-export type * from './models/Product'
-export type * from './models/ProductColor'
+export type * from './models/Model'
+export type * from './models/ModelColor'
 export type * from './commonInputTypes'
