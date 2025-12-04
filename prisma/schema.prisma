@@ -14,6 +14,9 @@ model Brand {
 
   name String @unique
 
+  products Product[]
+  series   Series[]
+
   @@map("brands")
 }
 
@@ -25,6 +28,7 @@ model Series {
   name String @unique
 
   products Product[]
+  brands   Brand[]
 
   @@map("series")
 }
@@ -36,10 +40,12 @@ model Product {
 
   name           String @unique
   seriesId       Int
+  brandId        Int
   productColorId Int
 
   series Series @relation(fields: [seriesId], references: [id])
-  // productColor   ProductColor @relation(fields: [productColorId], references: [id])
+  brand  Brand  @relation(fields: [brandId], references: [id])
+  // productColor ProductColor @relation(fields: [productColorId], references: [id])
 
   @@map("products")
 }

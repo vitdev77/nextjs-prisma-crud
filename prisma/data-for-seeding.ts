@@ -16,9 +16,9 @@ export const series = [
 ];
 
 export const products = [
-  { id: 1, name: "MDRB471MGF01O", seriesId: 1, productColorId: 1 },
-  { id: 2, name: "MDRB471MGF33O", seriesId: 1, productColorId: 3 },
-  { id: 3, name: "MDRB471MGF46O", seriesId: 1, productColorId: 5 },
+  { id: 1, name: "MDRB471MGF01O", seriesId: 1, brandId: 1, productColorId: 1 },
+  { id: 2, name: "MDRB471MGF33O", seriesId: 1, brandId: 1, productColorId: 3 },
+  { id: 3, name: "MDRB471MGF46O", seriesId: 1, brandId: 1, productColorId: 5 },
 ];
 
 export const productColors = [
