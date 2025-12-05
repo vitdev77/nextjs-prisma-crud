@@ -38,19 +38,20 @@ model Model {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name         String @unique
+  name         String       @unique
   seriesId     Int
   brandId      Int
-  modelColorId Int
+  // colorId      Int
+  color        ModelColor   @default(WHITE)
+  businessType BusinessType @default(OBM)
 
   series Series @relation(fields: [seriesId], references: [id])
   brand  Brand  @relation(fields: [brandId], references: [id])
-  // modelColor ModelColor @relation(fields: [modelColorId], references: [id])
 
   @@map("models")
 }
 
-model ModelColor {
+model Color {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatadAt DateTime @updatedAt
@@ -58,7 +59,18 @@ model ModelColor {
   name     String  @unique
   atribute String?
 
-  // models Model[]
+  @@map("colors")
+}
 
-  @@map("model_colors")
+enum BusinessType {
+  OBM
+  OEM
+}
+
+enum ModelColor {
+  WHITE
+  BLACK
+  BEIGE
+  BASALT_GRAY
+  INOX
 }

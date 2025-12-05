@@ -9,7 +9,20 @@
 * 🟢 You can import this file directly.
 */
 
+export const BusinessType = {
+  OBM: 'OBM',
+  OEM: 'OEM'
+} as const
+
+export type BusinessType = (typeof BusinessType)[keyof typeof BusinessType]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ModelColor = {
+  WHITE: 'WHITE',
+  BLACK: 'BLACK',
+  BEIGE: 'BEIGE',
+  BASALT_GRAY: 'BASALT_GRAY',
+  INOX: 'INOX'
+} as const
+
+export type ModelColor = (typeof ModelColor)[keyof typeof ModelColor]

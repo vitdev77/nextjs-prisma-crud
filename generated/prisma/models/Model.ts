@@ -30,14 +30,12 @@ export type ModelAvgAggregateOutputType = {
   id: number | null
   seriesId: number | null
   brandId: number | null
-  modelColorId: number | null
 }
 
 export type ModelSumAggregateOutputType = {
   id: number | null
   seriesId: number | null
   brandId: number | null
-  modelColorId: number | null
 }
 
 export type ModelMinAggregateOutputType = {
@@ -47,7 +45,8 @@ export type ModelMinAggregateOutputType = {
   name: string | null
   seriesId: number | null
   brandId: number | null
-  modelColorId: number | null
+  color: $Enums.ModelColor | null
+  businessType: $Enums.BusinessType | null
 }
 
 export type ModelMaxAggregateOutputType = {
@@ -57,7 +56,8 @@ export type ModelMaxAggregateOutputType = {
   name: string | null
   seriesId: number | null
   brandId: number | null
-  modelColorId: number | null
+  color: $Enums.ModelColor | null
+  businessType: $Enums.BusinessType | null
 }
 
 export type ModelCountAggregateOutputType = {
@@ -67,7 +67,8 @@ export type ModelCountAggregateOutputType = {
   name: number
   seriesId: number
   brandId: number
-  modelColorId: number
+  color: number
+  businessType: number
   _all: number
 }
 
@@ -76,14 +77,12 @@ export type ModelAvgAggregateInputType = {
   id?: true
   seriesId?: true
   brandId?: true
-  modelColorId?: true
 }
 
 export type ModelSumAggregateInputType = {
   id?: true
   seriesId?: true
   brandId?: true
-  modelColorId?: true
 }
 
 export type ModelMinAggregateInputType = {
@@ -93,7 +92,8 @@ export type ModelMinAggregateInputType = {
   name?: true
   seriesId?: true
   brandId?: true
-  modelColorId?: true
+  color?: true
+  businessType?: true
 }
 
 export type ModelMaxAggregateInputType = {
@@ -103,7 +103,8 @@ export type ModelMaxAggregateInputType = {
   name?: true
   seriesId?: true
   brandId?: true
-  modelColorId?: true
+  color?: true
+  businessType?: true
 }
 
 export type ModelCountAggregateInputType = {
@@ -113,7 +114,8 @@ export type ModelCountAggregateInputType = {
   name?: true
   seriesId?: true
   brandId?: true
-  modelColorId?: true
+  color?: true
+  businessType?: true
   _all?: true
 }
 
@@ -210,7 +212,8 @@ export type ModelGroupByOutputType = {
   name: string
   seriesId: number
   brandId: number
-  modelColorId: number
+  color: $Enums.ModelColor
+  businessType: $Enums.BusinessType
   _count: ModelCountAggregateOutputType | null
   _avg: ModelAvgAggregateOutputType | null
   _sum: ModelSumAggregateOutputType | null
@@ -243,7 +246,8 @@ export type ModelWhereInput = {
   name?: Prisma.StringFilter<"Model"> | string
   seriesId?: Prisma.IntFilter<"Model"> | number
   brandId?: Prisma.IntFilter<"Model"> | number
-  modelColorId?: Prisma.IntFilter<"Model"> | number
+  color?: Prisma.EnumModelColorFilter<"Model"> | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFilter<"Model"> | $Enums.BusinessType
   series?: Prisma.XOR<Prisma.SeriesScalarRelationFilter, Prisma.SeriesWhereInput>
   brand?: Prisma.XOR<Prisma.BrandScalarRelationFilter, Prisma.BrandWhereInput>
 }
@@ -255,7 +259,8 @@ export type ModelOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   seriesId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
-  modelColorId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  businessType?: Prisma.SortOrder
   series?: Prisma.SeriesOrderByWithRelationInput
   brand?: Prisma.BrandOrderByWithRelationInput
 }
@@ -270,7 +275,8 @@ export type ModelWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Model"> | Date | string
   seriesId?: Prisma.IntFilter<"Model"> | number
   brandId?: Prisma.IntFilter<"Model"> | number
-  modelColorId?: Prisma.IntFilter<"Model"> | number
+  color?: Prisma.EnumModelColorFilter<"Model"> | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFilter<"Model"> | $Enums.BusinessType
   series?: Prisma.XOR<Prisma.SeriesScalarRelationFilter, Prisma.SeriesWhereInput>
   brand?: Prisma.XOR<Prisma.BrandScalarRelationFilter, Prisma.BrandWhereInput>
 }, "id" | "name">
@@ -282,7 +288,8 @@ export type ModelOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   seriesId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
-  modelColorId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  businessType?: Prisma.SortOrder
   _count?: Prisma.ModelCountOrderByAggregateInput
   _avg?: Prisma.ModelAvgOrderByAggregateInput
   _max?: Prisma.ModelMaxOrderByAggregateInput
@@ -300,14 +307,16 @@ export type ModelScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Model"> | string
   seriesId?: Prisma.IntWithAggregatesFilter<"Model"> | number
   brandId?: Prisma.IntWithAggregatesFilter<"Model"> | number
-  modelColorId?: Prisma.IntWithAggregatesFilter<"Model"> | number
+  color?: Prisma.EnumModelColorWithAggregatesFilter<"Model"> | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeWithAggregatesFilter<"Model"> | $Enums.BusinessType
 }
 
 export type ModelCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   name: string
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
   series: Prisma.SeriesCreateNestedOneWithoutModelsInput
   brand: Prisma.BrandCreateNestedOneWithoutModelsInput
 }
@@ -319,14 +328,16 @@ export type ModelUncheckedCreateInput = {
   name: string
   seriesId: number
   brandId: number
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
 }
 
 export type ModelUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
   series?: Prisma.SeriesUpdateOneRequiredWithoutModelsNestedInput
   brand?: Prisma.BrandUpdateOneRequiredWithoutModelsNestedInput
 }
@@ -338,7 +349,8 @@ export type ModelUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesId?: Prisma.IntFieldUpdateOperationsInput | number
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
 }
 
 export type ModelCreateManyInput = {
@@ -348,14 +360,16 @@ export type ModelCreateManyInput = {
   name: string
   seriesId: number
   brandId: number
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
 }
 
 export type ModelUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
 }
 
 export type ModelUncheckedUpdateManyInput = {
@@ -365,7 +379,8 @@ export type ModelUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesId?: Prisma.IntFieldUpdateOperationsInput | number
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
 }
 
 export type ModelListRelationFilter = {
@@ -385,14 +400,14 @@ export type ModelCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   seriesId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
-  modelColorId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  businessType?: Prisma.SortOrder
 }
 
 export type ModelAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   seriesId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
-  modelColorId?: Prisma.SortOrder
 }
 
 export type ModelMaxOrderByAggregateInput = {
@@ -402,7 +417,8 @@ export type ModelMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   seriesId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
-  modelColorId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  businessType?: Prisma.SortOrder
 }
 
 export type ModelMinOrderByAggregateInput = {
@@ -412,14 +428,14 @@ export type ModelMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   seriesId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
-  modelColorId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  businessType?: Prisma.SortOrder
 }
 
 export type ModelSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   seriesId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
-  modelColorId?: Prisma.SortOrder
 }
 
 export type ModelCreateNestedManyWithoutBrandInput = {
@@ -506,11 +522,20 @@ export type ModelUncheckedUpdateManyWithoutSeriesNestedInput = {
   deleteMany?: Prisma.ModelScalarWhereInput | Prisma.ModelScalarWhereInput[]
 }
 
+export type EnumModelColorFieldUpdateOperationsInput = {
+  set?: $Enums.ModelColor
+}
+
+export type EnumBusinessTypeFieldUpdateOperationsInput = {
+  set?: $Enums.BusinessType
+}
+
 export type ModelCreateWithoutBrandInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   name: string
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
   series: Prisma.SeriesCreateNestedOneWithoutModelsInput
 }
 
@@ -520,7 +545,8 @@ export type ModelUncheckedCreateWithoutBrandInput = {
   updatedAt?: Date | string
   name: string
   seriesId: number
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
 }
 
 export type ModelCreateOrConnectWithoutBrandInput = {
@@ -559,14 +585,16 @@ export type ModelScalarWhereInput = {
   name?: Prisma.StringFilter<"Model"> | string
   seriesId?: Prisma.IntFilter<"Model"> | number
   brandId?: Prisma.IntFilter<"Model"> | number
-  modelColorId?: Prisma.IntFilter<"Model"> | number
+  color?: Prisma.EnumModelColorFilter<"Model"> | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFilter<"Model"> | $Enums.BusinessType
 }
 
 export type ModelCreateWithoutSeriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   name: string
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
   brand: Prisma.BrandCreateNestedOneWithoutModelsInput
 }
 
@@ -576,7 +604,8 @@ export type ModelUncheckedCreateWithoutSeriesInput = {
   updatedAt?: Date | string
   name: string
   brandId: number
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
 }
 
 export type ModelCreateOrConnectWithoutSeriesInput = {
@@ -611,14 +640,16 @@ export type ModelCreateManyBrandInput = {
   updatedAt?: Date | string
   name: string
   seriesId: number
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
 }
 
 export type ModelUpdateWithoutBrandInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
   series?: Prisma.SeriesUpdateOneRequiredWithoutModelsNestedInput
 }
 
@@ -628,7 +659,8 @@ export type ModelUncheckedUpdateWithoutBrandInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesId?: Prisma.IntFieldUpdateOperationsInput | number
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
 }
 
 export type ModelUncheckedUpdateManyWithoutBrandInput = {
@@ -637,7 +669,8 @@ export type ModelUncheckedUpdateManyWithoutBrandInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesId?: Prisma.IntFieldUpdateOperationsInput | number
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
 }
 
 export type ModelCreateManySeriesInput = {
@@ -646,14 +679,16 @@ export type ModelCreateManySeriesInput = {
   updatedAt?: Date | string
   name: string
   brandId: number
-  modelColorId: number
+  color?: $Enums.ModelColor
+  businessType?: $Enums.BusinessType
 }
 
 export type ModelUpdateWithoutSeriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
   brand?: Prisma.BrandUpdateOneRequiredWithoutModelsNestedInput
 }
 
@@ -663,7 +698,8 @@ export type ModelUncheckedUpdateWithoutSeriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
 }
 
 export type ModelUncheckedUpdateManyWithoutSeriesInput = {
@@ -672,7 +708,8 @@ export type ModelUncheckedUpdateManyWithoutSeriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
-  modelColorId?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.EnumModelColorFieldUpdateOperationsInput | $Enums.ModelColor
+  businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
 }
 
 
@@ -684,7 +721,8 @@ export type ModelSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name?: boolean
   seriesId?: boolean
   brandId?: boolean
-  modelColorId?: boolean
+  color?: boolean
+  businessType?: boolean
   series?: boolean | Prisma.SeriesDefaultArgs<ExtArgs>
   brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["model"]>
@@ -696,7 +734,8 @@ export type ModelSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   seriesId?: boolean
   brandId?: boolean
-  modelColorId?: boolean
+  color?: boolean
+  businessType?: boolean
   series?: boolean | Prisma.SeriesDefaultArgs<ExtArgs>
   brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["model"]>
@@ -708,7 +747,8 @@ export type ModelSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   seriesId?: boolean
   brandId?: boolean
-  modelColorId?: boolean
+  color?: boolean
+  businessType?: boolean
   series?: boolean | Prisma.SeriesDefaultArgs<ExtArgs>
   brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["model"]>
@@ -720,10 +760,11 @@ export type ModelSelectScalar = {
   name?: boolean
   seriesId?: boolean
   brandId?: boolean
-  modelColorId?: boolean
+  color?: boolean
+  businessType?: boolean
 }
 
-export type ModelOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "seriesId" | "brandId" | "modelColorId", ExtArgs["result"]["model"]>
+export type ModelOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "seriesId" | "brandId" | "color" | "businessType", ExtArgs["result"]["model"]>
 export type ModelInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   series?: boolean | Prisma.SeriesDefaultArgs<ExtArgs>
   brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
@@ -750,7 +791,8 @@ export type $ModelPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     name: string
     seriesId: number
     brandId: number
-    modelColorId: number
+    color: $Enums.ModelColor
+    businessType: $Enums.BusinessType
   }, ExtArgs["result"]["model"]>
   composites: {}
 }
@@ -1182,7 +1224,8 @@ export interface ModelFieldRefs {
   readonly name: Prisma.FieldRef<"Model", 'String'>
   readonly seriesId: Prisma.FieldRef<"Model", 'Int'>
   readonly brandId: Prisma.FieldRef<"Model", 'Int'>
-  readonly modelColorId: Prisma.FieldRef<"Model", 'Int'>
+  readonly color: Prisma.FieldRef<"Model", 'ModelColor'>
+  readonly businessType: Prisma.FieldRef<"Model", 'BusinessType'>
 }
     
 

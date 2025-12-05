@@ -387,7 +387,7 @@ export const ModelName = {
   Brand: 'Brand',
   Series: 'Series',
   Model: 'Model',
-  ModelColor: 'ModelColor'
+  Color: 'Color'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "brand" | "series" | "model" | "modelColor"
+    modelProps: "brand" | "series" | "model" | "color"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -629,77 +629,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    ModelColor: {
-      payload: Prisma.$ModelColorPayload<ExtArgs>
-      fields: Prisma.ModelColorFieldRefs
+    Color: {
+      payload: Prisma.$ColorPayload<ExtArgs>
+      fields: Prisma.ColorFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ModelColorFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload> | null
+          args: Prisma.ColorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ModelColorFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>
+          args: Prisma.ColorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>
         }
         findFirst: {
-          args: Prisma.ModelColorFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload> | null
+          args: Prisma.ColorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ModelColorFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>
+          args: Prisma.ColorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>
         }
         findMany: {
-          args: Prisma.ModelColorFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>[]
+          args: Prisma.ColorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>[]
         }
         create: {
-          args: Prisma.ModelColorCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>
+          args: Prisma.ColorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>
         }
         createMany: {
-          args: Prisma.ModelColorCreateManyArgs<ExtArgs>
+          args: Prisma.ColorCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ModelColorCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>[]
+          args: Prisma.ColorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>[]
         }
         delete: {
-          args: Prisma.ModelColorDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>
+          args: Prisma.ColorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>
         }
         update: {
-          args: Prisma.ModelColorUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>
+          args: Prisma.ColorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>
         }
         deleteMany: {
-          args: Prisma.ModelColorDeleteManyArgs<ExtArgs>
+          args: Prisma.ColorDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ModelColorUpdateManyArgs<ExtArgs>
+          args: Prisma.ColorUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ModelColorUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>[]
+          args: Prisma.ColorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>[]
         }
         upsert: {
-          args: Prisma.ModelColorUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModelColorPayload>
+          args: Prisma.ColorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>
         }
         aggregate: {
-          args: Prisma.ModelColorAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateModelColor>
+          args: Prisma.ColorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateColor>
         }
         groupBy: {
-          args: Prisma.ModelColorGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ModelColorGroupByOutputType>[]
+          args: Prisma.ColorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ColorGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ModelColorCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ModelColorCountAggregateOutputType> | number
+          args: Prisma.ColorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ColorCountAggregateOutputType> | number
         }
       }
     }
@@ -769,13 +769,14 @@ export const ModelScalarFieldEnum = {
   name: 'name',
   seriesId: 'seriesId',
   brandId: 'brandId',
-  modelColorId: 'modelColorId'
+  color: 'color',
+  businessType: 'businessType'
 } as const
 
 export type ModelScalarFieldEnum = (typeof ModelScalarFieldEnum)[keyof typeof ModelScalarFieldEnum]
 
 
-export const ModelColorScalarFieldEnum = {
+export const ColorScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatadAt: 'updatadAt',
@@ -783,7 +784,7 @@ export const ModelColorScalarFieldEnum = {
   atribute: 'atribute'
 } as const
 
-export type ModelColorScalarFieldEnum = (typeof ModelColorScalarFieldEnum)[keyof typeof ModelColorScalarFieldEnum]
+export type ColorScalarFieldEnum = (typeof ColorScalarFieldEnum)[keyof typeof ColorScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -855,6 +856,34 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ModelColor'
+ */
+export type EnumModelColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModelColor'>
+    
+
+
+/**
+ * Reference to a field of type 'ModelColor[]'
+ */
+export type ListEnumModelColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModelColor[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BusinessType'
+ */
+export type EnumBusinessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessType'>
+    
+
+
+/**
+ * Reference to a field of type 'BusinessType[]'
+ */
+export type ListEnumBusinessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessType[]'>
     
 
 
@@ -969,7 +998,7 @@ export type GlobalOmitConfig = {
   brand?: Prisma.BrandOmit
   series?: Prisma.SeriesOmit
   model?: Prisma.ModelOmit
-  modelColor?: Prisma.ModelColorOmit
+  color?: Prisma.ColorOmit
 }
 
 /* Types for Logging */

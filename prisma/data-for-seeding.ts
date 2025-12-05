@@ -1,3 +1,5 @@
+import { ModelColor } from "@/generated/prisma/enums";
+
 export const brands = [
   { id: 1, name: "Midea" },
   { id: 2, name: "General Electronics" },
@@ -16,12 +18,30 @@ export const series = [
 ];
 
 export const models = [
-  { id: 1, name: "MDRB471MGF01O", seriesId: 1, brandId: 1, modelColorId: 1 },
-  { id: 2, name: "MDRB471MGF33O", seriesId: 1, brandId: 1, modelColorId: 3 },
-  { id: 3, name: "MDRB471MGF46O", seriesId: 1, brandId: 1, modelColorId: 5 },
+  {
+    id: 1,
+    name: "MDRB471MGF01O",
+    seriesId: 1,
+    brandId: 1,
+    color: ModelColor.WHITE,
+  },
+  {
+    id: 2,
+    name: "MDRB471MGF33O",
+    seriesId: 1,
+    brandId: 1,
+    color: ModelColor.BEIGE,
+  },
+  {
+    id: 3,
+    name: "MDRB471MGF46O",
+    seriesId: 1,
+    brandId: 1,
+    color: ModelColor.INOX,
+  },
 ];
 
-export const modelColors = [
+export const colors = [
   { id: 1, name: "White", atribute: "01" },
   { id: 2, name: "Black", atribute: "28" },
   { id: 3, name: "Beige", atribute: "33" },

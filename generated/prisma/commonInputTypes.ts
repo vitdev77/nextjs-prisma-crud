@@ -99,6 +99,40 @@ export type StringWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedStringFilter<$PrismaModel>
 }
 
+export type EnumModelColorFilter<$PrismaModel = never> = {
+  equals?: $Enums.ModelColor | Prisma.EnumModelColorFieldRefInput<$PrismaModel>
+  in?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumModelColorFilter<$PrismaModel> | $Enums.ModelColor
+}
+
+export type EnumBusinessTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BusinessType | Prisma.EnumBusinessTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel> | $Enums.BusinessType
+}
+
+export type EnumModelColorWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ModelColor | Prisma.EnumModelColorFieldRefInput<$PrismaModel>
+  in?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumModelColorWithAggregatesFilter<$PrismaModel> | $Enums.ModelColor
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumModelColorFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumModelColorFilter<$PrismaModel>
+}
+
+export type EnumBusinessTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BusinessType | Prisma.EnumBusinessTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBusinessTypeWithAggregatesFilter<$PrismaModel> | $Enums.BusinessType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel>
+}
+
 export type StringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -229,6 +263,40 @@ export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type NestedEnumModelColorFilter<$PrismaModel = never> = {
+  equals?: $Enums.ModelColor | Prisma.EnumModelColorFieldRefInput<$PrismaModel>
+  in?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumModelColorFilter<$PrismaModel> | $Enums.ModelColor
+}
+
+export type NestedEnumBusinessTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BusinessType | Prisma.EnumBusinessTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel> | $Enums.BusinessType
+}
+
+export type NestedEnumModelColorWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ModelColor | Prisma.EnumModelColorFieldRefInput<$PrismaModel>
+  in?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ModelColor[] | Prisma.ListEnumModelColorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumModelColorWithAggregatesFilter<$PrismaModel> | $Enums.ModelColor
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumModelColorFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumModelColorFilter<$PrismaModel>
+}
+
+export type NestedEnumBusinessTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BusinessType | Prisma.EnumBusinessTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBusinessTypeWithAggregatesFilter<$PrismaModel> | $Enums.BusinessType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel>
 }
 
 export type NestedStringNullableFilter<$PrismaModel = never> = {

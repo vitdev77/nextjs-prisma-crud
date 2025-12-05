@@ -55,7 +55,9 @@ export default async function Models() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Model ID</TableHead>
-              <TableHead>Name</TableHead>
+              <TableHead>Model</TableHead>
+              <TableHead>Business Type</TableHead>
+              <TableHead>Color</TableHead>
               <TableHead>Brand</TableHead>
               <TableHead>Series</TableHead>
               <TableHead>Created At</TableHead>
@@ -69,7 +71,7 @@ export default async function Models() {
             {models.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={7}
+                  colSpan={9}
                   className="text-muted-foreground text-center"
                 >
                   no model found
@@ -80,6 +82,8 @@ export default async function Models() {
                 <TableRow key={model.id}>
                   <TableCell>{model.id}</TableCell>
                   <TableCell className="font-medium">{model.name}</TableCell>
+                  <TableCell>{model.businessType}</TableCell>
+                  <TableCell className="lowercase">{model.color}</TableCell>
                   <TableCell>{model.brand.name}</TableCell>
                   <TableCell>{model.series.name}</TableCell>
                   <TableCell>

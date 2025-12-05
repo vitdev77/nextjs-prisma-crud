@@ -54,7 +54,7 @@ export const ModelName = {
   Brand: 'Brand',
   Series: 'Series',
   Model: 'Model',
-  ModelColor: 'ModelColor'
+  Color: 'Color'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -100,13 +100,14 @@ export const ModelScalarFieldEnum = {
   name: 'name',
   seriesId: 'seriesId',
   brandId: 'brandId',
-  modelColorId: 'modelColorId'
+  color: 'color',
+  businessType: 'businessType'
 } as const
 
 export type ModelScalarFieldEnum = (typeof ModelScalarFieldEnum)[keyof typeof ModelScalarFieldEnum]
 
 
-export const ModelColorScalarFieldEnum = {
+export const ColorScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatadAt: 'updatadAt',
@@ -114,7 +115,7 @@ export const ModelColorScalarFieldEnum = {
   atribute: 'atribute'
 } as const
 
-export type ModelColorScalarFieldEnum = (typeof ModelColorScalarFieldEnum)[keyof typeof ModelColorScalarFieldEnum]
+export type ColorScalarFieldEnum = (typeof ColorScalarFieldEnum)[keyof typeof ColorScalarFieldEnum]
 
 
 export const SortOrder = {

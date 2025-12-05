@@ -33,7 +33,7 @@ export type Series = Prisma.SeriesModel
  */
 export type Model = Prisma.ModelModel
 /**
- * Model ModelColor
+ * Model Color
  * 
  */
-export type ModelColor = Prisma.ModelColorModel
+export type Color = Prisma.ColorModel
