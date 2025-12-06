@@ -53,8 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Brand: 'Brand',
   Series: 'Series',
-  Model: 'Model',
-  Color: 'Color'
+  Product: 'Product'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -75,9 +74,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const BrandScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  name: 'name'
+  updatedAt: 'updatedAt'
 } as const
 
 export type BrandScalarFieldEnum = (typeof BrandScalarFieldEnum)[keyof typeof BrandScalarFieldEnum]
@@ -85,37 +84,26 @@ export type BrandScalarFieldEnum = (typeof BrandScalarFieldEnum)[keyof typeof Br
 
 export const SeriesScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  name: 'name'
+  updatedAt: 'updatedAt'
 } as const
 
 export type SeriesScalarFieldEnum = (typeof SeriesScalarFieldEnum)[keyof typeof SeriesScalarFieldEnum]
 
 
-export const ModelScalarFieldEnum = {
+export const ProductScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   name: 'name',
-  seriesId: 'seriesId',
-  brandId: 'brandId',
   color: 'color',
-  businessType: 'businessType'
-} as const
-
-export type ModelScalarFieldEnum = (typeof ModelScalarFieldEnum)[keyof typeof ModelScalarFieldEnum]
-
-
-export const ColorScalarFieldEnum = {
-  id: 'id',
+  businessType: 'businessType',
+  brandId: 'brandId',
+  seriesId: 'seriesId',
   createdAt: 'createdAt',
-  updatadAt: 'updatadAt',
-  name: 'name',
-  atribute: 'atribute'
+  updatedAt: 'updatedAt'
 } as const
 
-export type ColorScalarFieldEnum = (typeof ColorScalarFieldEnum)[keyof typeof ColorScalarFieldEnum]
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -132,12 +120,4 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

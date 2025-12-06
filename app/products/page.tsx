@@ -11,26 +11,27 @@ import {
 } from "@/components/ui/table";
 import { Eye, Home, Pencil, Plus } from "lucide-react";
 import Link from "next/link";
-import { DeleteModelForm } from "@/components/forms";
-import { getModels } from "@/actions/model.actions";
+import { DeleteProductForm } from "@/components/forms";
+import { getProducts } from "@/actions/product.actions";
 import { ReturnButton } from "@/components/return-button";
 import { Separator } from "@/components/ui/separator";
+import { underscoreToCapitalizedText } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Models",
+  title: "Products",
 };
 
-export default async function Models() {
-  const models = await getModels();
+export default async function Products() {
+  const products = await getProducts();
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-6">
       <div className="mx-auto flex min-w-4xl items-center justify-between gap-6">
         <div className="flex flex-wrap items-center gap-4">
-          <h1 className="text-4xl font-bold">Models</h1>
+          <h1 className="text-4xl font-bold">Products</h1>
           <Button asChild>
-            <Link href={"/models/new"}>
-              <Plus /> New model
+            <Link href={"/products/new"}>
+              <Plus /> New product
             </Link>
           </Button>
         </div>
@@ -54,12 +55,12 @@ export default async function Models() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">Model ID</TableHead>
-              <TableHead>Model</TableHead>
-              <TableHead>Business Type</TableHead>
-              <TableHead>Color</TableHead>
+              <TableHead className="w-[100px]">Product ID</TableHead>
+              <TableHead>Product</TableHead>
               <TableHead>Brand</TableHead>
               <TableHead>Series</TableHead>
+              <TableHead>Color</TableHead>
+              <TableHead>Business Type</TableHead>
               <TableHead>Created At</TableHead>
               <TableHead>Updated At</TableHead>
               <TableHead className="text-muted-foreground text-right">
@@ -68,45 +69,47 @@ export default async function Models() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {models.length === 0 ? (
+            {products.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={9}
                   className="text-muted-foreground text-center"
                 >
-                  no model found
+                  no product found
                 </TableCell>
               </TableRow>
             ) : (
-              models.map((model) => (
-                <TableRow key={model.id}>
-                  <TableCell>{model.id}</TableCell>
-                  <TableCell className="font-medium">{model.name}</TableCell>
-                  <TableCell>{model.businessType}</TableCell>
-                  <TableCell className="lowercase">{model.color}</TableCell>
-                  <TableCell>{model.brand.name}</TableCell>
-                  <TableCell>{model.series.name}</TableCell>
+              products.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>{product.id}</TableCell>
+                  <TableCell className="font-medium">{product.name}</TableCell>
+                  <TableCell>{product.brand.name}</TableCell>
+                  <TableCell>{product.series.name}</TableCell>
                   <TableCell>
-                    {String(model.createdAt.toLocaleDateString())}
+                    {underscoreToCapitalizedText(product.color)}
+                  </TableCell>
+                  <TableCell>{product.businessType}</TableCell>
+                  <TableCell>
+                    {String(product.createdAt.toLocaleDateString())}
                   </TableCell>
                   <TableCell>
-                    {String(model.updatedAt.toLocaleDateString())}
+                    {String(product.updatedAt.toLocaleDateString())}
                   </TableCell>
                   <TableCell>
                     <div className="flex flex-row items-center justify-end gap-2">
                       <Button size={"icon-sm"} variant={"ghost"} asChild>
-                        <Link href={`/models/${model.id}`}>
+                        <Link href={`/products/${product.id}`}>
                           <Eye />
                           <span className="sr-only">View</span>
                         </Link>
                       </Button>
                       <Button size={"icon-sm"} variant={"ghost"} asChild>
-                        <Link href={`/models/edit/${model.id}`}>
+                        <Link href={`/products/edit/${product.id}`}>
                           <Pencil />
                           <span className="sr-only">Edit</span>
                         </Link>
                       </Button>
-                      <DeleteModelForm modelId={String(model.id)} />
+                      <DeleteProductForm productId={String(product.id)} />
                     </div>
                   </TableCell>
                 </TableRow>

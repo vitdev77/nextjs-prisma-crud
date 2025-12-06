@@ -9,57 +9,42 @@ datasource db {
 
 model Brand {
   id        Int      @id @default(autoincrement())
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name String @unique
-
-  models Model[]
-  series Series[]
+  products Product[]
+  // series   Series[]
 
   @@map("brands")
 }
 
 model Series {
   id        Int      @id @default(autoincrement())
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name String @unique
-
-  models Model[]
-  brands Brand[]
+  products Product[]
+  // brands   Brand[]
 
   @@map("series")
 }
 
-model Model {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+model Product {
+  id           Int          @id @default(autoincrement())
   name         String       @unique
-  seriesId     Int
-  brandId      Int
-  // colorId      Int
-  color        ModelColor   @default(WHITE)
+  color        ProductColor @default(WHITE)
   businessType BusinessType @default(OBM)
+  brandId      Int
+  seriesId     Int
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
-  series Series @relation(fields: [seriesId], references: [id])
   brand  Brand  @relation(fields: [brandId], references: [id])
+  series Series @relation(fields: [seriesId], references: [id])
 
-  @@map("models")
-}
-
-model Color {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatadAt DateTime @updatedAt
-
-  name     String  @unique
-  atribute String?
-
-  @@map("colors")
+  @@map("products")
 }
 
 enum BusinessType {
@@ -67,7 +52,7 @@ enum BusinessType {
   OEM
 }
 
-enum ModelColor {
+enum ProductColor {
   WHITE
   BLACK
   BEIGE

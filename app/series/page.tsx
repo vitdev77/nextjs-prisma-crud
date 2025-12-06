@@ -15,6 +15,7 @@ import { DeleteSeriesForm } from "@/components/forms";
 import { getSeries } from "@/actions/series.actions";
 import { ReturnButton } from "@/components/return-button";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Series",
@@ -37,8 +38,8 @@ export default async function Series() {
         <div className="flex h-5 items-center gap-2">
           <ReturnButton
             btnVariant="link"
-            href="/models"
-            label="All Models Page"
+            href="/products"
+            label="All Products Page"
           />
           <Separator orientation="vertical" />
           <Button variant={"ghost"} size={"icon-sm"} asChild>
@@ -56,7 +57,7 @@ export default async function Series() {
             <TableRow>
               <TableHead className="w-[100px]">Series ID</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>Models Count</TableHead>
+              <TableHead>Products Count</TableHead>
               <TableHead>Created At</TableHead>
               <TableHead>Updated At</TableHead>
               <TableHead className="text-muted-foreground text-right">
@@ -81,7 +82,14 @@ export default async function Series() {
                   <TableCell className="font-medium">
                     {seriesItem.name}
                   </TableCell>
-                  <TableCell className="text-muted-foreground">soon</TableCell>
+                  <TableCell
+                    className={cn(
+                      seriesItem._count.products === 0 &&
+                        "text-muted-foreground/50",
+                    )}
+                  >
+                    {seriesItem._count.products}
+                  </TableCell>
                   <TableCell>
                     {String(seriesItem.createdAt.toLocaleDateString())}
                   </TableCell>

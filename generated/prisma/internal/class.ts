@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.1.0",
   "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Brand {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  name String @unique\n\n  models Model[]\n  series Series[]\n\n  @@map(\"brands\")\n}\n\nmodel Series {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  name String @unique\n\n  models Model[]\n  brands Brand[]\n\n  @@map(\"series\")\n}\n\nmodel Model {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  name         String       @unique\n  seriesId     Int\n  brandId      Int\n  // colorId      Int\n  color        ModelColor   @default(WHITE)\n  businessType BusinessType @default(OBM)\n\n  series Series @relation(fields: [seriesId], references: [id])\n  brand  Brand  @relation(fields: [brandId], references: [id])\n\n  @@map(\"models\")\n}\n\nmodel Color {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatadAt DateTime @updatedAt\n\n  name     String  @unique\n  atribute String?\n\n  @@map(\"colors\")\n}\n\nenum BusinessType {\n  OBM\n  OEM\n}\n\nenum ModelColor {\n  WHITE\n  BLACK\n  BEIGE\n  BASALT_GRAY\n  INOX\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Brand {\n  id        Int      @id @default(autoincrement())\n  name      String   @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  products Product[]\n  // series   Series[]\n\n  @@map(\"brands\")\n}\n\nmodel Series {\n  id        Int      @id @default(autoincrement())\n  name      String   @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  products Product[]\n  // brands   Brand[]\n\n  @@map(\"series\")\n}\n\nmodel Product {\n  id           Int          @id @default(autoincrement())\n  name         String       @unique\n  color        ProductColor @default(WHITE)\n  businessType BusinessType @default(OBM)\n  brandId      Int\n  seriesId     Int\n  createdAt    DateTime     @default(now())\n  updatedAt    DateTime     @updatedAt\n\n  brand  Brand  @relation(fields: [brandId], references: [id])\n  series Series @relation(fields: [seriesId], references: [id])\n\n  @@map(\"products\")\n}\n\nenum BusinessType {\n  OBM\n  OEM\n}\n\nenum ProductColor {\n  WHITE\n  BLACK\n  BEIGE\n  BASALT_GRAY\n  INOX\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Brand\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"models\",\"kind\":\"object\",\"type\":\"Model\",\"relationName\":\"BrandToModel\"},{\"name\":\"series\",\"kind\":\"object\",\"type\":\"Series\",\"relationName\":\"BrandToSeries\"}],\"dbName\":\"brands\"},\"Series\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"models\",\"kind\":\"object\",\"type\":\"Model\",\"relationName\":\"ModelToSeries\"},{\"name\":\"brands\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandToSeries\"}],\"dbName\":\"series\"},\"Model\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"seriesId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"brandId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"color\",\"kind\":\"enum\",\"type\":\"ModelColor\"},{\"name\":\"businessType\",\"kind\":\"enum\",\"type\":\"BusinessType\"},{\"name\":\"series\",\"kind\":\"object\",\"type\":\"Series\",\"relationName\":\"ModelToSeries\"},{\"name\":\"brand\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandToModel\"}],\"dbName\":\"models\"},\"Color\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatadAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"atribute\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"colors\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Brand\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"BrandToProduct\"}],\"dbName\":\"brands\"},\"Series\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToSeries\"}],\"dbName\":\"series\"},\"Product\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"color\",\"kind\":\"enum\",\"type\":\"ProductColor\"},{\"name\":\"businessType\",\"kind\":\"enum\",\"type\":\"BusinessType\"},{\"name\":\"brandId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"seriesId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"brand\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandToProduct\"},{\"name\":\"series\",\"kind\":\"object\",\"type\":\"Series\",\"relationName\":\"ProductToSeries\"}],\"dbName\":\"products\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -195,24 +195,14 @@ export interface PrismaClient<
   get series(): Prisma.SeriesDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.model`: Exposes CRUD operations for the **Model** model.
+   * `prisma.product`: Exposes CRUD operations for the **Product** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Models
-    * const models = await prisma.model.findMany()
+    * // Fetch zero or more Products
+    * const products = await prisma.product.findMany()
     * ```
     */
-  get model(): Prisma.ModelDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.color`: Exposes CRUD operations for the **Color** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Colors
-    * const colors = await prisma.color.findMany()
-    * ```
-    */
-  get color(): Prisma.ColorDelegate<ExtArgs, { omit: OmitOpts }>;
+  get product(): Prisma.ProductDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

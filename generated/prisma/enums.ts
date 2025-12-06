@@ -17,7 +17,7 @@ export const BusinessType = {
 export type BusinessType = (typeof BusinessType)[keyof typeof BusinessType]
 
 
-export const ModelColor = {
+export const ProductColor = {
   WHITE: 'WHITE',
   BLACK: 'BLACK',
   BEIGE: 'BEIGE',
@@ -25,4 +25,4 @@ export const ModelColor = {
   INOX: 'INOX'
 } as const
 
-export type ModelColor = (typeof ModelColor)[keyof typeof ModelColor]
+export type ProductColor = (typeof ProductColor)[keyof typeof ProductColor]

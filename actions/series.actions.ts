@@ -6,7 +6,15 @@ import { revalidatePath } from "next/cache";
 // Get all series
 export async function getSeries() {
   try {
-    const series = await prisma.series.findMany({});
+    const series = await prisma.series.findMany({
+      include: {
+        _count: {
+          select: {
+            products: true,
+          },
+        },
+      },
+    });
 
     return series;
   } catch (error) {

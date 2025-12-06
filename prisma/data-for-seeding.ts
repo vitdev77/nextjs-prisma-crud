@@ -1,4 +1,4 @@
-import { ModelColor } from "@/generated/prisma/enums";
+import { BusinessType, ProductColor } from "@/generated/prisma/enums";
 
 export const brands = [
   { id: 1, name: "Midea" },
@@ -17,34 +17,37 @@ export const series = [
   { id: 6, name: "BCD375" },
 ];
 
-export const models = [
+export const products = [
   {
     id: 1,
     name: "MDRB471MGF01O",
-    seriesId: 1,
+    color: ProductColor.WHITE,
+    businessType: BusinessType.OBM,
     brandId: 1,
-    color: ModelColor.WHITE,
+    seriesId: 1,
   },
   {
     id: 2,
     name: "MDRB471MGF33O",
-    seriesId: 1,
+    color: ProductColor.BEIGE,
+    businessType: BusinessType.OBM,
     brandId: 1,
-    color: ModelColor.BEIGE,
+    seriesId: 1,
   },
   {
     id: 3,
     name: "MDRB471MGF46O",
-    seriesId: 1,
+    color: ProductColor.INOX,
+    businessType: BusinessType.OBM,
     brandId: 1,
-    color: ModelColor.INOX,
+    seriesId: 1,
   },
 ];
 
-export const colors = [
-  { id: 1, name: "White", atribute: "01" },
-  { id: 2, name: "Black", atribute: "28" },
-  { id: 3, name: "Beige", atribute: "33" },
-  { id: 4, name: "Basalt Gray", atribute: "45" },
-  { id: 5, name: "Inox", atribute: "46" },
-];
+// export const colors = [
+//   { id: 1, name: "White", atribute: "01" },
+//   { id: 2, name: "Black", atribute: "28" },
+//   { id: 3, name: "Beige", atribute: "33" },
+//   { id: 4, name: "Basalt Gray", atribute: "45" },
+//   { id: 5, name: "Inox", atribute: "46" },
+// ];

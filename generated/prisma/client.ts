@@ -50,12 +50,7 @@ export type Brand = Prisma.BrandModel
  */
 export type Series = Prisma.SeriesModel
 /**
- * Model Model
+ * Model Product
  * 
  */
-export type Model = Prisma.ModelModel
-/**
- * Model Color
- * 
- */
-export type Color = Prisma.ColorModel
+export type Product = Prisma.ProductModel

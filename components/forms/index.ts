@@ -1,3 +1,4 @@
 export { DeleteSeriesForm } from "./delete-series-form";
 
-export { DeleteModelForm } from "./delete-model-form";
+export { CreateProductForm } from "./create-product-form";
+export { DeleteProductForm } from "./delete-product-form";

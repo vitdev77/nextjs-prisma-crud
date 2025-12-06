@@ -14,16 +14,16 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { deleteModel } from "@/actions/model.actions";
+import { deleteProduct } from "@/actions/product.actions";
 import { toast } from "sonner";
 
-export function DeleteModelForm({ modelId }: { modelId: string }) {
+export function DeleteProductForm({ productId }: { productId: string }) {
   const handleDelete = async () => {
-    const res = await deleteModel({ modelId });
+    const res = await deleteProduct({ productId });
     if (res?.error) {
       toast.error(res.error);
     } else {
-      toast.success("Model successfully deleted");
+      toast.success("Product successfully deleted");
     }
   };
 
@@ -40,7 +40,7 @@ export function DeleteModelForm({ modelId }: { modelId: string }) {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete this
-            model from servers.
+            product from servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
