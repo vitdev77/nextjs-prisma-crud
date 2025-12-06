@@ -4,7 +4,7 @@ import { ReturnButton } from "@/components/return-button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Create new post",
+  title: "Create new product",
 };
 
 export default function NewProductPage() {

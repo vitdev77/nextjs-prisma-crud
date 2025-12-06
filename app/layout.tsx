@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto_Flex } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,14 +37,24 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${robotoFlex.className} ${geistMono.variable} antialiased`}
       >
-        <NextTopLoader showSpinner={false} height={2} color="#171717" />
-        {children}
-        {modal}
-        <Toaster position={"top-center"} richColors />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextTopLoader showSpinner={false} height={2} color="#171717" />
+          <div className="absolute top-4 right-4">
+            <ThemeToggle />
+          </div>
+          {children}
+          {modal}
+          <Toaster position={"top-center"} richColors />
+        </ThemeProvider>
       </body>
     </html>
   );

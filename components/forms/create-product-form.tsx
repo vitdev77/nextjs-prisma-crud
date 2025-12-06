@@ -120,9 +120,7 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                 <FormControl>
                   <Input
                     placeholder="Product Name"
-                    disabled={
-                      loading || series.length === 0 || brands.length === 0
-                    }
+                    disabled={loading}
                     {...field}
                   />
                 </FormControl>
@@ -145,12 +143,7 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                     {...field}
                   >
                     <FormControl>
-                      <SelectTrigger
-                        className="w-full"
-                        disabled={
-                          loading || series.length === 0 || brands.length === 0
-                        }
-                      >
+                      <SelectTrigger className="w-full" disabled={loading}>
                         <SelectValue placeholder="Select color" />
                       </SelectTrigger>
                     </FormControl>
@@ -190,12 +183,7 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                     {...field}
                   >
                     <FormControl>
-                      <SelectTrigger
-                        className="w-full"
-                        disabled={
-                          loading || series.length === 0 || brands.length === 0
-                        }
-                      >
+                      <SelectTrigger className="w-full" disabled={loading}>
                         <SelectValue placeholder="Select business type" />
                       </SelectTrigger>
                     </FormControl>
@@ -235,9 +223,7 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                     <FormControl>
                       <SelectTrigger
                         className="w-full"
-                        disabled={
-                          loading || series.length === 0 || brands.length === 0
-                        }
+                        disabled={loading || brands.length === 0}
                       >
                         <SelectValue placeholder="Select brand" />
                       </SelectTrigger>
@@ -279,9 +265,7 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                     <FormControl>
                       <SelectTrigger
                         className="w-full"
-                        disabled={
-                          loading || series.length === 0 || brands.length === 0
-                        }
+                        disabled={loading || series.length === 0}
                       >
                         <SelectValue placeholder="Select series" />
                       </SelectTrigger>

@@ -41,8 +41,8 @@ model Product {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
-  brand  Brand  @relation(fields: [brandId], references: [id])
-  series Series @relation(fields: [seriesId], references: [id])
+  brand  Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  series Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
 
   @@map("products")
 }

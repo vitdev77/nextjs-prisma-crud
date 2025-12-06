@@ -1,23 +1,23 @@
 import { Metadata } from "next";
-import { CreateSeriesComponent } from "@/components/create-series-component";
+import { CreateBrandComponent } from "@/components/create-brand-component";
 import { ReturnButton } from "@/components/return-button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Create new series",
+  title: "Create new brand",
 };
 
-export default function NewSeriesPage() {
+export default function NewBrandPage() {
   return (
     <div className="bg-muted flex min-h-screen flex-col items-center justify-center gap-6">
       <ReturnButton
         btnVariant={"link"}
-        href={"/series"}
-        label="All Series Page"
+        href={"/brands"}
+        label="All Brands Page"
       />
       <Card>
         <CardContent>
-          <CreateSeriesComponent />
+          <CreateBrandComponent />
         </CardContent>
       </Card>
     </div>
