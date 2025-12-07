@@ -19,6 +19,9 @@ export async function getBrands() {
         //   },
         // },
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
 
     return brands;
@@ -41,6 +44,27 @@ export async function getBrandById({ brandId }: { brandId: string }) {
   } catch (error) {
     console.error("Error fetching single brand:", error);
     throw new Error("Failed to retrieve single brand from the database.");
+  }
+}
+
+// Get products list by Brand ID
+export async function getProductsByBrandId({ brandId }: { brandId: string }) {
+  try {
+    const productsByBrandId = await prisma.product.findMany({
+      where: {
+        brandId: Number(brandId),
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return productsByBrandId;
+  } catch (error) {
+    console.error("Error fetching products by selected brand:", error);
+    throw new Error(
+      "Failed to retrieve products by selected brand from the database.",
+    );
   }
 }
 

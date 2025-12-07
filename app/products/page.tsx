@@ -12,9 +12,10 @@ import {
 import { Eye, Home, Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { DeleteProductForm } from "@/components/forms";
-import { getProducts } from "@/actions/product.actions";
 import { ReturnButton } from "@/components/return-button";
 import { Separator } from "@/components/ui/separator";
+import DateTimeTemplate from "@/components/date-time-template";
+import { getProducts } from "@/actions/product.actions";
 import { underscoreToCapitalizedText } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default async function Products() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-6">
-      <div className="mx-auto flex min-w-4xl items-center justify-between gap-6">
+      <div className="mx-auto flex min-w-5xl items-center justify-between gap-6">
         <div className="flex flex-wrap items-center gap-4">
           <h1 className="text-4xl font-bold">Products</h1>
           <Button asChild>
@@ -51,12 +52,13 @@ export default async function Products() {
         </div>
       </div>
 
-      <div className="mx-auto min-w-4xl">
+      <div className="mx-auto min-w-5xl">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">Product ID</TableHead>
-              <TableHead>Product</TableHead>
+              <TableHead>#</TableHead>
+              <TableHead className="w-[100px]">ID</TableHead>
+              <TableHead>Model</TableHead>
               <TableHead>Brand</TableHead>
               <TableHead>Series</TableHead>
               <TableHead>Color</TableHead>
@@ -72,7 +74,7 @@ export default async function Products() {
             {products.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={9}
+                  colSpan={10}
                   className="text-muted-foreground space-y-1 text-center"
                 >
                   <div className="text-sm">No results found</div>
@@ -82,10 +84,13 @@ export default async function Products() {
                 </TableCell>
               </TableRow>
             ) : (
-              products.map((product) => (
+              products.map((product, i) => (
                 <TableRow key={product.id}>
+                  <TableCell>{i + 1}</TableCell>
                   <TableCell>{product.id}</TableCell>
-                  <TableCell className="font-medium">{product.name}</TableCell>
+                  <TableCell className="text-base font-medium">
+                    {product.name}
+                  </TableCell>
                   <TableCell>{product.brand.name}</TableCell>
                   <TableCell>{product.series.name}</TableCell>
                   <TableCell>
@@ -93,10 +98,10 @@ export default async function Products() {
                   </TableCell>
                   <TableCell>{product.businessType}</TableCell>
                   <TableCell>
-                    {String(product.createdAt.toLocaleDateString())}
+                    <DateTimeTemplate timestamp={product.createdAt} />
                   </TableCell>
                   <TableCell>
-                    {String(product.updatedAt.toLocaleDateString())}
+                    <DateTimeTemplate timestamp={product.updatedAt} />
                   </TableCell>
                   <TableCell>
                     <div className="flex flex-row items-center justify-end gap-2">

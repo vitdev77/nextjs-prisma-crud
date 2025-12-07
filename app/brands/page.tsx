@@ -16,6 +16,7 @@ import { getBrands } from "@/actions/brand.actions";
 import { ReturnButton } from "@/components/return-button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import DateTimeTemplate from "@/components/date-time-template";
 
 export const metadata: Metadata = {
   title: "Brands",
@@ -55,9 +56,10 @@ export default async function Brands() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">Brand ID</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Products Count</TableHead>
+              <TableHead>#</TableHead>
+              <TableHead className="w-[100px]">ID</TableHead>
+              <TableHead>Brand</TableHead>
+              <TableHead>Products In</TableHead>
               {/* <TableHead>In Series</TableHead> */}
               <TableHead>Created At</TableHead>
               <TableHead>Updated At</TableHead>
@@ -70,7 +72,7 @@ export default async function Brands() {
             {brands.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   className="text-muted-foreground space-y-1 text-center"
                 >
                   <div className="text-sm">No results found</div>
@@ -80,10 +82,13 @@ export default async function Brands() {
                 </TableCell>
               </TableRow>
             ) : (
-              brands.map((brand) => (
+              brands.map((brand, i) => (
                 <TableRow key={brand.id}>
+                  <TableCell>{i + 1}</TableCell>
                   <TableCell>{brand.id}</TableCell>
-                  <TableCell className="font-medium">{brand.name}</TableCell>
+                  <TableCell className="text-base font-medium">
+                    {brand.name}
+                  </TableCell>
                   <TableCell
                     className={cn(
                       brand._count.products === 0 && "text-muted-foreground/50",
@@ -93,10 +98,10 @@ export default async function Brands() {
                   </TableCell>
                   {/* <TableCell>{brand.series.length}</TableCell> */}
                   <TableCell>
-                    {String(brand.createdAt.toLocaleDateString())}
+                    <DateTimeTemplate timestamp={brand.createdAt} />
                   </TableCell>
                   <TableCell>
-                    {String(brand.updatedAt.toLocaleDateString())}
+                    <DateTimeTemplate timestamp={brand.updatedAt} />
                   </TableCell>
                   <TableCell>
                     <div className="flex flex-row items-center justify-end gap-2">

@@ -14,6 +14,9 @@ export async function getSeries() {
           },
         },
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
 
     return series;
@@ -36,6 +39,31 @@ export async function getSeriesById({ seriesId }: { seriesId: string }) {
   } catch (error) {
     console.error("Error fetching single series:", error);
     throw new Error("Failed to retrieve single series from the database.");
+  }
+}
+
+// Get products list by Series ID
+export async function getProductsBySeriesId({
+  seriesId,
+}: {
+  seriesId: string;
+}) {
+  try {
+    const productsBySeriesId = await prisma.product.findMany({
+      where: {
+        seriesId: Number(seriesId),
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return productsBySeriesId;
+  } catch (error) {
+    console.error("Error fetching products by selected series:", error);
+    throw new Error(
+      "Failed to retrieve products by selected series from the database.",
+    );
   }
 }
 

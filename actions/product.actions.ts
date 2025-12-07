@@ -12,6 +12,9 @@ export async function getProducts() {
         series: true,
         brand: true,
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
 
     return products;

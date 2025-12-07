@@ -16,6 +16,7 @@ import { getSeries } from "@/actions/series.actions";
 import { ReturnButton } from "@/components/return-button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import DateTimeTemplate from "@/components/date-time-template";
 
 export const metadata: Metadata = {
   title: "Series",
@@ -55,9 +56,10 @@ export default async function Series() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">Series ID</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Products Count</TableHead>
+              <TableHead>#</TableHead>
+              <TableHead className="w-[100px]">ID</TableHead>
+              <TableHead>Series</TableHead>
+              <TableHead>Products In</TableHead>
               <TableHead>Created At</TableHead>
               <TableHead>Updated At</TableHead>
               <TableHead className="text-muted-foreground text-right">
@@ -69,7 +71,7 @@ export default async function Series() {
             {series.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   className="text-muted-foreground space-y-1 text-center"
                 >
                   <div className="text-sm">No results found</div>
@@ -79,10 +81,11 @@ export default async function Series() {
                 </TableCell>
               </TableRow>
             ) : (
-              series.map((seriesItem) => (
+              series.map((seriesItem, i) => (
                 <TableRow key={seriesItem.id}>
+                  <TableCell>{i + 1}</TableCell>
                   <TableCell>{seriesItem.id}</TableCell>
-                  <TableCell className="font-medium">
+                  <TableCell className="text-base font-medium">
                     {seriesItem.name}
                   </TableCell>
                   <TableCell
@@ -94,10 +97,10 @@ export default async function Series() {
                     {seriesItem._count.products}
                   </TableCell>
                   <TableCell>
-                    {String(seriesItem.createdAt.toLocaleDateString())}
+                    <DateTimeTemplate timestamp={seriesItem.createdAt} />
                   </TableCell>
                   <TableCell>
-                    {String(seriesItem.updatedAt.toLocaleDateString())}
+                    <DateTimeTemplate timestamp={seriesItem.updatedAt} />
                   </TableCell>
                   <TableCell>
                     <div className="flex flex-row items-center justify-end gap-2">
