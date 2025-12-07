@@ -13,7 +13,7 @@ export async function getBrands() {
             products: true,
           },
         },
-        // series: {
+        // brand: {
         //   select: {
         //     _count: true,
         //   },
@@ -25,6 +25,22 @@ export async function getBrands() {
   } catch (error) {
     console.error("Error fetching brands:", error);
     throw new Error("Failed to retrieve brands from the database.");
+  }
+}
+
+// Get single brand
+export async function getBrandById({ brandId }: { brandId: string }) {
+  try {
+    const singleProduct = await prisma.brand.findFirst({
+      where: {
+        id: Number(brandId),
+      },
+    });
+
+    return singleProduct;
+  } catch (error) {
+    console.error("Error fetching single brand:", error);
+    throw new Error("Failed to retrieve single brand from the database.");
   }
 }
 
@@ -40,6 +56,33 @@ export async function createBrand({ name }: { name: string }) {
     console.log(error);
     return {
       error: "[BRAND_CREATE]: SERVER ERROR",
+    };
+  }
+
+  revalidatePath("/brands");
+}
+
+// Edit single brand
+export async function editBrand({
+  brandId,
+  name,
+}: {
+  brandId: string;
+  name: string;
+}) {
+  try {
+    await prisma.brand.update({
+      where: {
+        id: Number(brandId),
+      },
+      data: {
+        name,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return {
+      error: "[BRAND_EDIT]: SERVER ERROR",
     };
   }
 

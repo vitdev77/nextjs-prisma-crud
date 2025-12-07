@@ -1,24 +1,24 @@
 import { Metadata } from "next";
-import { getSeriesById } from "@/actions/series.actions";
-import { EditSeriesComponent } from "@/components/edit-series-component";
+import { getBrandById } from "@/actions/brand.actions";
+import { EditBrandComponent } from "@/components/edit-brand-component";
 import { ReturnButton } from "@/components/return-button";
 import { Card, CardContent } from "@/components/ui/card";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Edit single series",
+  title: "Edit single brand",
 };
 
-export default async function EditSeriesPage(props: {
+export default async function EditBrandPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
 
   const { id } = params;
 
-  const series = await getSeriesById({ seriesId: id });
+  const brand = await getBrandById({ brandId: id });
 
-  if (!series) {
+  if (!brand) {
     notFound();
   }
 
@@ -26,12 +26,12 @@ export default async function EditSeriesPage(props: {
     <div className="bg-muted flex min-h-screen flex-col items-center justify-center gap-6">
       <ReturnButton
         btnVariant={"link"}
-        href={"/series"}
-        label="All Series Page"
+        href={"/brands"}
+        label="All Brands Page"
       />
       <Card>
         <CardContent>
-          <EditSeriesComponent series={series} />
+          <EditBrandComponent brand={brand} />
         </CardContent>
       </Card>
     </div>
