@@ -71,9 +71,12 @@ export default async function Brands() {
               <TableRow>
                 <TableCell
                   colSpan={6}
-                  className="text-muted-foreground text-center"
+                  className="text-muted-foreground space-y-1 text-center"
                 >
-                  no brand found
+                  <div className="text-sm">No results found</div>
+                  <div className="text-xs">
+                    It doesn&apos;t look like you have any data in this table.
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (

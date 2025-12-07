@@ -73,9 +73,12 @@ export default async function Products() {
               <TableRow>
                 <TableCell
                   colSpan={9}
-                  className="text-muted-foreground text-center"
+                  className="text-muted-foreground space-y-1 text-center"
                 >
-                  no product found
+                  <div className="text-sm">No results found</div>
+                  <div className="text-xs">
+                    It doesn&apos;t look like you have any data in this table.
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (

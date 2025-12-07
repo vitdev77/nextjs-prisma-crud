@@ -19,7 +19,13 @@ import { editBrand } from "@/actions/brand.actions";
 import { BrandWithRelations } from "@/@types/prisma";
 
 const editBrandSchema = z.object({
-  name: z.string().min(1, { message: "Brand name is required" }),
+  name: z
+    .string()
+    .min(1, { message: "Name is required" })
+    .regex(/^(?! )[A-Za-z0-9]+(?: [A-Za-z0-9]+)*(?<! )$/, {
+      message:
+        "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
+    }),
   brandId: z.string().min(1, { message: "Brand ID is required" }),
 });
 

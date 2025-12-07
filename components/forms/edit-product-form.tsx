@@ -32,7 +32,13 @@ import { underscoreToCapitalizedText } from "@/lib/utils";
 import { ProductWithRelations } from "@/@types/prisma";
 
 const editProductSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z
+    .string()
+    .min(1, { message: "Name is required" })
+    .regex(/^(?! )[A-Za-z0-9]+(?: [A-Za-z0-9]+)*(?<! )$/, {
+      message:
+        "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
+    }),
   color: z.enum(ProductColor),
   businessType: z.enum(BusinessType),
   productId: z.string().min(1, { message: "Brand ID is required" }),

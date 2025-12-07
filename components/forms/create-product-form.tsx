@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -31,7 +32,13 @@ import { ProductColor, BusinessType } from "@/generated/prisma/enums";
 import { underscoreToCapitalizedText } from "@/lib/utils";
 
 const newProductSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z
+    .string()
+    .min(1, { message: "Name is required" })
+    .regex(/^(?! )[A-Za-z0-9]+(?: [A-Za-z0-9]+)*(?<! )$/, {
+      message:
+        "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
+    }),
   color: z.enum(ProductColor),
   businessType: z.enum(BusinessType),
   brandId: z.string().nonempty("Please select brand"),
@@ -297,14 +304,25 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
             </div>
           )}
 
-          <LoadingButton
-            type="submit"
-            className="w-full"
-            loading={loading}
-            disabled={series.length === 0 || brands.length === 0}
-          >
-            Submit
-          </LoadingButton>
+          <div className="space-y-2">
+            <LoadingButton
+              type="submit"
+              className="w-full"
+              loading={loading}
+              disabled={series.length === 0 || brands.length === 0}
+            >
+              Submit
+            </LoadingButton>
+            <Button
+              onClick={() => form.reset()}
+              disabled={loading}
+              variant={"ghost"}
+              className="w-full"
+              type="reset"
+            >
+              Reset
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
