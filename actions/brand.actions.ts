@@ -20,7 +20,7 @@ export async function getBrands() {
         // },
       },
       orderBy: {
-        updatedAt: "desc",
+        id: "asc",
       },
     });
 
@@ -90,9 +90,11 @@ export async function createBrand({ name }: { name: string }) {
 export async function editBrand({
   brandId,
   name,
+  isUpdated,
 }: {
   brandId: string;
   name: string;
+  isUpdated: boolean;
 }) {
   try {
     await prisma.brand.update({
@@ -101,6 +103,7 @@ export async function editBrand({
       },
       data: {
         name,
+        isUpdated,
       },
     });
   } catch (error) {

@@ -51,6 +51,11 @@ export type DateTimeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
 }
 
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type IntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -99,6 +104,21 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type EnumSeriesAttrFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeriesAttr | Prisma.EnumSeriesAttrFieldRefInput<$PrismaModel>
+  in?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSeriesAttrFilter<$PrismaModel> | $Enums.SeriesAttr
+}
+
 export type EnumProductColorFilter<$PrismaModel = never> = {
   equals?: $Enums.ProductColor | Prisma.EnumProductColorFieldRefInput<$PrismaModel>
   in?: $Enums.ProductColor[] | Prisma.ListEnumProductColorFieldRefInput<$PrismaModel>
@@ -118,6 +138,16 @@ export type EnumBusinessTypeFilter<$PrismaModel = never> = {
   in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
   notIn?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel> | $Enums.BusinessType
+}
+
+export type EnumSeriesAttrWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeriesAttr | Prisma.EnumSeriesAttrFieldRefInput<$PrismaModel>
+  in?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSeriesAttrWithAggregatesFilter<$PrismaModel> | $Enums.SeriesAttr
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSeriesAttrFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSeriesAttrFilter<$PrismaModel>
 }
 
 export type EnumProductColorWithAggregatesFilter<$PrismaModel = never> = {
@@ -186,6 +216,11 @@ export type NestedDateTimeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
 }
 
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -244,6 +279,21 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumSeriesAttrFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeriesAttr | Prisma.EnumSeriesAttrFieldRefInput<$PrismaModel>
+  in?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSeriesAttrFilter<$PrismaModel> | $Enums.SeriesAttr
+}
+
 export type NestedEnumProductColorFilter<$PrismaModel = never> = {
   equals?: $Enums.ProductColor | Prisma.EnumProductColorFieldRefInput<$PrismaModel>
   in?: $Enums.ProductColor[] | Prisma.ListEnumProductColorFieldRefInput<$PrismaModel>
@@ -263,6 +313,16 @@ export type NestedEnumBusinessTypeFilter<$PrismaModel = never> = {
   in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
   notIn?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumBusinessTypeFilter<$PrismaModel> | $Enums.BusinessType
+}
+
+export type NestedEnumSeriesAttrWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeriesAttr | Prisma.EnumSeriesAttrFieldRefInput<$PrismaModel>
+  in?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SeriesAttr[] | Prisma.ListEnumSeriesAttrFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSeriesAttrWithAggregatesFilter<$PrismaModel> | $Enums.SeriesAttr
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSeriesAttrFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSeriesAttrFilter<$PrismaModel>
 }
 
 export type NestedEnumProductColorWithAggregatesFilter<$PrismaModel = never> = {

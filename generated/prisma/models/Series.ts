@@ -39,6 +39,7 @@ export type SeriesMinAggregateOutputType = {
   name: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isUpdated: boolean | null
 }
 
 export type SeriesMaxAggregateOutputType = {
@@ -46,6 +47,7 @@ export type SeriesMaxAggregateOutputType = {
   name: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isUpdated: boolean | null
 }
 
 export type SeriesCountAggregateOutputType = {
@@ -53,6 +55,7 @@ export type SeriesCountAggregateOutputType = {
   name: number
   createdAt: number
   updatedAt: number
+  isUpdated: number
   _all: number
 }
 
@@ -70,6 +73,7 @@ export type SeriesMinAggregateInputType = {
   name?: true
   createdAt?: true
   updatedAt?: true
+  isUpdated?: true
 }
 
 export type SeriesMaxAggregateInputType = {
@@ -77,6 +81,7 @@ export type SeriesMaxAggregateInputType = {
   name?: true
   createdAt?: true
   updatedAt?: true
+  isUpdated?: true
 }
 
 export type SeriesCountAggregateInputType = {
@@ -84,6 +89,7 @@ export type SeriesCountAggregateInputType = {
   name?: true
   createdAt?: true
   updatedAt?: true
+  isUpdated?: true
   _all?: true
 }
 
@@ -178,6 +184,7 @@ export type SeriesGroupByOutputType = {
   name: string
   createdAt: Date
   updatedAt: Date
+  isUpdated: boolean
   _count: SeriesCountAggregateOutputType | null
   _avg: SeriesAvgAggregateOutputType | null
   _sum: SeriesSumAggregateOutputType | null
@@ -208,6 +215,7 @@ export type SeriesWhereInput = {
   name?: Prisma.StringFilter<"Series"> | string
   createdAt?: Prisma.DateTimeFilter<"Series"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Series"> | Date | string
+  isUpdated?: Prisma.BoolFilter<"Series"> | boolean
   products?: Prisma.ProductListRelationFilter
 }
 
@@ -216,6 +224,7 @@ export type SeriesOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isUpdated?: Prisma.SortOrder
   products?: Prisma.ProductOrderByRelationAggregateInput
 }
 
@@ -227,6 +236,7 @@ export type SeriesWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SeriesWhereInput | Prisma.SeriesWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"Series"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Series"> | Date | string
+  isUpdated?: Prisma.BoolFilter<"Series"> | boolean
   products?: Prisma.ProductListRelationFilter
 }, "id" | "name">
 
@@ -235,6 +245,7 @@ export type SeriesOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isUpdated?: Prisma.SortOrder
   _count?: Prisma.SeriesCountOrderByAggregateInput
   _avg?: Prisma.SeriesAvgOrderByAggregateInput
   _max?: Prisma.SeriesMaxOrderByAggregateInput
@@ -250,12 +261,14 @@ export type SeriesScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Series"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Series"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Series"> | Date | string
+  isUpdated?: Prisma.BoolWithAggregatesFilter<"Series"> | boolean
 }
 
 export type SeriesCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isUpdated?: boolean
   products?: Prisma.ProductCreateNestedManyWithoutSeriesInput
 }
 
@@ -264,6 +277,7 @@ export type SeriesUncheckedCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isUpdated?: boolean
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutSeriesInput
 }
 
@@ -271,6 +285,7 @@ export type SeriesUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   products?: Prisma.ProductUpdateManyWithoutSeriesNestedInput
 }
 
@@ -279,6 +294,7 @@ export type SeriesUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   products?: Prisma.ProductUncheckedUpdateManyWithoutSeriesNestedInput
 }
 
@@ -287,12 +303,14 @@ export type SeriesCreateManyInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isUpdated?: boolean
 }
 
 export type SeriesUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SeriesUncheckedUpdateManyInput = {
@@ -300,6 +318,7 @@ export type SeriesUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SeriesCountOrderByAggregateInput = {
@@ -307,6 +326,7 @@ export type SeriesCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isUpdated?: Prisma.SortOrder
 }
 
 export type SeriesAvgOrderByAggregateInput = {
@@ -318,6 +338,7 @@ export type SeriesMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isUpdated?: Prisma.SortOrder
 }
 
 export type SeriesMinOrderByAggregateInput = {
@@ -325,6 +346,7 @@ export type SeriesMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isUpdated?: Prisma.SortOrder
 }
 
 export type SeriesSumOrderByAggregateInput = {
@@ -354,6 +376,7 @@ export type SeriesCreateWithoutProductsInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isUpdated?: boolean
 }
 
 export type SeriesUncheckedCreateWithoutProductsInput = {
@@ -361,6 +384,7 @@ export type SeriesUncheckedCreateWithoutProductsInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isUpdated?: boolean
 }
 
 export type SeriesCreateOrConnectWithoutProductsInput = {
@@ -383,6 +407,7 @@ export type SeriesUpdateWithoutProductsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SeriesUncheckedUpdateWithoutProductsInput = {
@@ -390,6 +415,7 @@ export type SeriesUncheckedUpdateWithoutProductsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -428,6 +454,7 @@ export type SeriesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isUpdated?: boolean
   products?: boolean | Prisma.Series$productsArgs<ExtArgs>
   _count?: boolean | Prisma.SeriesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["series"]>
@@ -437,6 +464,7 @@ export type SeriesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isUpdated?: boolean
 }, ExtArgs["result"]["series"]>
 
 export type SeriesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -444,6 +472,7 @@ export type SeriesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isUpdated?: boolean
 }, ExtArgs["result"]["series"]>
 
 export type SeriesSelectScalar = {
@@ -451,9 +480,10 @@ export type SeriesSelectScalar = {
   name?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isUpdated?: boolean
 }
 
-export type SeriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["series"]>
+export type SeriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "isUpdated", ExtArgs["result"]["series"]>
 export type SeriesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   products?: boolean | Prisma.Series$productsArgs<ExtArgs>
   _count?: boolean | Prisma.SeriesCountOutputTypeDefaultArgs<ExtArgs>
@@ -471,6 +501,7 @@ export type $SeriesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     name: string
     createdAt: Date
     updatedAt: Date
+    isUpdated: boolean
   }, ExtArgs["result"]["series"]>
   composites: {}
 }
@@ -899,6 +930,7 @@ export interface SeriesFieldRefs {
   readonly name: Prisma.FieldRef<"Series", 'String'>
   readonly createdAt: Prisma.FieldRef<"Series", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Series", 'DateTime'>
+  readonly isUpdated: Prisma.FieldRef<"Series", 'Boolean'>
 }
     
 

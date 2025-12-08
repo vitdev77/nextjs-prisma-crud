@@ -87,9 +87,7 @@ export default async function Brands() {
                   <TableRow key={brand.id}>
                     <TableCell>{i + 1}</TableCell>
                     <TableCell>{brand.id}</TableCell>
-                    <TableCell className="text-base font-medium">
-                      {brand.name}
-                    </TableCell>
+                    <TableCell className="font-medium">{brand.name}</TableCell>
                     <TableCell
                       className={cn(
                         brand._count.products === 0 &&
@@ -103,7 +101,13 @@ export default async function Brands() {
                       <DateTimeTemplate timestamp={brand.createdAt} />
                     </TableCell>
                     <TableCell>
-                      <DateTimeTemplate timestamp={brand.updatedAt} />
+                      {!Boolean(brand.isUpdated) ? (
+                        <span className="text-muted-foreground/25 text-xs">
+                          not yet
+                        </span>
+                      ) : (
+                        <DateTimeTemplate timestamp={brand.updatedAt} />
+                      )}
                     </TableCell>
                     <TableCell>
                       <div className="flex flex-row items-center justify-end gap-2">

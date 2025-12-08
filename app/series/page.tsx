@@ -86,7 +86,7 @@ export default async function Series() {
                   <TableRow key={seriesItem.id}>
                     <TableCell>{i + 1}</TableCell>
                     <TableCell>{seriesItem.id}</TableCell>
-                    <TableCell className="text-base font-medium">
+                    <TableCell className="font-medium">
                       {seriesItem.name}
                     </TableCell>
                     <TableCell
@@ -101,7 +101,13 @@ export default async function Series() {
                       <DateTimeTemplate timestamp={seriesItem.createdAt} />
                     </TableCell>
                     <TableCell>
-                      <DateTimeTemplate timestamp={seriesItem.updatedAt} />
+                      {!Boolean(seriesItem.isUpdated) ? (
+                        <span className="text-muted-foreground/25 text-xs">
+                          not yet
+                        </span>
+                      ) : (
+                        <DateTimeTemplate timestamp={seriesItem.updatedAt} />
+                      )}
                     </TableCell>
                     <TableCell>
                       <div className="flex flex-row items-center justify-end gap-2">

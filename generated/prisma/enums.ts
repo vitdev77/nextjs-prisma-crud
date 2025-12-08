@@ -40,3 +40,19 @@ export const BusinessType = {
 } as const
 
 export type BusinessType = (typeof BusinessType)[keyof typeof BusinessType]
+
+
+export const SeriesAttr = {
+  NONE: 'NONE',
+  CE_BCD345WE_ST: 'CE_BCD345WE_ST',
+  CE_BCD345WE1_ST: 'CE_BCD345WE1_ST',
+  CE_BCD385WX1_JT: 'CE_BCD385WX1_JT',
+  CE_BCD385WX2_JT: 'CE_BCD385WX2_JT',
+  CE_BCD405WX_JQ: 'CE_BCD405WX_JQ',
+  CE_BCD445WX_JQ: 'CE_BCD445WX_JQ',
+  CE_BCD445WZ_JQ: 'CE_BCD445WZ_JQ',
+  CE_BCD335WX_JQ: 'CE_BCD335WX_JQ',
+  CE_BCD375WX_JQ: 'CE_BCD375WX_JQ'
+} as const
+
+export type SeriesAttr = (typeof SeriesAttr)[keyof typeof SeriesAttr]

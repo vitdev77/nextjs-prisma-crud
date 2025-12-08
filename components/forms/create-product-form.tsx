@@ -32,8 +32,12 @@ import {
   ProductColor,
   BusinessType,
   DisplayPlaced,
+  SeriesAttr,
 } from "@/generated/prisma/enums";
-import { underscoreToCapitalizedText } from "@/lib/utils";
+import {
+  underscoreToCapitalizedText,
+  underscoreWithHyphensToUppercasedText,
+} from "@/lib/utils";
 
 const newProductSchema = z.object({
   name: z
@@ -43,6 +47,7 @@ const newProductSchema = z.object({
       message:
         "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
     }),
+  seriesAttr: z.enum(SeriesAttr),
   color: z.enum(ProductColor),
   displayPlaced: z.enum(DisplayPlaced),
   businessType: z.enum(BusinessType),
@@ -61,6 +66,12 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
   >([]);
   const [error, setError] = React.useState<string | null>(null);
 
+  const productSeriesAttr = Object.values(SeriesAttr).map(
+    (seriesAttrName, i) => ({
+      id: i + 1,
+      value: seriesAttrName,
+    }),
+  );
   const productColors = Object.values(ProductColor).map((colorName, i) => ({
     id: i + 1,
     value: colorName,
@@ -96,6 +107,7 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
     resolver: zodResolver(newProductSchema),
     defaultValues: {
       name: "",
+      seriesAttr: SeriesAttr.NONE || "NONE",
       color: ProductColor.WHITE || "WHITE",
       displayPlaced: DisplayPlaced.ON_DOOR || "ON_DOOR",
       businessType: BusinessType.OBM || "OBM",
@@ -341,6 +353,46 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                             value={String(seriesItem.id)}
                           >
                             {seriesItem.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="seriesAttr"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Series Attribute</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={loading}
+                    {...field}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full" disabled={loading}>
+                        <SelectValue placeholder="Select series attribute" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Series Attribute</SelectLabel>
+                        {productSeriesAttr.map((productSeriesAttrItem) => (
+                          <SelectItem
+                            key={productSeriesAttrItem.id}
+                            value={String(productSeriesAttrItem.value)}
+                          >
+                            {underscoreWithHyphensToUppercasedText(
+                              productSeriesAttrItem.value,
+                            )}
                           </SelectItem>
                         ))}
                       </SelectGroup>

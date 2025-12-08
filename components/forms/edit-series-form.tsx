@@ -27,6 +27,7 @@ const editSeriesSchema = z.object({
         "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
     }),
   seriesId: z.string().min(1, { message: "Series ID is required" }),
+  isUpdated: z.boolean(),
 });
 
 type EditSeriesValues = z.infer<typeof editSeriesSchema>;
@@ -44,6 +45,7 @@ export function EditSeriesForm({ series, _onSubmit }: Props) {
     defaultValues: {
       name: series.name || "",
       seriesId: String(series.id),
+      isUpdated: series.isUpdated || true,
     },
   });
 

@@ -671,7 +671,8 @@ export const BrandScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isUpdated: 'isUpdated'
 } as const
 
 export type BrandScalarFieldEnum = (typeof BrandScalarFieldEnum)[keyof typeof BrandScalarFieldEnum]
@@ -681,7 +682,8 @@ export const SeriesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isUpdated: 'isUpdated'
 } as const
 
 export type SeriesScalarFieldEnum = (typeof SeriesScalarFieldEnum)[keyof typeof SeriesScalarFieldEnum]
@@ -690,13 +692,15 @@ export type SeriesScalarFieldEnum = (typeof SeriesScalarFieldEnum)[keyof typeof 
 export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  seriesAttr: 'seriesAttr',
   color: 'color',
   displayPlaced: 'displayPlaced',
   businessType: 'businessType',
   brandId: 'brandId',
   seriesId: 'seriesId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isUpdated: 'isUpdated'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -763,6 +767,27 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'SeriesAttr'
+ */
+export type EnumSeriesAttrFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeriesAttr'>
+    
+
+
+/**
+ * Reference to a field of type 'SeriesAttr[]'
+ */
+export type ListEnumSeriesAttrFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeriesAttr[]'>
     
 
 

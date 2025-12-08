@@ -49,7 +49,7 @@ export default function RootLayout({
         >
           {/* TODO: Have hydration error with dark mode select. Solve it later... */}
           {/* <TopLoaderComponent /> */}
-          <div className="fixed top-8 right-8">
+          <div className="fixed top-8 right-8 z-10">
             <ThemeToggle />
           </div>
           {children}

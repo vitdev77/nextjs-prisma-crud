@@ -13,3 +13,9 @@ export function underscoreToCapitalizedText(text: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter of each word
     .join(" "); // Join words back with spaces
 }
+
+export function underscoreWithHyphensToUppercasedText(text: string): string {
+  return text
+    .replaceAll(/_/g, "-") // Replace underscores with hyphens
+    .toUpperCase();
+}

@@ -12,6 +12,7 @@ model Brand {
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isUpdated Boolean  @default(false)
 
   products Product[]
   // series   Series[]
@@ -24,6 +25,7 @@ model Series {
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isUpdated Boolean  @default(false)
 
   products Product[]
   // brands   Brand[]
@@ -34,6 +36,7 @@ model Series {
 model Product {
   id            Int           @id @default(autoincrement())
   name          String        @unique
+  seriesAttr    SeriesAttr    @default(NONE)
   color         ProductColor  @default(WHITE)
   displayPlaced DisplayPlaced @default(ON_DOOR)
   businessType  BusinessType  @default(OBM)
@@ -41,6 +44,7 @@ model Product {
   seriesId      Int
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  isUpdated     Boolean       @default(false)
 
   brand  Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
   series Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
@@ -70,4 +74,17 @@ enum DisplayPlaced {
 enum BusinessType {
   OBM
   OEM
+}
+
+enum SeriesAttr {
+  NONE
+  CE_BCD345WE_ST
+  CE_BCD345WE1_ST
+  CE_BCD385WX1_JT
+  CE_BCD385WX2_JT
+  CE_BCD405WX_JQ
+  CE_BCD445WX_JQ
+  CE_BCD445WZ_JQ
+  CE_BCD335WX_JQ
+  CE_BCD375WX_JQ
 }

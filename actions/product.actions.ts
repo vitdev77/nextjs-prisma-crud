@@ -5,6 +5,7 @@ import {
   BusinessType,
   DisplayPlaced,
   ProductColor,
+  SeriesAttr,
 } from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
 
@@ -17,7 +18,7 @@ export async function getProducts() {
         brand: true,
       },
       orderBy: {
-        updatedAt: "desc",
+        id: "asc",
       },
     });
 
@@ -47,6 +48,7 @@ export async function getProductById({ productId }: { productId: string }) {
 // Create new product
 export async function createProduct({
   name,
+  seriesAttr,
   color,
   displayPlaced,
   businessType,
@@ -54,6 +56,7 @@ export async function createProduct({
   brandId,
 }: {
   name: string;
+  seriesAttr: SeriesAttr;
   color: ProductColor;
   displayPlaced: DisplayPlaced;
   businessType: BusinessType;
@@ -64,6 +67,7 @@ export async function createProduct({
     await prisma.product.create({
       data: {
         name,
+        seriesAttr,
         color,
         displayPlaced,
         businessType,
@@ -90,14 +94,18 @@ export async function editProduct({
   businessType,
   seriesId,
   brandId,
+  seriesAttr,
+  isUpdated,
 }: {
   productId: string;
   name: string;
+  seriesAttr: SeriesAttr;
   color: ProductColor;
   displayPlaced: DisplayPlaced;
   businessType: BusinessType;
   seriesId: string;
   brandId: string;
+  isUpdated: boolean;
 }) {
   try {
     await prisma.product.update({
@@ -106,11 +114,13 @@ export async function editProduct({
       },
       data: {
         name,
+        seriesAttr,
         color,
         displayPlaced,
         businessType,
         seriesId: Number(seriesId),
         brandId: Number(brandId),
+        isUpdated,
       },
     });
   } catch (error) {

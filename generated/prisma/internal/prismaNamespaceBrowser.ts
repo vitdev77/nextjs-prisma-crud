@@ -76,7 +76,8 @@ export const BrandScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isUpdated: 'isUpdated'
 } as const
 
 export type BrandScalarFieldEnum = (typeof BrandScalarFieldEnum)[keyof typeof BrandScalarFieldEnum]
@@ -86,7 +87,8 @@ export const SeriesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isUpdated: 'isUpdated'
 } as const
 
 export type SeriesScalarFieldEnum = (typeof SeriesScalarFieldEnum)[keyof typeof SeriesScalarFieldEnum]
@@ -95,13 +97,15 @@ export type SeriesScalarFieldEnum = (typeof SeriesScalarFieldEnum)[keyof typeof 
 export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  seriesAttr: 'seriesAttr',
   color: 'color',
   displayPlaced: 'displayPlaced',
   businessType: 'businessType',
   brandId: 'brandId',
   seriesId: 'seriesId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isUpdated: 'isUpdated'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]

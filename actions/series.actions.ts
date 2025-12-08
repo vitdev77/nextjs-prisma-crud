@@ -15,7 +15,7 @@ export async function getSeries() {
         },
       },
       orderBy: {
-        updatedAt: "desc",
+        id: "asc",
       },
     });
 
@@ -89,9 +89,11 @@ export async function createSeries({ name }: { name: string }) {
 export async function editSeries({
   seriesId,
   name,
+  isUpdated,
 }: {
   seriesId: string;
   name: string;
+  isUpdated: boolean;
 }) {
   try {
     await prisma.series.update({
@@ -100,6 +102,7 @@ export async function editSeries({
       },
       data: {
         name,
+        isUpdated,
       },
     });
   } catch (error) {

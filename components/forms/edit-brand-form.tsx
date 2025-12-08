@@ -27,6 +27,7 @@ const editBrandSchema = z.object({
         "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
     }),
   brandId: z.string().min(1, { message: "Brand ID is required" }),
+  isUpdated: z.boolean(),
 });
 
 type EditBrandValues = z.infer<typeof editBrandSchema>;
@@ -44,6 +45,7 @@ export function EditBrandForm({ brand, _onSubmit }: Props) {
     defaultValues: {
       name: brand.name || "",
       brandId: String(brand.id),
+      isUpdated: brand.isUpdated || true,
     },
   });
 
