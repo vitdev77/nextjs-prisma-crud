@@ -20,6 +20,7 @@ import {
   underscoreToCapitalizedText,
   underscoreWithHyphensToUppercasedText,
 } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -108,11 +109,15 @@ export default async function Products() {
                     <TableCell>{product.brand.name}</TableCell>
                     <TableCell>{product.series.name}</TableCell>
                     <TableCell className="text-muted-foreground">
-                      {product.seriesAttr === "NONE"
-                        ? ""
-                        : underscoreWithHyphensToUppercasedText(
+                      {product.seriesAttr === "NONE" ? (
+                        ""
+                      ) : (
+                        <Badge>
+                          {underscoreWithHyphensToUppercasedText(
                             product.seriesAttr,
                           )}
+                        </Badge>
+                      )}
                     </TableCell>
                     <TableCell>
                       {underscoreToCapitalizedText(product.color)}

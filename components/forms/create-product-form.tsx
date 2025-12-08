@@ -162,126 +162,6 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
 
           <FormField
             control={form.control}
-            name="color"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Color</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full" disabled={loading}>
-                        <SelectValue placeholder="Select color" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Colors</SelectLabel>
-                        {productColors.map((productColorsItem) => (
-                          <SelectItem
-                            key={productColorsItem.id}
-                            value={String(productColorsItem.value)}
-                          >
-                            {underscoreToCapitalizedText(
-                              productColorsItem.value,
-                            )}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-
-          <FormField
-            control={form.control}
-            name="displayPlaced"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Display</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full" disabled={loading}>
-                        <SelectValue placeholder="Select display side" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Display side</SelectLabel>
-                        {productDisplayPlaced.map(
-                          (productDisplayPlacedItem) => (
-                            <SelectItem
-                              key={productDisplayPlacedItem.id}
-                              value={String(productDisplayPlacedItem.value)}
-                            >
-                              {underscoreToCapitalizedText(
-                                productDisplayPlacedItem.value,
-                              )}
-                            </SelectItem>
-                          ),
-                        )}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-
-          <FormField
-            control={form.control}
-            name="businessType"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Business Type</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full" disabled={loading}>
-                        <SelectValue placeholder="Select business type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Business Types</SelectLabel>
-                        {businessTypes.map((businessTypesItem) => (
-                          <SelectItem
-                            key={businessTypesItem.id}
-                            value={String(businessTypesItem.value)}
-                          >
-                            {businessTypesItem.value}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-
-          <FormField
-            control={form.control}
             name="brandId"
             render={({ field }) => {
               return (
@@ -364,45 +244,169 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
             }}
           />
 
-          <FormField
-            control={form.control}
-            name="seriesAttr"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Series Attribute</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full" disabled={loading}>
-                        <SelectValue placeholder="Select series attribute" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Series Attribute</SelectLabel>
-                        {productSeriesAttr.map((productSeriesAttrItem) => (
-                          <SelectItem
-                            key={productSeriesAttrItem.id}
-                            value={String(productSeriesAttrItem.value)}
-                          >
-                            {underscoreWithHyphensToUppercasedText(
-                              productSeriesAttrItem.value,
-                            )}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="color"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Color</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select color" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Colors</SelectLabel>
+                          {productColors.map((productColorsItem) => (
+                            <SelectItem
+                              key={productColorsItem.id}
+                              value={String(productColorsItem.value)}
+                            >
+                              {underscoreToCapitalizedText(
+                                productColorsItem.value,
+                              )}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <FormField
+              control={form.control}
+              name="displayPlaced"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Display</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select display side" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Display side</SelectLabel>
+                          {productDisplayPlaced.map(
+                            (productDisplayPlacedItem) => (
+                              <SelectItem
+                                key={productDisplayPlacedItem.id}
+                                value={String(productDisplayPlacedItem.value)}
+                              >
+                                {underscoreToCapitalizedText(
+                                  productDisplayPlacedItem.value,
+                                )}
+                              </SelectItem>
+                            ),
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="businessType"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Business Type</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select business type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Business Types</SelectLabel>
+                          {businessTypes.map((businessTypesItem) => (
+                            <SelectItem
+                              key={businessTypesItem.id}
+                              value={String(businessTypesItem.value)}
+                            >
+                              {businessTypesItem.value}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <FormField
+              control={form.control}
+              name="seriesAttr"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Series Attribute</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select series attribute" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Series Attribute</SelectLabel>
+                          {productSeriesAttr.map((productSeriesAttrItem) => (
+                            <SelectItem
+                              key={productSeriesAttrItem.id}
+                              value={String(productSeriesAttrItem.value)}
+                            >
+                              {underscoreWithHyphensToUppercasedText(
+                                productSeriesAttrItem.value,
+                              )}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </div>
 
           {error && (
             <div role="alert" className="text-destructive text-sm">
