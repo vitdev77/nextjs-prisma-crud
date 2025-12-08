@@ -19,7 +19,7 @@ export function ProductsBySeriesList({ seriesId }: { seriesId: string }) {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [products, setProducts] = React.useState<
-    { id: number; name: string; color: string }[]
+    { id: number; name: string; color: string; displayPlaced: string }[]
   >([]);
 
   React.useEffect(() => {
@@ -50,24 +50,27 @@ export function ProductsBySeriesList({ seriesId }: { seriesId: string }) {
           )}
           <TableHeader>
             <TableRow>
+              <TableHead>#</TableHead>
               <TableHead>ID</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Color</TableHead>
+              <TableHead>Display</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {products.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={5}
                   className="text-muted-foreground text-center"
                 >
                   no products added yet
                 </TableCell>
               </TableRow>
             ) : (
-              products.map((product) => (
+              products.map((product, i) => (
                 <TableRow key={product.id}>
+                  <TableCell>{i + 1}</TableCell>
                   <TableCell>{product.id}</TableCell>
                   <TableCell className="font-medium">
                     <Link
@@ -80,6 +83,9 @@ export function ProductsBySeriesList({ seriesId }: { seriesId: string }) {
                   </TableCell>
                   <TableCell>
                     {underscoreToCapitalizedText(product.color)}
+                  </TableCell>
+                  <TableCell>
+                    {underscoreToCapitalizedText(product.displayPlaced)}
                   </TableCell>
                 </TableRow>
               ))

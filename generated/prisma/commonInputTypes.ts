@@ -106,6 +106,13 @@ export type EnumProductColorFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumProductColorFilter<$PrismaModel> | $Enums.ProductColor
 }
 
+export type EnumDisplayPlacedFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisplayPlaced | Prisma.EnumDisplayPlacedFieldRefInput<$PrismaModel>
+  in?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisplayPlacedFilter<$PrismaModel> | $Enums.DisplayPlaced
+}
+
 export type EnumBusinessTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.BusinessType | Prisma.EnumBusinessTypeFieldRefInput<$PrismaModel>
   in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
@@ -121,6 +128,16 @@ export type EnumProductColorWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProductColorFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProductColorFilter<$PrismaModel>
+}
+
+export type EnumDisplayPlacedWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisplayPlaced | Prisma.EnumDisplayPlacedFieldRefInput<$PrismaModel>
+  in?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisplayPlacedWithAggregatesFilter<$PrismaModel> | $Enums.DisplayPlaced
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDisplayPlacedFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDisplayPlacedFilter<$PrismaModel>
 }
 
 export type EnumBusinessTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -234,6 +251,13 @@ export type NestedEnumProductColorFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumProductColorFilter<$PrismaModel> | $Enums.ProductColor
 }
 
+export type NestedEnumDisplayPlacedFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisplayPlaced | Prisma.EnumDisplayPlacedFieldRefInput<$PrismaModel>
+  in?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisplayPlacedFilter<$PrismaModel> | $Enums.DisplayPlaced
+}
+
 export type NestedEnumBusinessTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.BusinessType | Prisma.EnumBusinessTypeFieldRefInput<$PrismaModel>
   in?: $Enums.BusinessType[] | Prisma.ListEnumBusinessTypeFieldRefInput<$PrismaModel>
@@ -249,6 +273,16 @@ export type NestedEnumProductColorWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProductColorFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProductColorFilter<$PrismaModel>
+}
+
+export type NestedEnumDisplayPlacedWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DisplayPlaced | Prisma.EnumDisplayPlacedFieldRefInput<$PrismaModel>
+  in?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DisplayPlaced[] | Prisma.ListEnumDisplayPlacedFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDisplayPlacedWithAggregatesFilter<$PrismaModel> | $Enums.DisplayPlaced
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDisplayPlacedFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDisplayPlacedFilter<$PrismaModel>
 }
 
 export type NestedEnumBusinessTypeWithAggregatesFilter<$PrismaModel = never> = {

@@ -12,17 +12,19 @@ interface ReturnButtonProps {
     | "secondary"
     | "ghost"
     | "link";
+  showArrow?: boolean;
 }
 
 export const ReturnButton = ({
   href,
   label,
   btnVariant,
+  showArrow = true,
 }: ReturnButtonProps) => {
   return (
     <Button size="sm" variant={btnVariant} asChild tabIndex={-1}>
       <Link href={href}>
-        <ArrowLeftIcon /> {label}
+        {showArrow === true && <ArrowLeftIcon />} {label}
       </Link>
     </Button>
   );

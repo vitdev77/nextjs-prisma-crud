@@ -28,7 +28,11 @@ import { toast } from "sonner";
 import { createProduct } from "@/actions/product.actions";
 import { getBrands } from "@/actions/brand.actions";
 import { getSeries } from "@/actions/series.actions";
-import { ProductColor, BusinessType } from "@/generated/prisma/enums";
+import {
+  ProductColor,
+  BusinessType,
+  DisplayPlaced,
+} from "@/generated/prisma/enums";
 import { underscoreToCapitalizedText } from "@/lib/utils";
 
 const newProductSchema = z.object({
@@ -40,6 +44,7 @@ const newProductSchema = z.object({
         "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
     }),
   color: z.enum(ProductColor),
+  displayPlaced: z.enum(DisplayPlaced),
   businessType: z.enum(BusinessType),
   brandId: z.string().nonempty("Please select brand"),
   seriesId: z.string().nonempty("Please select series"),
@@ -60,6 +65,12 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
     id: i + 1,
     value: colorName,
   }));
+  const productDisplayPlaced = Object.values(DisplayPlaced).map(
+    (displayPlacedName, i) => ({
+      id: i + 1,
+      value: displayPlacedName,
+    }),
+  );
   const businessTypes = Object.values(BusinessType).map(
     (businessTypeName, i) => ({
       id: i + 1,
@@ -86,6 +97,7 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
     defaultValues: {
       name: "",
       color: ProductColor.WHITE || "WHITE",
+      displayPlaced: DisplayPlaced.ON_DOOR || "ON_DOOR",
       businessType: BusinessType.OBM || "OBM",
       brandId: "",
       seriesId: "",
@@ -167,6 +179,48 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                             )}
                           </SelectItem>
                         ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="displayPlaced"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Display</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={loading}
+                    {...field}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full" disabled={loading}>
+                        <SelectValue placeholder="Select display side" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Display side</SelectLabel>
+                        {productDisplayPlaced.map(
+                          (productDisplayPlacedItem) => (
+                            <SelectItem
+                              key={productDisplayPlacedItem.id}
+                              value={String(productDisplayPlacedItem.value)}
+                            >
+                              {underscoreToCapitalizedText(
+                                productDisplayPlacedItem.value,
+                              )}
+                            </SelectItem>
+                          ),
+                        )}
                       </SelectGroup>
                     </SelectContent>
                   </Select>

@@ -9,20 +9,34 @@
 * 🟢 You can import this file directly.
 */
 
+export const ProductColor = {
+  WHITE: 'WHITE',
+  BLACK: 'BLACK',
+  BEIGE: 'BEIGE',
+  BASALT_GRAY: 'BASALT_GRAY',
+  DARK_GRAY: 'DARK_GRAY',
+  STEEL_GRAY: 'STEEL_GRAY',
+  INOX: 'INOX',
+  ENTRY_WHITE: 'ENTRY_WHITE',
+  ENTRY_INOX: 'ENTRY_INOX',
+  PREMIUM_WHITE: 'PREMIUM_WHITE',
+  PREMIUM_INOX: 'PREMIUM_INOX'
+} as const
+
+export type ProductColor = (typeof ProductColor)[keyof typeof ProductColor]
+
+
+export const DisplayPlaced = {
+  ON_DOOR: 'ON_DOOR',
+  INSIDE: 'INSIDE'
+} as const
+
+export type DisplayPlaced = (typeof DisplayPlaced)[keyof typeof DisplayPlaced]
+
+
 export const BusinessType = {
   OBM: 'OBM',
   OEM: 'OEM'
 } as const
 
 export type BusinessType = (typeof BusinessType)[keyof typeof BusinessType]
-
-
-export const ProductColor = {
-  WHITE: 'WHITE',
-  BLACK: 'BLACK',
-  BEIGE: 'BEIGE',
-  BASALT_GRAY: 'BASALT_GRAY',
-  INOX: 'INOX'
-} as const
-
-export type ProductColor = (typeof ProductColor)[keyof typeof ProductColor]

@@ -32,14 +32,15 @@ model Series {
 }
 
 model Product {
-  id           Int          @id @default(autoincrement())
-  name         String       @unique
-  color        ProductColor @default(WHITE)
-  businessType BusinessType @default(OBM)
-  brandId      Int
-  seriesId     Int
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  color         ProductColor  @default(WHITE)
+  displayPlaced DisplayPlaced @default(ON_DOOR)
+  businessType  BusinessType  @default(OBM)
+  brandId       Int
+  seriesId      Int
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   brand  Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
   series Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
@@ -47,15 +48,26 @@ model Product {
   @@map("products")
 }
 
-enum BusinessType {
-  OBM
-  OEM
-}
-
 enum ProductColor {
   WHITE
   BLACK
   BEIGE
   BASALT_GRAY
+  DARK_GRAY
+  STEEL_GRAY
   INOX
+  ENTRY_WHITE
+  ENTRY_INOX
+  PREMIUM_WHITE
+  PREMIUM_INOX
+}
+
+enum DisplayPlaced {
+  ON_DOOR
+  INSIDE
+}
+
+enum BusinessType {
+  OBM
+  OEM
 }

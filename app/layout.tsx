@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { TopLoaderComponent } from "@/components/top-loader-component";
+// import { TopLoaderComponent } from "@/components/top-loader-component";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,8 +47,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TopLoaderComponent />
-          <div className="absolute top-4 right-4">
+          {/* TODO: Have hydration error with dark mode select. Solve it later... */}
+          {/* <TopLoaderComponent /> */}
+          <div className="fixed top-8 right-8">
             <ThemeToggle />
           </div>
           {children}

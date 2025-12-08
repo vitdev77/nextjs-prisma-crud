@@ -691,6 +691,7 @@ export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
   color: 'color',
+  displayPlaced: 'displayPlaced',
   businessType: 'businessType',
   brandId: 'brandId',
   seriesId: 'seriesId',
@@ -776,6 +777,20 @@ export type EnumProductColorFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'ProductColor[]'
  */
 export type ListEnumProductColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductColor[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DisplayPlaced'
+ */
+export type EnumDisplayPlacedFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisplayPlaced'>
+    
+
+
+/**
+ * Reference to a field of type 'DisplayPlaced[]'
+ */
+export type ListEnumDisplayPlacedFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisplayPlaced[]'>
     
 
 

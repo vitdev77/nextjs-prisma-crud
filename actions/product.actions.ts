@@ -1,7 +1,11 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { BusinessType, ProductColor } from "@/generated/prisma/enums";
+import {
+  BusinessType,
+  DisplayPlaced,
+  ProductColor,
+} from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
 
 // Get all products
@@ -44,12 +48,14 @@ export async function getProductById({ productId }: { productId: string }) {
 export async function createProduct({
   name,
   color,
+  displayPlaced,
   businessType,
   seriesId,
   brandId,
 }: {
   name: string;
   color: ProductColor;
+  displayPlaced: DisplayPlaced;
   businessType: BusinessType;
   seriesId: string;
   brandId: string;
@@ -59,6 +65,7 @@ export async function createProduct({
       data: {
         name,
         color,
+        displayPlaced,
         businessType,
         seriesId: Number(seriesId),
         brandId: Number(brandId),
@@ -79,6 +86,7 @@ export async function editProduct({
   productId,
   name,
   color,
+  displayPlaced,
   businessType,
   seriesId,
   brandId,
@@ -86,6 +94,7 @@ export async function editProduct({
   productId: string;
   name: string;
   color: ProductColor;
+  displayPlaced: DisplayPlaced;
   businessType: BusinessType;
   seriesId: string;
   brandId: string;
@@ -98,6 +107,7 @@ export async function editProduct({
       data: {
         name,
         color,
+        displayPlaced,
         businessType,
         seriesId: Number(seriesId),
         brandId: Number(brandId),
