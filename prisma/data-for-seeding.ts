@@ -424,3 +424,28 @@ export const products = [
     seriesId: 6,
   },
 ];
+
+export const items = [
+  {
+    id: 1,
+    name: "Color masterbatch",
+    nameExt: "White",
+    attr: "RE-WH101",
+    isMaterial: true,
+  },
+  {
+    id: 2,
+    name: "Color masterbatch",
+    nameExt: "Transparent Light Gray",
+    attr: "RE-GY901",
+    isMaterial: true,
+  },
+];
+
+export const itemCodes = [
+  { id: 1, code: "10403002001668", itemId: 1 },
+  { id: 2, code: "10403002001546", itemId: 1 },
+  { id: 3, code: "10403002001556", itemId: 1 },
+  { id: 4, code: "10403002001543", itemId: 1 },
+  { id: 5, code: "10403002006811", itemId: 2 },
+];

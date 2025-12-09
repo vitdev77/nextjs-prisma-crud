@@ -15,7 +15,6 @@ model Brand {
   isUpdated Boolean  @default(false)
 
   products Product[]
-  // series   Series[]
 
   @@map("brands")
 }
@@ -28,7 +27,6 @@ model Series {
   isUpdated Boolean  @default(false)
 
   products Product[]
-  // brands   Brand[]
 
   @@map("series")
 }
@@ -50,6 +48,34 @@ model Product {
   series Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
 
   @@map("products")
+}
+
+model Item {
+  id         Int      @id @default(autoincrement())
+  name       String
+  nameExt    String?
+  attr       String?
+  isMaterial Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isUpdated  Boolean  @default(false)
+
+  itemCodes ItemCode[]
+
+  @@map("items")
+}
+
+model ItemCode {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  itemId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isUpdated Boolean  @default(false)
+
+  item Item @relation(fields: [itemId], references: [id])
+
+  @@map("item_codes")
 }
 
 enum ProductColor {
@@ -87,4 +113,11 @@ enum SeriesAttr {
   CE_BCD445WZ_JQ
   CE_BCD335WX_JQ
   CE_BCD375WX_JQ
+}
+
+enum PurchaseAttr {
+  P
+  SA
+  FG
+  MP
 }

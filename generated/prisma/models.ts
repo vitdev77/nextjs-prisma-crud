@@ -11,4 +11,6 @@
 export type * from './models/Brand'
 export type * from './models/Series'
 export type * from './models/Product'
+export type * from './models/Item'
+export type * from './models/ItemCode'
 export type * from './commonInputTypes'

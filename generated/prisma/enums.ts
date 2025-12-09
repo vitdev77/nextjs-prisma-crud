@@ -56,3 +56,13 @@ export const SeriesAttr = {
 } as const
 
 export type SeriesAttr = (typeof SeriesAttr)[keyof typeof SeriesAttr]
+
+
+export const PurchaseAttr = {
+  P: 'P',
+  SA: 'SA',
+  FG: 'FG',
+  MP: 'MP'
+} as const
+
+export type PurchaseAttr = (typeof PurchaseAttr)[keyof typeof PurchaseAttr]

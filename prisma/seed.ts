@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { brands, series, products } from "./data-for-seeding";
+import { brands, series, products, items, itemCodes } from "./data-for-seeding";
 
 async function up() {
   // adding brands
@@ -16,12 +16,24 @@ async function up() {
   await prisma.product.createMany({
     data: products,
   });
+
+  // adding items
+  await prisma.item.createMany({
+    data: items,
+  });
+
+  // adding item codes
+  await prisma.itemCode.createMany({
+    data: itemCodes,
+  });
 }
 
 async function down() {
   await prisma.$executeRaw`TRUNCATE TABLE "brands" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "series" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "products" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "items" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "item_codes" RESTART IDENTITY CASCADE`;
 }
 
 async function main() {

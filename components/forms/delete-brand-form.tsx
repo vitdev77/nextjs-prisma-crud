@@ -39,8 +39,10 @@ export function DeleteBrandForm({ brandId }: { brandId: string }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete this
-            brand and all products from servers.
+            This action cannot be undone. This will permanently delete{" "}
+            <span className="text-destructive font-medium">this brand</span> and{" "}
+            <span className="text-destructive font-medium">all products</span>{" "}
+            from servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

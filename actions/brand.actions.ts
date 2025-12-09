@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 // Get all brands
 export async function getBrands() {
   try {
-    const brands = await prisma.brand.findMany({
+    return await prisma.brand.findMany({
       include: {
         _count: {
           select: {
@@ -23,8 +23,6 @@ export async function getBrands() {
         id: "asc",
       },
     });
-
-    return brands;
   } catch (error) {
     console.error("Error fetching brands:", error);
     throw new Error("Failed to retrieve brands from the database.");
@@ -34,13 +32,11 @@ export async function getBrands() {
 // Get single brand
 export async function getBrandById({ brandId }: { brandId: string }) {
   try {
-    const singleProduct = await prisma.brand.findFirst({
+    return await prisma.brand.findFirst({
       where: {
         id: Number(brandId),
       },
     });
-
-    return singleProduct;
   } catch (error) {
     console.error("Error fetching single brand:", error);
     throw new Error("Failed to retrieve single brand from the database.");
@@ -50,7 +46,7 @@ export async function getBrandById({ brandId }: { brandId: string }) {
 // Get products list by Brand ID
 export async function getProductsByBrandId({ brandId }: { brandId: string }) {
   try {
-    const productsByBrandId = await prisma.product.findMany({
+    return await prisma.product.findMany({
       where: {
         brandId: Number(brandId),
       },
@@ -58,8 +54,6 @@ export async function getProductsByBrandId({ brandId }: { brandId: string }) {
         createdAt: "desc",
       },
     });
-
-    return productsByBrandId;
   } catch (error) {
     console.error("Error fetching products by selected brand:", error);
     throw new Error(

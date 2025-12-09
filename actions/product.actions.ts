@@ -12,7 +12,7 @@ import { revalidatePath } from "next/cache";
 // Get all products
 export async function getProducts() {
   try {
-    const products = await prisma.product.findMany({
+    return await prisma.product.findMany({
       include: {
         series: true,
         brand: true,
@@ -21,8 +21,6 @@ export async function getProducts() {
         id: "asc",
       },
     });
-
-    return products;
   } catch (error) {
     console.error("Error fetching products:", error);
     throw new Error("Failed to retrieve products from the database.");
@@ -32,13 +30,11 @@ export async function getProducts() {
 // Get single product
 export async function getProductById({ productId }: { productId: string }) {
   try {
-    const singleProduct = await prisma.product.findFirst({
+    return await prisma.product.findFirst({
       where: {
         id: Number(productId),
       },
     });
-
-    return singleProduct;
   } catch (error) {
     console.error("Error fetching single product:", error);
     throw new Error("Failed to retrieve single product from the database.");

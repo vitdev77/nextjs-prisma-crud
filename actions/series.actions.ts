@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 // Get all series
 export async function getSeries() {
   try {
-    const series = await prisma.series.findMany({
+    return await prisma.series.findMany({
       include: {
         _count: {
           select: {
@@ -18,8 +18,6 @@ export async function getSeries() {
         id: "asc",
       },
     });
-
-    return series;
   } catch (error) {
     console.error("Error fetching series:", error);
     throw new Error("Failed to retrieve series from the database.");
@@ -29,13 +27,11 @@ export async function getSeries() {
 // Get single series
 export async function getSeriesById({ seriesId }: { seriesId: string }) {
   try {
-    const singleSeries = await prisma.series.findFirst({
+    return await prisma.series.findFirst({
       where: {
         id: Number(seriesId),
       },
     });
-
-    return singleSeries;
   } catch (error) {
     console.error("Error fetching single series:", error);
     throw new Error("Failed to retrieve single series from the database.");
@@ -49,7 +45,7 @@ export async function getProductsBySeriesId({
   seriesId: string;
 }) {
   try {
-    const productsBySeriesId = await prisma.product.findMany({
+    return await prisma.product.findMany({
       where: {
         seriesId: Number(seriesId),
       },
@@ -57,8 +53,6 @@ export async function getProductsBySeriesId({
         createdAt: "desc",
       },
     });
-
-    return productsBySeriesId;
   } catch (error) {
     console.error("Error fetching products by selected series:", error);
     throw new Error(

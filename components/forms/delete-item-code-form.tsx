@@ -14,16 +14,16 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { deleteSeries } from "@/actions/series.actions";
+import { deleteItemCode } from "@/actions/itemCode.actions";
 import { toast } from "sonner";
 
-export function DeleteSeriesForm({ seriesId }: { seriesId: string }) {
+export function DeleteItemCodeForm({ itemCodeId }: { itemCodeId: string }) {
   const handleDelete = async () => {
-    const res = await deleteSeries({ seriesId });
+    const res = await deleteItemCode({ itemCodeId });
     if (res?.error) {
       toast.error(res.error);
     } else {
-      toast.success("Series successfully deleted");
+      toast.success("Item code successfully deleted");
     }
   };
 
@@ -40,9 +40,7 @@ export function DeleteSeriesForm({ seriesId }: { seriesId: string }) {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete{" "}
-            <span className="text-destructive font-medium">this series </span>{" "}
-            and{" "}
-            <span className="text-destructive font-medium">all products</span>{" "}
+            <span className="text-destructive font-medium">this item code</span>{" "}
             from servers.
           </AlertDialogDescription>
         </AlertDialogHeader>

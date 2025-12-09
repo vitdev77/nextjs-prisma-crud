@@ -39,8 +39,9 @@ export function DeleteProductForm({ productId }: { productId: string }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete this
-            product from servers.
+            This action cannot be undone. This will permanently delete{" "}
+            <span className="text-destructive font-medium">this product</span>{" "}
+            from servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

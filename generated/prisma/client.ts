@@ -54,3 +54,13 @@ export type Series = Prisma.SeriesModel
  * 
  */
 export type Product = Prisma.ProductModel
+/**
+ * Model Item
+ * 
+ */
+export type Item = Prisma.ItemModel
+/**
+ * Model ItemCode
+ * 
+ */
+export type ItemCode = Prisma.ItemCodeModel
