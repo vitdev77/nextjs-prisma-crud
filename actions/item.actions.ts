@@ -21,6 +21,20 @@ export async function getItems() {
   }
 }
 
+// Get single item
+export async function getItemById({ itemId }: { itemId: string }) {
+  try {
+    return await prisma.item.findFirst({
+      where: {
+        id: Number(itemId),
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching single item:", error);
+    throw new Error("Failed to retrieve single item from the database.");
+  }
+}
+
 // Create new item
 export async function createItem({
   name,
@@ -46,6 +60,45 @@ export async function createItem({
     console.log(error);
     return {
       error: "[ITEM_CREATE]: SERVER ERROR",
+    };
+  }
+
+  revalidatePath("/items");
+}
+
+// Edit single item
+export async function editItem({
+  itemId,
+  name,
+  nameExt,
+  attr,
+  isMaterial,
+  isUpdated,
+}: {
+  itemId: string;
+  name: string;
+  nameExt?: string;
+  attr?: string;
+  isMaterial?: boolean;
+  isUpdated: boolean;
+}) {
+  try {
+    await prisma.item.update({
+      where: {
+        id: Number(itemId),
+      },
+      data: {
+        name,
+        nameExt,
+        attr,
+        isMaterial,
+        isUpdated,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return {
+      error: "[ITEM_EDIT]: SERVER ERROR",
     };
   }
 

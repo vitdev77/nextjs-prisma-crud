@@ -129,7 +129,10 @@ export default async function Items() {
                             <span className="sr-only">Edit</span>
                           </Link>
                         </Button>
-                        <DeleteItemForm itemId={String(item.id)} />
+                        <DeleteItemForm
+                          itemId={String(item.id)}
+                          itemCodesCount={item._count.itemCodes}
+                        />
                       </div>
                     </TableCell>
                   </TableRow>

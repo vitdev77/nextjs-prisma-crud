@@ -11,6 +11,7 @@ export { EditProductForm } from "./edit-product-form";
 export { DeleteProductForm } from "./delete-product-form";
 
 export { CreateItemForm } from "./create-item-form";
+export { EditItemForm } from "./edit-item-form";
 export { DeleteItemForm } from "./delete-item-form";
 
 export { DeleteItemCodeForm } from "./delete-item-code-form";

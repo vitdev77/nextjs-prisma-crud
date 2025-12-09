@@ -17,7 +17,13 @@ import { cn } from "@/lib/utils";
 import { deleteItem } from "@/actions/item.actions";
 import { toast } from "sonner";
 
-export function DeleteItemForm({ itemId }: { itemId: string }) {
+export function DeleteItemForm({
+  itemId,
+  itemCodesCount,
+}: {
+  itemId: string;
+  itemCodesCount?: number;
+}) {
   const handleDelete = async () => {
     const res = await deleteItem({ itemId });
     if (res?.error) {
@@ -41,7 +47,11 @@ export function DeleteItemForm({ itemId }: { itemId: string }) {
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete{" "}
             <span className="text-destructive font-medium">this item</span> and{" "}
-            <span className="text-destructive font-medium">all item codes</span>{" "}
+            <span className="text-destructive font-medium">
+              all item codes
+              {itemCodesCount ||
+                (itemCodesCount === 0 && ` (${itemCodesCount})`)}
+            </span>{" "}
             from servers.
           </AlertDialogDescription>
         </AlertDialogHeader>

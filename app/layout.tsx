@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { RefreshPageButton } from "@/components/refresh-page-button";
 // import { TopLoaderComponent } from "@/components/top-loader-component";
 
 const geistSans = Geist({
@@ -50,11 +51,14 @@ export default function RootLayout({
           {/* TODO: Have hydration error with dark mode select. Solve it later... */}
           {/* <TopLoaderComponent /> */}
           <div className="fixed top-8 right-8 z-10">
-            <ThemeToggle />
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <RefreshPageButton />
+              <ThemeToggle />
+            </div>
           </div>
           {children}
           {modal}
-          <Toaster position={"top-center"} richColors />
+          <Toaster position={"top-center"} />
         </ThemeProvider>
       </body>
     </html>
