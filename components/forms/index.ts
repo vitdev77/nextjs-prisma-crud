@@ -10,6 +10,7 @@ export { CreateProductForm } from "./create-product-form";
 export { EditProductForm } from "./edit-product-form";
 export { DeleteProductForm } from "./delete-product-form";
 
+export { CreateItemForm } from "./create-item-form";
 export { DeleteItemForm } from "./delete-item-form";
 
 export { DeleteItemCodeForm } from "./delete-item-code-form";

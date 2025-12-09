@@ -21,6 +21,37 @@ export async function getItems() {
   }
 }
 
+// Create new item
+export async function createItem({
+  name,
+  nameExt,
+  attr,
+  isMaterial,
+}: {
+  name: string;
+  nameExt?: string;
+  attr?: string;
+  isMaterial?: boolean;
+}) {
+  try {
+    await prisma.item.create({
+      data: {
+        name,
+        nameExt,
+        attr,
+        isMaterial,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return {
+      error: "[ITEM_CREATE]: SERVER ERROR",
+    };
+  }
+
+  revalidatePath("/items");
+}
+
 // Delete single item
 export async function deleteItem({ itemId }: { itemId: string }) {
   try {
