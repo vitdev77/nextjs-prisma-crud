@@ -40,7 +40,7 @@ export default async function ItemCodes() {
           <div className="flex flex-wrap items-center gap-4">
             <h1 className="text-4xl font-bold">Item Codes</h1>
             <Button asChild>
-              <Link href={"/items/new"}>
+              <Link href={"/item-codes/new"}>
                 <Plus /> New item code
               </Link>
             </Button>
