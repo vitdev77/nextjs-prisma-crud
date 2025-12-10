@@ -7,7 +7,11 @@ import { revalidatePath } from "next/cache";
 // Get all item codes
 export async function getItemCodes() {
   try {
-    return await prisma.itemCode.findMany({});
+    return await prisma.itemCode.findMany({
+      orderBy: {
+        id: "asc",
+      },
+    });
   } catch (err) {
     console.error("Error fetching item codes:", err);
     throw new Error("Failed to retrieve item codes from the database.");

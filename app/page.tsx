@@ -7,6 +7,7 @@ const nav = [
   { title: "Products", link: "/products" },
   { title: "Items", link: "/items" },
   { title: "Item Codes", link: "/item-codes" },
+  { title: "Table Test", link: "/table-test" },
 ];
 
 export default async function Home() {

@@ -14,6 +14,9 @@ export async function getItems() {
           },
         },
       },
+      orderBy: {
+        id: "asc",
+      },
     });
   } catch (err) {
     console.error("Error fetching items:", err);
