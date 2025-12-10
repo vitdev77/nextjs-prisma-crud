@@ -15,23 +15,63 @@ import { DeleteProductForm } from "@/components/forms";
 import { ReturnButton } from "@/components/return-button";
 import { Separator } from "@/components/ui/separator";
 import DateTimeTemplate from "@/components/date-time-template";
-import { getProducts } from "@/actions/product.actions";
+import { countProducts, getProducts } from "@/actions/product.actions";
 import {
   underscoreToCapitalizedText,
   underscoreWithHyphensToUppercasedText,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import prisma from "@/lib/prisma";
+import PaginationComponent from "@/components/pagination";
 
 export const metadata: Metadata = {
   title: "Products",
 };
 
-export default async function Products() {
-  const products = await getProducts();
+export default async function Products({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; page?: string }>;
+}) {
+  // Pagination settings
+  const params = await searchParams;
+  const q = (params.q ?? "").trim();
+  const page = Math.max(1, Number(params.page ?? 1));
+  const pageSize = 5;
+
+  const where = {
+    ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}),
+  };
+
+  // const [totalCount, items] = await Promise.all([
+  //   prisma.product.count({ where }),
+  //   prisma.product.findMany({
+  //     where,
+  //     include: {
+  //       series: true,
+  //       brand: true,
+  //     },
+  //     orderBy: { createdAt: "desc" },
+  //     skip: (page - 1) * pageSize,
+  //     take: pageSize,
+  //   }),
+  // ]);
+
+  const skip = (page - 1) * pageSize;
+
+  const totalCount = await countProducts({ where });
+
+  const products = await getProducts({
+    where,
+    skip,
+    take: pageSize,
+  });
+
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-8">
-      <div className="mx-auto flex min-w-7xl flex-col gap-6">
+      <div className="mx-auto flex min-w-7xl flex-col gap-8">
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap items-center gap-4">
             <h1 className="text-4xl font-bold">Products</h1>
@@ -161,6 +201,18 @@ export default async function Products() {
             </TableBody>
           </Table>
         </div>
+
+        {totalPages > 1 && (
+          <PaginationComponent
+            curentPage={page}
+            totalPages={totalPages}
+            baseUrl={"/products"}
+            searchParams={{
+              q,
+              pageSize: String(pageSize),
+            }}
+          />
+        )}
       </div>
     </div>
   );

@@ -10,10 +10,31 @@ import {
 } from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
 
+// Count all products
+export async function countProducts({ where }: { where?: {} }) {
+  try {
+    return await prisma.product.count({ where });
+  } catch (err) {
+    console.error("Error counting products:", err);
+    throw new Error("Failed to retrieve products from the database.");
+  }
+}
+
 // Get all products
-export async function getProducts() {
+export async function getProducts({
+  where,
+  skip,
+  take,
+}: {
+  where?: {};
+  skip?: number;
+  take?: number;
+}) {
   try {
     return await prisma.product.findMany({
+      where,
+      skip,
+      take,
       include: {
         series: true,
         brand: true,
