@@ -1,5 +1,6 @@
 "use server";
 
+import { Prisma } from "@/generated/prisma/client";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -23,8 +24,8 @@ export async function getBrands() {
         id: "asc",
       },
     });
-  } catch (error) {
-    console.error("Error fetching brands:", error);
+  } catch (err) {
+    console.error("Error fetching brands:", err);
     throw new Error("Failed to retrieve brands from the database.");
   }
 }
@@ -37,8 +38,8 @@ export async function getBrandById({ brandId }: { brandId: string }) {
         id: Number(brandId),
       },
     });
-  } catch (error) {
-    console.error("Error fetching single brand:", error);
+  } catch (err) {
+    console.error("Error fetching single brand:", err);
     throw new Error("Failed to retrieve single brand from the database.");
   }
 }
@@ -54,8 +55,8 @@ export async function getProductsByBrandId({ brandId }: { brandId: string }) {
         createdAt: "desc",
       },
     });
-  } catch (error) {
-    console.error("Error fetching products by selected brand:", error);
+  } catch (err) {
+    console.error("Error fetching products by selected brand:", err);
     throw new Error(
       "Failed to retrieve products by selected brand from the database.",
     );
@@ -70,8 +71,13 @@ export async function createBrand({ name }: { name: string }) {
         name,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        return { error: "Brand name already exists" };
+      }
+    }
+    console.error(err);
     return {
       error: "[BRAND_CREATE]: SERVER ERROR",
     };
@@ -100,8 +106,8 @@ export async function editBrand({
         isUpdated,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[BRAND_EDIT]: SERVER ERROR",
     };
@@ -118,8 +124,8 @@ export async function deleteBrand({ brandId }: { brandId: string }) {
         id: Number(brandId),
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[BRAND_DELETE]: SERVER ERROR",
     };

@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { LoadingButton } from "@/components/loading-button";
 import { toast } from "sonner";
 import { createItem } from "@/actions/item.actions";

@@ -1,5 +1,6 @@
 "use server";
 
+import { Prisma } from "@/generated/prisma/client";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -18,8 +19,8 @@ export async function getSeries() {
         id: "asc",
       },
     });
-  } catch (error) {
-    console.error("Error fetching series:", error);
+  } catch (err) {
+    console.error("Error fetching series:", err);
     throw new Error("Failed to retrieve series from the database.");
   }
 }
@@ -32,8 +33,8 @@ export async function getSeriesById({ seriesId }: { seriesId: string }) {
         id: Number(seriesId),
       },
     });
-  } catch (error) {
-    console.error("Error fetching single series:", error);
+  } catch (err) {
+    console.error("Error fetching single series:", err);
     throw new Error("Failed to retrieve single series from the database.");
   }
 }
@@ -53,8 +54,8 @@ export async function getProductsBySeriesId({
         createdAt: "desc",
       },
     });
-  } catch (error) {
-    console.error("Error fetching products by selected series:", error);
+  } catch (err) {
+    console.error("Error fetching products by selected series:", err);
     throw new Error(
       "Failed to retrieve products by selected series from the database.",
     );
@@ -69,8 +70,13 @@ export async function createSeries({ name }: { name: string }) {
         name,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        return { error: "Series name already exists" };
+      }
+    }
+    console.error(err);
     return {
       error: "[SERIES_CREATE]: SERVER ERROR",
     };
@@ -99,8 +105,8 @@ export async function editSeries({
         isUpdated,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[SERIES_EDIT]: SERVER ERROR",
     };
@@ -117,8 +123,8 @@ export async function deleteSeries({ seriesId }: { seriesId: string }) {
         id: Number(seriesId),
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[SERIES_DELETE]: SERVER ERROR",
     };

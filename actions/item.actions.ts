@@ -15,8 +15,8 @@ export async function getItems() {
         },
       },
     });
-  } catch (error) {
-    console.error("Error fetching items:", error);
+  } catch (err) {
+    console.error("Error fetching items:", err);
     throw new Error("Failed to retrieve items from the database.");
   }
 }
@@ -29,8 +29,8 @@ export async function getItemById({ itemId }: { itemId: string }) {
         id: Number(itemId),
       },
     });
-  } catch (error) {
-    console.error("Error fetching single item:", error);
+  } catch (err) {
+    console.error("Error fetching single item:", err);
     throw new Error("Failed to retrieve single item from the database.");
   }
 }
@@ -56,8 +56,8 @@ export async function createItem({
         isMaterial,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[ITEM_CREATE]: SERVER ERROR",
     };
@@ -95,8 +95,8 @@ export async function editItem({
         isUpdated,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[ITEM_EDIT]: SERVER ERROR",
     };
@@ -113,8 +113,8 @@ export async function deleteItem({ itemId }: { itemId: string }) {
         id: Number(itemId),
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[ITEM_DELETE]: SERVER ERROR",
     };

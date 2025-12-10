@@ -1,5 +1,6 @@
 "use server";
 
+import { Prisma } from "@/generated/prisma/client";
 import prisma from "@/lib/prisma";
 import {
   BusinessType,
@@ -21,8 +22,8 @@ export async function getProducts() {
         id: "asc",
       },
     });
-  } catch (error) {
-    console.error("Error fetching products:", error);
+  } catch (err) {
+    console.error("Error fetching products:", err);
     throw new Error("Failed to retrieve products from the database.");
   }
 }
@@ -35,8 +36,8 @@ export async function getProductById({ productId }: { productId: string }) {
         id: Number(productId),
       },
     });
-  } catch (error) {
-    console.error("Error fetching single product:", error);
+  } catch (err) {
+    console.error("Error fetching single product:", err);
     throw new Error("Failed to retrieve single product from the database.");
   }
 }
@@ -71,8 +72,13 @@ export async function createProduct({
         brandId: Number(brandId),
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        return { error: "Product name already exists" };
+      }
+    }
+    console.error(err);
     return {
       error: "[PRODUCT_CREATE]: SERVER ERROR",
     };
@@ -119,8 +125,8 @@ export async function editProduct({
         isUpdated,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[PRODUCT_EDIT]: SERVER ERROR",
     };
@@ -137,8 +143,8 @@ export async function deleteProduct({ productId }: { productId: string }) {
         id: Number(productId),
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error(err);
     return {
       error: "[PRODUCT_DELETE]: SERVER ERROR",
     };
