@@ -12,6 +12,10 @@ export type BrandWithRelations = Brand;
 
 export type ProductWithRelations = Product;
 
-export type ItemWithRelations = Item;
+export type ItemWithRelations = Item & {
+  _count: {
+    itemCodes: number;
+  };
+};
 
 export type ItemCodeWithRelations = ItemCode;

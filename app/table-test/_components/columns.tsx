@@ -1,86 +1,134 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { Eye, Pencil, Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DataTableColumnHeader } from "./common/data-table-column-header";
+import Link from "next/link";
+import { DeleteItemForm } from "@/components/forms";
+import { ItemWithRelations } from "@/@types/prisma";
+import DateTimeTemplate from "@/components/date-time-template";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: number;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<ItemWithRelations>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
   {
-    accessorKey: "email",
+    accessorKey: "id",
     header: ({ column }) => {
-      return (
-        <Button
-          variant={"link"}
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 size-4" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="ID" />;
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "name",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Name" />;
+    },
+    enableHiding: false,
+  },
+  {
+    accessorKey: "nameExt",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Name Ext" />;
     },
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "attr",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Attribute" />;
+    },
+  },
+  {
+    accessorKey: "_count.itemCodes",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Codes In" />;
+    },
+  },
+  {
+    accessorKey: "isMaterial",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Is Material" />;
+    },
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
+      const isMaterial = row.getValue("isMaterial");
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return <>{isMaterial === true && <Check className="size-4" />}</>;
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Created At" />;
+    },
+    cell: ({ row }) => {
+      const { createdAt } = row.original;
+
+      return <DateTimeTemplate timestamp={createdAt} />;
+    },
+  },
+  {
+    accessorKey: "updatedAt",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Updated At" />;
+    },
+    cell: ({ row }) => {
+      const { updatedAt, isUpdated } = row.original;
+
+      return (
+        <>
+          {isUpdated === false ? (
+            <span className="text-muted-foreground/25 text-xs">not yet</span>
+          ) : (
+            <DateTimeTemplate timestamp={updatedAt} />
+          )}
+        </>
+      );
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const item = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(payment.id.toString())
-              }
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex flex-row items-center justify-end gap-2">
+          <Button size={"icon-sm"} variant={"ghost"} asChild>
+            <Link href={`/items/${item.id}`}>
+              <Eye />
+              <span className="sr-only">View</span>
+            </Link>
+          </Button>
+          <Button size={"icon-sm"} variant={"ghost"} asChild>
+            <Link href={`/items/edit/${item.id}`}>
+              <Pencil />
+              <span className="sr-only">Edit</span>
+            </Link>
+          </Button>
+          <DeleteItemForm itemId={String(item.id)} />
+        </div>
       );
     },
   },
