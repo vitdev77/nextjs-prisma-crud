@@ -1,5 +1,12 @@
 import { Column } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ChevronDown,
+  ChevronsUpDown,
+  ChevronUp,
+  EyeOff,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -29,40 +36,57 @@ export function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="data-[state=open]:bg-accent -ml-3 h-8"
-          >
-            <span>{title}</span>
-            {column.getIsSorted() === "desc" ? (
-              <ArrowDown />
-            ) : column.getIsSorted() === "asc" ? (
-              <ArrowUp />
-            ) : (
-              <ChevronsUpDown />
-            )}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUp />
-            Asc
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDown />
-            Desc
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-            <EyeOff />
-            Hide
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    // <div className={cn("flex items-center gap-2", className)}>
+    //   <DropdownMenu>
+    //     <DropdownMenuTrigger asChild>
+    //       <Button
+    //         variant="ghost"
+    //         size="sm"
+    //         className="data-[state=open]:bg-accent -ml-3 h-8"
+    //       >
+    //         <span>{title}</span>
+    //         {column.getIsSorted() === "desc" ? (
+    //           <ArrowDown />
+    //         ) : column.getIsSorted() === "asc" ? (
+    //           <ArrowUp />
+    //         ) : (
+    //           <ChevronsUpDown />
+    //         )}
+    //       </Button>
+    //     </DropdownMenuTrigger>
+    //     <DropdownMenuContent align="start">
+    //       <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+    //         <ArrowUp />
+    //         Asc
+    //       </DropdownMenuItem>
+    //       <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+    //         <ArrowDown />
+    //         Desc
+    //       </DropdownMenuItem>
+    //       <DropdownMenuSeparator />
+    //       <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+    //         <EyeOff />
+    //         Hide
+    //       </DropdownMenuItem>
+    //     </DropdownMenuContent>
+    //   </DropdownMenu>
+    // </div>
+    <>
+      <Button
+        className="space-y-2"
+        variant="ghost"
+        size={"sm"}
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        {title}
+        {column.getIsSorted() === "desc" ? (
+          <ChevronUp className="size-4" />
+        ) : column.getIsSorted() === "asc" ? (
+          <ChevronDown className="size-4" />
+        ) : (
+          <ChevronsUpDown className="size-4" />
+        )}
+      </Button>
+    </>
   );
 }

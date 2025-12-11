@@ -15,7 +15,7 @@ export default async function Series() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-8">
-      <div className="mx-auto flex min-w-4xl flex-col gap-8">
+      <div className="mx-auto flex min-w-7xl flex-col gap-8">
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap items-center gap-4">
             <h1 className="text-4xl font-bold">shadcn/ui TanStack Table</h1>

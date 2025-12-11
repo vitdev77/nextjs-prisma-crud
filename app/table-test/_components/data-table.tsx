@@ -4,6 +4,8 @@ import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  FilterFn,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -14,14 +16,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -32,6 +26,20 @@ import {
 } from "@/components/ui/table";
 import { DataTablePagination } from "./common/data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
+import { ItemWithRelations } from "@/@types/prisma";
+
+// Custom filter function for multi-column searching
+const multiColumnFilter: FilterFn<ItemWithRelations> = (
+  row: Row<ItemWithRelations>,
+  columnId: string,
+  filterValue: string,
+) => {
+  // Concatenate values from the columns you want to search
+  const searchableRowContent = `${row.original.name} ${row.original.nameExt} ${row.original.attr}`;
+
+  // Perform a case-insensitive comparison
+  return searchableRowContent.toLowerCase().includes(filterValue.toLowerCase());
+};
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -49,6 +57,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [globalFilter, setGlobalFilter] = React.useState("");
 
   const table = useReactTable({
     data,
@@ -58,14 +67,17 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    getFilteredRowModel: getFilteredRowModel(), // Required for filtering
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    globalFilterFn: "includesString", // Use the custom function
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
+      globalFilter,
     },
   });
 
@@ -77,7 +89,7 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="bg-muted/50">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>

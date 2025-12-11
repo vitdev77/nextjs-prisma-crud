@@ -66,6 +66,7 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Codes In" />;
     },
+    enableHiding: false,
   },
   {
     accessorKey: "isMaterial",
