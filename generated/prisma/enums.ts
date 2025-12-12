@@ -69,8 +69,10 @@ export type PurchaseAttr = (typeof PurchaseAttr)[keyof typeof PurchaseAttr]
 
 
 export const GreenLogo = {
+  none: 'none',
   RoHS: 'RoHS',
-  REACH: 'REACH'
+  REACH: 'REACH',
+  REACH_RoHS: 'REACH_RoHS'
 } as const
 
 export type GreenLogo = (typeof GreenLogo)[keyof typeof GreenLogo]

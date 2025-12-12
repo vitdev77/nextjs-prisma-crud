@@ -25,8 +25,9 @@ import { z } from "zod";
 import { LoadingButton } from "@/components/loading-button";
 import { toast } from "sonner";
 import { editItem } from "@/actions/item.actions";
-import { UnitOfMeasure } from "@/generated/prisma/enums";
+import { GreenLogo, UnitOfMeasure } from "@/generated/prisma/enums";
 import { ItemWithRelations } from "@/@types/prisma";
+import { underscoreWithCommas } from "@/lib/utils";
 
 const editItemSchema = z.object({
   itemId: z.string().min(1, { message: "Item ID is required" }),
@@ -39,8 +40,9 @@ const editItemSchema = z.object({
     }),
   nameExt: z.string().optional(),
   attr: z.string().optional(),
-  unitOfMeasure: z.enum(UnitOfMeasure),
   isMaterial: z.boolean().optional(),
+  unitOfMeasure: z.enum(UnitOfMeasure),
+  greenLogo: z.enum(GreenLogo),
   isUpdated: z.boolean(),
 });
 
@@ -60,6 +62,10 @@ export function EditItemForm({ item, _onSubmit }: Props) {
       value: unitOfMeasureName,
     }),
   );
+  const greenLogos = Object.values(GreenLogo).map((greenLogoName, i) => ({
+    id: i + 1,
+    value: greenLogoName,
+  }));
 
   const form = useForm<EditItemValues>({
     resolver: zodResolver(editItemSchema),
@@ -68,8 +74,9 @@ export function EditItemForm({ item, _onSubmit }: Props) {
       name: item.name,
       nameExt: item.nameExt || "",
       attr: item.attr || "",
-      unitOfMeasure: item.unitOfMeasure,
       isMaterial: item.isMaterial || false,
+      unitOfMeasure: item.unitOfMeasure,
+      greenLogo: item.greenLogo,
       isUpdated: item.isUpdated || true,
     },
   });
@@ -222,6 +229,44 @@ export function EditItemForm({ item, _onSubmit }: Props) {
               }}
             />
           </div>
+
+          <FormField
+            control={form.control}
+            name="greenLogo"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Green Logo</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={loading}
+                    {...field}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full" disabled={loading}>
+                        <SelectValue placeholder="Select green logo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Green logos</SelectLabel>
+                        {greenLogos.map((greenLogosItem) => (
+                          <SelectItem
+                            key={greenLogosItem.id}
+                            value={String(greenLogosItem.value)}
+                          >
+                            {underscoreWithCommas(greenLogosItem.value)}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
 
           {error && (
             <div role="alert" className="text-destructive text-sm">

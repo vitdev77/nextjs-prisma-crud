@@ -1,6 +1,7 @@
 "use server";
 
-import { UnitOfMeasure } from "@/generated/prisma/enums";
+import { Prisma } from "@/generated/prisma/client";
+import { GreenLogo, UnitOfMeasure } from "@/generated/prisma/enums";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -44,14 +45,16 @@ export async function createItem({
   name,
   nameExt,
   attr,
-  unitOfMeasure,
   isMaterial,
+  unitOfMeasure,
+  greenLogo,
 }: {
   name: string;
   nameExt?: string;
   attr?: string;
-  unitOfMeasure: UnitOfMeasure;
   isMaterial?: boolean;
+  unitOfMeasure: UnitOfMeasure;
+  greenLogo: GreenLogo;
 }) {
   try {
     await prisma.item.create({
@@ -59,8 +62,9 @@ export async function createItem({
         name,
         nameExt,
         attr,
-        unitOfMeasure,
         isMaterial,
+        unitOfMeasure,
+        greenLogo,
       },
     });
   } catch (err) {
@@ -81,6 +85,7 @@ export async function editItem({
   attr,
   isMaterial,
   unitOfMeasure,
+  greenLogo,
   isUpdated,
 }: {
   itemId: string;
@@ -89,6 +94,7 @@ export async function editItem({
   attr?: string;
   isMaterial?: boolean;
   unitOfMeasure: UnitOfMeasure;
+  greenLogo: GreenLogo;
   isUpdated: boolean;
 }) {
   try {
@@ -102,6 +108,7 @@ export async function editItem({
         attr,
         isMaterial,
         unitOfMeasure,
+        greenLogo,
         isUpdated,
       },
     });
@@ -124,6 +131,11 @@ export async function deleteItem({ itemId }: { itemId: string }) {
       },
     });
   } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2003") {
+        return { error: "Item has some related item-codes" };
+      }
+    }
     console.error(err);
     return {
       error: "[ITEM_DELETE]: SERVER ERROR",

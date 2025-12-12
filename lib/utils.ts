@@ -19,3 +19,7 @@ export function underscoreWithHyphensToUppercasedText(text: string): string {
     .replaceAll(/_/g, "-") // Replace underscores with hyphens
     .toUpperCase();
 }
+
+export function underscoreWithCommas(text: string): string {
+  return text.replaceAll(/_/g, ", "); // Replace underscores with commas
+}

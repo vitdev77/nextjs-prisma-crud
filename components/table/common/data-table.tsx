@@ -24,22 +24,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DataTablePagination } from "./common/data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
-import { ItemWithRelations } from "@/@types/prisma";
+import { DataTablePagination } from "./data-table-pagination";
+// import { ItemWithRelations } from "@/@types/prisma";
 
 // Custom filter function for multi-column searching
-const multiColumnFilter: FilterFn<ItemWithRelations> = (
-  row: Row<ItemWithRelations>,
-  columnId: string,
-  filterValue: string,
-) => {
-  // Concatenate values from the columns you want to search
-  const searchableRowContent = `${row.original.name} ${row.original.nameExt} ${row.original.attr}`;
+// const multiColumnFilter: FilterFn<ItemWithRelations> = (
+//   row: Row<ItemWithRelations>,
+//   columnId: string,
+//   filterValue: string,
+// ) => {
+//   // Concatenate values from the columns you want to search
+//   const searchableRowContent = `${row.original.name} ${row.original.nameExt} ${row.original.attr} ${row.original.greenLogo}`;
 
-  // Perform a case-insensitive comparison
-  return searchableRowContent.toLowerCase().includes(filterValue.toLowerCase());
-};
+//   // Perform a case-insensitive comparison
+//   return searchableRowContent.toLowerCase().includes(filterValue.toLowerCase());
+// };
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -79,6 +79,11 @@ export function DataTable<TData, TValue>({
       rowSelection,
       globalFilter,
     },
+    // initialState: {
+    //   pagination: {
+    //     pageSize: 20,
+    //   },
+    // },
   });
 
   return (

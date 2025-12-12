@@ -55,9 +55,9 @@ model Item {
   name          String
   nameExt       String?
   attr          String?
-  greenLogo     GreenLogo[]   @default([])
-  unitOfMeasure UnitOfMeasure @default(piece)
   isMaterial    Boolean       @default(false)
+  unitOfMeasure UnitOfMeasure @default(piece)
+  greenLogo     GreenLogo     @default(none)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   isUpdated     Boolean       @default(false)
@@ -125,8 +125,10 @@ enum PurchaseAttr {
 }
 
 enum GreenLogo {
+  none
   RoHS
   REACH
+  REACH_RoHS
 }
 
 enum UnitOfMeasure {

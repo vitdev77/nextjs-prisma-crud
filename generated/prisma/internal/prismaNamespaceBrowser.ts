@@ -118,9 +118,9 @@ export const ItemScalarFieldEnum = {
   name: 'name',
   nameExt: 'nameExt',
   attr: 'attr',
-  greenLogo: 'greenLogo',
-  unitOfMeasure: 'unitOfMeasure',
   isMaterial: 'isMaterial',
+  unitOfMeasure: 'unitOfMeasure',
+  greenLogo: 'greenLogo',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isUpdated: 'isUpdated'

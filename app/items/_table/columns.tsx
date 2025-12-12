@@ -5,12 +5,12 @@ import { Eye, Pencil, Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DataTableColumnHeader } from "./common/data-table-column-header";
+import { DataTableColumnHeader } from "@/components/table/common/data-table-column-header";
 import Link from "next/link";
 import { DeleteItemForm } from "@/components/forms";
 import { ItemWithRelations } from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
-import { cn } from "@/lib/utils";
+import { cn, underscoreWithCommas } from "@/lib/utils";
 
 export const columns: ColumnDef<ItemWithRelations>[] = [
   {
@@ -65,6 +65,23 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     accessorKey: "attr",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Attribute" />;
+    },
+  },
+  {
+    accessorKey: "greenLogo",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Green Logo" />;
+    },
+    cell: ({ row }) => {
+      const greenLogo = row.getValue("greenLogo");
+
+      return (
+        <>
+          {greenLogo === "none"
+            ? ""
+            : underscoreWithCommas(greenLogo as string)}
+        </>
+      );
     },
   },
   {

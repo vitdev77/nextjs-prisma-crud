@@ -202,6 +202,13 @@ export type EnumUnitOfMeasureFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumUnitOfMeasureFilter<$PrismaModel> | $Enums.UnitOfMeasure
 }
 
+export type EnumGreenLogoFilter<$PrismaModel = never> = {
+  equals?: $Enums.GreenLogo | Prisma.EnumGreenLogoFieldRefInput<$PrismaModel>
+  in?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGreenLogoFilter<$PrismaModel> | $Enums.GreenLogo
+}
+
 export type SortOrderInput = {
   sort: Prisma.SortOrder
   nulls?: Prisma.NullsOrder
@@ -233,6 +240,16 @@ export type EnumUnitOfMeasureWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumUnitOfMeasureFilter<$PrismaModel>
   _max?: Prisma.NestedEnumUnitOfMeasureFilter<$PrismaModel>
+}
+
+export type EnumGreenLogoWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.GreenLogo | Prisma.EnumGreenLogoFieldRefInput<$PrismaModel>
+  in?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGreenLogoWithAggregatesFilter<$PrismaModel> | $Enums.GreenLogo
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGreenLogoFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGreenLogoFilter<$PrismaModel>
 }
 
 export type NestedIntFilter<$PrismaModel = never> = {
@@ -431,6 +448,13 @@ export type NestedEnumUnitOfMeasureFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumUnitOfMeasureFilter<$PrismaModel> | $Enums.UnitOfMeasure
 }
 
+export type NestedEnumGreenLogoFilter<$PrismaModel = never> = {
+  equals?: $Enums.GreenLogo | Prisma.EnumGreenLogoFieldRefInput<$PrismaModel>
+  in?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGreenLogoFilter<$PrismaModel> | $Enums.GreenLogo
+}
+
 export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -467,6 +491,16 @@ export type NestedEnumUnitOfMeasureWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumUnitOfMeasureFilter<$PrismaModel>
   _max?: Prisma.NestedEnumUnitOfMeasureFilter<$PrismaModel>
+}
+
+export type NestedEnumGreenLogoWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.GreenLogo | Prisma.EnumGreenLogoFieldRefInput<$PrismaModel>
+  in?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGreenLogoWithAggregatesFilter<$PrismaModel> | $Enums.GreenLogo
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGreenLogoFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGreenLogoFilter<$PrismaModel>
 }
 
 

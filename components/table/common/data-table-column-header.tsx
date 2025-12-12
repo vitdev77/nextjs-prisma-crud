@@ -22,7 +22,7 @@ export function DataTableColumnHeader<TData, TValue>({
 
   return (
     <button
-      className="flex flex-row items-center gap-2 py-2"
+      className="group flex flex-row items-center gap-2 py-2"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >
       {title}
@@ -31,7 +31,7 @@ export function DataTableColumnHeader<TData, TValue>({
       ) : column.getIsSorted() === "asc" ? (
         <ChevronDown className="size-4" />
       ) : (
-        <ChevronsUpDown className="size-4" />
+        <ChevronsUpDown className="stroke-muted-foreground/30 group-hover:stroke-primary size-4 transition duration-300 ease-in-out" />
       )}
     </button>
   );

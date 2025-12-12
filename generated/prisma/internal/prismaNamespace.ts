@@ -861,9 +861,9 @@ export const ItemScalarFieldEnum = {
   name: 'name',
   nameExt: 'nameExt',
   attr: 'attr',
-  greenLogo: 'greenLogo',
-  unitOfMeasure: 'unitOfMeasure',
   isMaterial: 'isMaterial',
+  unitOfMeasure: 'unitOfMeasure',
+  greenLogo: 'greenLogo',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isUpdated: 'isUpdated'
@@ -1020,9 +1020,16 @@ export type ListEnumBusinessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
- * Reference to a field of type 'GreenLogo[]'
+ * Reference to a field of type 'UnitOfMeasure'
  */
-export type ListEnumGreenLogoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GreenLogo[]'>
+export type EnumUnitOfMeasureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UnitOfMeasure'>
+    
+
+
+/**
+ * Reference to a field of type 'UnitOfMeasure[]'
+ */
+export type ListEnumUnitOfMeasureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UnitOfMeasure[]'>
     
 
 
@@ -1034,16 +1041,9 @@ export type EnumGreenLogoFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
- * Reference to a field of type 'UnitOfMeasure'
+ * Reference to a field of type 'GreenLogo[]'
  */
-export type EnumUnitOfMeasureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UnitOfMeasure'>
-    
-
-
-/**
- * Reference to a field of type 'UnitOfMeasure[]'
- */
-export type ListEnumUnitOfMeasureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UnitOfMeasure[]'>
+export type ListEnumGreenLogoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GreenLogo[]'>
     
 
 

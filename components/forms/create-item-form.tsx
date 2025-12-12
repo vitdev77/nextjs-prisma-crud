@@ -26,7 +26,8 @@ import { z } from "zod";
 import { LoadingButton } from "@/components/loading-button";
 import { toast } from "sonner";
 import { createItem } from "@/actions/item.actions";
-import { UnitOfMeasure } from "@/generated/prisma/enums";
+import { GreenLogo, UnitOfMeasure } from "@/generated/prisma/enums";
+import { underscoreWithCommas } from "@/lib/utils";
 
 const newItemSchema = z.object({
   name: z
@@ -40,6 +41,7 @@ const newItemSchema = z.object({
   attr: z.string().optional(),
   isMaterial: z.boolean().optional(),
   unitOfMeasure: z.enum(UnitOfMeasure),
+  greenLogo: z.enum(GreenLogo),
 });
 
 type NewItemValues = z.infer<typeof newItemSchema>;
@@ -53,6 +55,10 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
       value: unitOfMeasureName,
     }),
   );
+  const greenLogos = Object.values(GreenLogo).map((greenLogoName, i) => ({
+    id: i + 1,
+    value: greenLogoName,
+  }));
 
   const form = useForm<NewItemValues>({
     resolver: zodResolver(newItemSchema),
@@ -62,6 +68,7 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
       attr: "",
       isMaterial: false,
       unitOfMeasure: UnitOfMeasure.piece || "piece",
+      greenLogo: GreenLogo.none || "none",
     },
   });
 
@@ -214,6 +221,44 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
               }}
             />
           </div>
+
+          <FormField
+            control={form.control}
+            name="greenLogo"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Green Logo</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={loading}
+                    {...field}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full" disabled={loading}>
+                        <SelectValue placeholder="Select green logo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Green logos</SelectLabel>
+                        {greenLogos.map((greenLogosItem) => (
+                          <SelectItem
+                            key={greenLogosItem.id}
+                            value={String(greenLogosItem.value)}
+                          >
+                            {underscoreWithCommas(greenLogosItem.value)}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
 
           {error && (
             <div role="alert" className="text-destructive text-sm">

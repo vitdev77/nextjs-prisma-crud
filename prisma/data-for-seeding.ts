@@ -460,25 +460,25 @@ export const items = [
   {
     id: 6,
     name: "Packaging bag",
-    greenLogo: [GreenLogo.RoHS],
+    greenLogo: GreenLogo.RoHS,
     attr: "502604040011",
   },
   {
     id: 7,
     name: "European standard power cord",
-    greenLogo: [GreenLogo.RoHS, GreenLogo.REACH],
+    greenLogo: GreenLogo.REACH_RoHS,
     attr: "DYX-1127",
   },
   {
     id: 8,
     name: "PE film",
-    greenLogo: [GreenLogo.RoHS],
+    greenLogo: GreenLogo.RoHS,
     attr: "A0248-717",
   },
   {
     id: 9,
     name: "Magnetic strip",
-    greenLogo: [GreenLogo.RoHS],
+    greenLogo: GreenLogo.RoHS,
     attr: "MC9x2.6-01",
   },
 ];
