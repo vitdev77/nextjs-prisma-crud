@@ -1,5 +1,6 @@
 "use server";
 
+import { UnitOfMeasure } from "@/generated/prisma/enums";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -43,11 +44,13 @@ export async function createItem({
   name,
   nameExt,
   attr,
+  unitOfMeasure,
   isMaterial,
 }: {
   name: string;
   nameExt?: string;
   attr?: string;
+  unitOfMeasure: UnitOfMeasure;
   isMaterial?: boolean;
 }) {
   try {
@@ -56,6 +59,7 @@ export async function createItem({
         name,
         nameExt,
         attr,
+        unitOfMeasure,
         isMaterial,
       },
     });
@@ -76,6 +80,7 @@ export async function editItem({
   nameExt,
   attr,
   isMaterial,
+  unitOfMeasure,
   isUpdated,
 }: {
   itemId: string;
@@ -83,6 +88,7 @@ export async function editItem({
   nameExt?: string;
   attr?: string;
   isMaterial?: boolean;
+  unitOfMeasure: UnitOfMeasure;
   isUpdated: boolean;
 }) {
   try {
@@ -95,6 +101,7 @@ export async function editItem({
         nameExt,
         attr,
         isMaterial,
+        unitOfMeasure,
         isUpdated,
       },
     });

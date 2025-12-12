@@ -51,14 +51,16 @@ model Product {
 }
 
 model Item {
-  id         Int      @id @default(autoincrement())
-  name       String
-  nameExt    String?
-  attr       String?
-  isMaterial Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  isUpdated  Boolean  @default(false)
+  id            Int           @id @default(autoincrement())
+  name          String
+  nameExt       String?
+  attr          String?
+  greenLogo     GreenLogo[]   @default([])
+  unitOfMeasure UnitOfMeasure @default(piece)
+  isMaterial    Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  isUpdated     Boolean       @default(false)
 
   itemCodes ItemCode[]
 
@@ -120,4 +122,17 @@ enum PurchaseAttr {
   SA
   FG
   MP
+}
+
+enum GreenLogo {
+  RoHS
+  REACH
+}
+
+enum UnitOfMeasure {
+  piece
+  kg
+  meter
+  bucket
+  volume
 }

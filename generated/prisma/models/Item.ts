@@ -39,6 +39,7 @@ export type ItemMinAggregateOutputType = {
   name: string | null
   nameExt: string | null
   attr: string | null
+  unitOfMeasure: $Enums.UnitOfMeasure | null
   isMaterial: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -50,6 +51,7 @@ export type ItemMaxAggregateOutputType = {
   name: string | null
   nameExt: string | null
   attr: string | null
+  unitOfMeasure: $Enums.UnitOfMeasure | null
   isMaterial: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -61,6 +63,8 @@ export type ItemCountAggregateOutputType = {
   name: number
   nameExt: number
   attr: number
+  greenLogo: number
+  unitOfMeasure: number
   isMaterial: number
   createdAt: number
   updatedAt: number
@@ -82,6 +86,7 @@ export type ItemMinAggregateInputType = {
   name?: true
   nameExt?: true
   attr?: true
+  unitOfMeasure?: true
   isMaterial?: true
   createdAt?: true
   updatedAt?: true
@@ -93,6 +98,7 @@ export type ItemMaxAggregateInputType = {
   name?: true
   nameExt?: true
   attr?: true
+  unitOfMeasure?: true
   isMaterial?: true
   createdAt?: true
   updatedAt?: true
@@ -104,6 +110,8 @@ export type ItemCountAggregateInputType = {
   name?: true
   nameExt?: true
   attr?: true
+  greenLogo?: true
+  unitOfMeasure?: true
   isMaterial?: true
   createdAt?: true
   updatedAt?: true
@@ -202,6 +210,8 @@ export type ItemGroupByOutputType = {
   name: string
   nameExt: string | null
   attr: string | null
+  greenLogo: $Enums.GreenLogo[]
+  unitOfMeasure: $Enums.UnitOfMeasure
   isMaterial: boolean
   createdAt: Date
   updatedAt: Date
@@ -236,6 +246,8 @@ export type ItemWhereInput = {
   name?: Prisma.StringFilter<"Item"> | string
   nameExt?: Prisma.StringNullableFilter<"Item"> | string | null
   attr?: Prisma.StringNullableFilter<"Item"> | string | null
+  greenLogo?: Prisma.EnumGreenLogoNullableListFilter<"Item">
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFilter<"Item"> | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFilter<"Item"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
@@ -248,6 +260,8 @@ export type ItemOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   nameExt?: Prisma.SortOrderInput | Prisma.SortOrder
   attr?: Prisma.SortOrderInput | Prisma.SortOrder
+  greenLogo?: Prisma.SortOrder
+  unitOfMeasure?: Prisma.SortOrder
   isMaterial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -263,6 +277,8 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Item"> | string
   nameExt?: Prisma.StringNullableFilter<"Item"> | string | null
   attr?: Prisma.StringNullableFilter<"Item"> | string | null
+  greenLogo?: Prisma.EnumGreenLogoNullableListFilter<"Item">
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFilter<"Item"> | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFilter<"Item"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
@@ -275,6 +291,8 @@ export type ItemOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   nameExt?: Prisma.SortOrderInput | Prisma.SortOrder
   attr?: Prisma.SortOrderInput | Prisma.SortOrder
+  greenLogo?: Prisma.SortOrder
+  unitOfMeasure?: Prisma.SortOrder
   isMaterial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -294,6 +312,8 @@ export type ItemScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Item"> | string
   nameExt?: Prisma.StringNullableWithAggregatesFilter<"Item"> | string | null
   attr?: Prisma.StringNullableWithAggregatesFilter<"Item"> | string | null
+  greenLogo?: Prisma.EnumGreenLogoNullableListFilter<"Item">
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureWithAggregatesFilter<"Item"> | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolWithAggregatesFilter<"Item"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
@@ -304,6 +324,8 @@ export type ItemCreateInput = {
   name: string
   nameExt?: string | null
   attr?: string | null
+  greenLogo?: Prisma.ItemCreategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: $Enums.UnitOfMeasure
   isMaterial?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -316,6 +338,8 @@ export type ItemUncheckedCreateInput = {
   name: string
   nameExt?: string | null
   attr?: string | null
+  greenLogo?: Prisma.ItemCreategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: $Enums.UnitOfMeasure
   isMaterial?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -327,6 +351,8 @@ export type ItemUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greenLogo?: Prisma.ItemUpdategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -339,6 +365,8 @@ export type ItemUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greenLogo?: Prisma.ItemUpdategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -351,6 +379,8 @@ export type ItemCreateManyInput = {
   name: string
   nameExt?: string | null
   attr?: string | null
+  greenLogo?: Prisma.ItemCreategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: $Enums.UnitOfMeasure
   isMaterial?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -361,6 +391,8 @@ export type ItemUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greenLogo?: Prisma.ItemUpdategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -372,10 +404,20 @@ export type ItemUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greenLogo?: Prisma.ItemUpdategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type EnumGreenLogoNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel> | null
+  has?: $Enums.GreenLogo | Prisma.EnumGreenLogoFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.GreenLogo[] | Prisma.ListEnumGreenLogoFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type ItemCountOrderByAggregateInput = {
@@ -383,6 +425,8 @@ export type ItemCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   nameExt?: Prisma.SortOrder
   attr?: Prisma.SortOrder
+  greenLogo?: Prisma.SortOrder
+  unitOfMeasure?: Prisma.SortOrder
   isMaterial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -398,6 +442,7 @@ export type ItemMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   nameExt?: Prisma.SortOrder
   attr?: Prisma.SortOrder
+  unitOfMeasure?: Prisma.SortOrder
   isMaterial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -409,6 +454,7 @@ export type ItemMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   nameExt?: Prisma.SortOrder
   attr?: Prisma.SortOrder
+  unitOfMeasure?: Prisma.SortOrder
   isMaterial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -424,8 +470,21 @@ export type ItemScalarRelationFilter = {
   isNot?: Prisma.ItemWhereInput
 }
 
+export type ItemCreategreenLogoInput = {
+  set: $Enums.GreenLogo[]
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type ItemUpdategreenLogoInput = {
+  set?: $Enums.GreenLogo[]
+  push?: $Enums.GreenLogo | $Enums.GreenLogo[]
+}
+
+export type EnumUnitOfMeasureFieldUpdateOperationsInput = {
+  set?: $Enums.UnitOfMeasure
 }
 
 export type ItemCreateNestedOneWithoutItemCodesInput = {
@@ -446,6 +505,8 @@ export type ItemCreateWithoutItemCodesInput = {
   name: string
   nameExt?: string | null
   attr?: string | null
+  greenLogo?: Prisma.ItemCreategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: $Enums.UnitOfMeasure
   isMaterial?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -457,6 +518,8 @@ export type ItemUncheckedCreateWithoutItemCodesInput = {
   name: string
   nameExt?: string | null
   attr?: string | null
+  greenLogo?: Prisma.ItemCreategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: $Enums.UnitOfMeasure
   isMaterial?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -483,6 +546,8 @@ export type ItemUpdateWithoutItemCodesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greenLogo?: Prisma.ItemUpdategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -494,6 +559,8 @@ export type ItemUncheckedUpdateWithoutItemCodesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greenLogo?: Prisma.ItemUpdategreenLogoInput | $Enums.GreenLogo[]
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
   isMaterial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -536,6 +603,8 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   nameExt?: boolean
   attr?: boolean
+  greenLogo?: boolean
+  unitOfMeasure?: boolean
   isMaterial?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -549,6 +618,8 @@ export type ItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   nameExt?: boolean
   attr?: boolean
+  greenLogo?: boolean
+  unitOfMeasure?: boolean
   isMaterial?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -560,6 +631,8 @@ export type ItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   nameExt?: boolean
   attr?: boolean
+  greenLogo?: boolean
+  unitOfMeasure?: boolean
   isMaterial?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -571,13 +644,15 @@ export type ItemSelectScalar = {
   name?: boolean
   nameExt?: boolean
   attr?: boolean
+  greenLogo?: boolean
+  unitOfMeasure?: boolean
   isMaterial?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   isUpdated?: boolean
 }
 
-export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nameExt" | "attr" | "isMaterial" | "createdAt" | "updatedAt" | "isUpdated", ExtArgs["result"]["item"]>
+export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nameExt" | "attr" | "greenLogo" | "unitOfMeasure" | "isMaterial" | "createdAt" | "updatedAt" | "isUpdated", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   itemCodes?: boolean | Prisma.Item$itemCodesArgs<ExtArgs>
   _count?: boolean | Prisma.ItemCountOutputTypeDefaultArgs<ExtArgs>
@@ -595,6 +670,8 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     nameExt: string | null
     attr: string | null
+    greenLogo: $Enums.GreenLogo[]
+    unitOfMeasure: $Enums.UnitOfMeasure
     isMaterial: boolean
     createdAt: Date
     updatedAt: Date
@@ -1027,6 +1104,8 @@ export interface ItemFieldRefs {
   readonly name: Prisma.FieldRef<"Item", 'String'>
   readonly nameExt: Prisma.FieldRef<"Item", 'String'>
   readonly attr: Prisma.FieldRef<"Item", 'String'>
+  readonly greenLogo: Prisma.FieldRef<"Item", 'GreenLogo[]'>
+  readonly unitOfMeasure: Prisma.FieldRef<"Item", 'UnitOfMeasure'>
   readonly isMaterial: Prisma.FieldRef<"Item", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Item", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Item", 'DateTime'>

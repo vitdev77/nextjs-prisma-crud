@@ -25,6 +25,7 @@ import { z } from "zod";
 import { LoadingButton } from "@/components/loading-button";
 import { toast } from "sonner";
 import { editItem } from "@/actions/item.actions";
+import { UnitOfMeasure } from "@/generated/prisma/enums";
 import { ItemWithRelations } from "@/@types/prisma";
 
 const editItemSchema = z.object({
@@ -38,6 +39,7 @@ const editItemSchema = z.object({
     }),
   nameExt: z.string().optional(),
   attr: z.string().optional(),
+  unitOfMeasure: z.enum(UnitOfMeasure),
   isMaterial: z.boolean().optional(),
   isUpdated: z.boolean(),
 });
@@ -52,13 +54,21 @@ interface Props {
 export function EditItemForm({ item, _onSubmit }: Props) {
   const [error, setError] = React.useState<string | null>(null);
 
+  const unitsOfMeasure = Object.values(UnitOfMeasure).map(
+    (unitOfMeasureName, i) => ({
+      id: i + 1,
+      value: unitOfMeasureName,
+    }),
+  );
+
   const form = useForm<EditItemValues>({
     resolver: zodResolver(editItemSchema),
     defaultValues: {
       itemId: String(item.id),
-      name: item.name || "",
+      name: item.name,
       nameExt: item.nameExt || "",
       attr: item.attr || "",
+      unitOfMeasure: item.unitOfMeasure,
       isMaterial: item.isMaterial || false,
       isUpdated: item.isUpdated || true,
     },
@@ -143,33 +153,75 @@ export function EditItemForm({ item, _onSubmit }: Props) {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="isMaterial"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Is Material</FormLabel>
-                  <Select
-                    onValueChange={(value) => field.onChange(value === "true")} // Convert string to boolean
-                    defaultValue={field.value ? "true" : "false"} // Convert boolean to string for default value
-                    disabled={loading}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full" disabled={loading}>
-                        <SelectValue placeholder="Select one" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="false">No</SelectItem>
-                      <SelectItem value="true">Yes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="isMaterial"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Is Material</FormLabel>
+                    <Select
+                      onValueChange={(value) =>
+                        field.onChange(value === "true")
+                      } // Convert string to boolean
+                      defaultValue={field.value ? "true" : "false"} // Convert boolean to string for default value
+                      disabled={loading}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="false">No</SelectItem>
+                        <SelectItem value="true">Yes</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <FormField
+              control={form.control}
+              name="unitOfMeasure"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Unit of Measure</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select unit of measure" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Units of measure</SelectLabel>
+                          {unitsOfMeasure.map((unitsOfMeasureItem) => (
+                            <SelectItem
+                              key={unitsOfMeasureItem.id}
+                              value={String(unitsOfMeasureItem.value)}
+                            >
+                              {unitsOfMeasureItem.value}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </div>
 
           {error && (
             <div role="alert" className="text-destructive text-sm">

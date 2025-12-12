@@ -113,12 +113,12 @@ export function EditProductForm({ product, _onSubmit }: Props) {
   const form = useForm<EditProductValues>({
     resolver: zodResolver(editProductSchema),
     defaultValues: {
+      productId: String(product.id),
       name: product.name,
       seriesAttr: product.seriesAttr,
       color: product.color,
       displayPlaced: product.displayPlaced,
       businessType: product.businessType,
-      productId: String(product.id),
       brandId: String(product.brandId),
       seriesId: String(product.seriesId),
       isUpdated: product.isUpdated || true,

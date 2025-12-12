@@ -10,6 +10,7 @@ import Link from "next/link";
 import { DeleteItemForm } from "@/components/forms";
 import { ItemWithRelations } from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
+import { cn } from "@/lib/utils";
 
 export const columns: ColumnDef<ItemWithRelations>[] = [
   {
@@ -53,6 +54,11 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     accessorKey: "nameExt",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Name Ext" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="text-muted-foreground">{row.getValue("nameExt")}</div>
+      );
     },
   },
   {
@@ -108,6 +114,7 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
         </>
       );
     },
+    enableSorting: false,
   },
   {
     id: "actions",

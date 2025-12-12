@@ -66,3 +66,22 @@ export const PurchaseAttr = {
 } as const
 
 export type PurchaseAttr = (typeof PurchaseAttr)[keyof typeof PurchaseAttr]
+
+
+export const GreenLogo = {
+  RoHS: 'RoHS',
+  REACH: 'REACH'
+} as const
+
+export type GreenLogo = (typeof GreenLogo)[keyof typeof GreenLogo]
+
+
+export const UnitOfMeasure = {
+  piece: 'piece',
+  kg: 'kg',
+  meter: 'meter',
+  bucket: 'bucket',
+  volume: 'volume'
+} as const
+
+export type UnitOfMeasure = (typeof UnitOfMeasure)[keyof typeof UnitOfMeasure]

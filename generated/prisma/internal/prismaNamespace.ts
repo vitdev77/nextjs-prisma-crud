@@ -861,6 +861,8 @@ export const ItemScalarFieldEnum = {
   name: 'name',
   nameExt: 'nameExt',
   attr: 'attr',
+  greenLogo: 'greenLogo',
+  unitOfMeasure: 'unitOfMeasure',
   isMaterial: 'isMaterial',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -1014,6 +1016,34 @@ export type EnumBusinessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'BusinessType[]'
  */
 export type ListEnumBusinessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'GreenLogo[]'
+ */
+export type ListEnumGreenLogoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GreenLogo[]'>
+    
+
+
+/**
+ * Reference to a field of type 'GreenLogo'
+ */
+export type EnumGreenLogoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GreenLogo'>
+    
+
+
+/**
+ * Reference to a field of type 'UnitOfMeasure'
+ */
+export type EnumUnitOfMeasureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UnitOfMeasure'>
+    
+
+
+/**
+ * Reference to a field of type 'UnitOfMeasure[]'
+ */
+export type ListEnumUnitOfMeasureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UnitOfMeasure[]'>
     
 
 

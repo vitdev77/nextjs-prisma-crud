@@ -1,6 +1,7 @@
 import {
   BusinessType,
   DisplayPlaced,
+  GreenLogo,
   ProductColor,
   SeriesAttr,
 } from "@/generated/prisma/enums";
@@ -439,6 +440,46 @@ export const items = [
     nameExt: "Transparent Light Gray",
     attr: "RE-GY901",
     isMaterial: true,
+  },
+  {
+    id: 3,
+    name: "Sponge tape",
+    attr: "502101000155",
+  },
+  {
+    id: 4,
+    name: "The screw base",
+    attr: "A0084-202",
+  },
+  {
+    id: 5,
+    name: "Copper tube",
+    nameExt: "ф4.76x0.65",
+    attr: "GJ-0060",
+  },
+  {
+    id: 6,
+    name: "Packaging bag",
+    greenLogo: [GreenLogo.RoHS],
+    attr: "502604040011",
+  },
+  {
+    id: 7,
+    name: "European standard power cord",
+    greenLogo: [GreenLogo.RoHS, GreenLogo.REACH],
+    attr: "DYX-1127",
+  },
+  {
+    id: 8,
+    name: "PE film",
+    greenLogo: [GreenLogo.RoHS],
+    attr: "A0248-717",
+  },
+  {
+    id: 9,
+    name: "Magnetic strip",
+    greenLogo: [GreenLogo.RoHS],
+    attr: "MC9x2.6-01",
   },
 ];
 
