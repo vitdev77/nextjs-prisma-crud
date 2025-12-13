@@ -66,10 +66,10 @@ interface Props {
 
 export function EditProductForm({ product, _onSubmit }: Props) {
   const [brands, setBrands] = React.useState<
-    { id: number; name: string | null }[]
+    { id: string; name: string | null }[]
   >([]);
   const [series, setSeries] = React.useState<
-    { id: number; name: string | null }[]
+    { id: string; name: string | null }[]
   >([]);
   const [error, setError] = React.useState<string | null>(null);
 

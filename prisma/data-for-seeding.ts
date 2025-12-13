@@ -460,7 +460,6 @@ export const items = [
   {
     id: 6,
     name: "Packaging bag",
-    greenLogo: GreenLogo.RoHS,
     attr: "502604040011",
   },
   {
@@ -472,14 +471,24 @@ export const items = [
   {
     id: 8,
     name: "PE film",
-    greenLogo: GreenLogo.RoHS,
     attr: "A0248-717",
   },
   {
     id: 9,
     name: "Magnetic strip",
-    greenLogo: GreenLogo.RoHS,
     attr: "MC9x2.6-01",
+  },
+  {
+    id: 10,
+    name: "Door Gasket Assembly of Freezer",
+    attr: "A1630-343",
+  },
+  {
+    id: 11,
+    name: "Polyvinyl chloride",
+    nameExt: "PVC",
+    attr: "RE-GY102",
+    isMaterial: true,
   },
 ];
 

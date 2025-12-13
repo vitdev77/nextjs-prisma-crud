@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Brand {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -20,7 +20,7 @@ model Brand {
 }
 
 model Series {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -32,14 +32,14 @@ model Series {
 }
 
 model Product {
-  id            Int           @id @default(autoincrement())
+  id            String        @id @default(uuid())
   name          String        @unique
   seriesAttr    SeriesAttr    @default(NONE)
   color         ProductColor  @default(WHITE)
   displayPlaced DisplayPlaced @default(ON_DOOR)
   businessType  BusinessType  @default(OBM)
-  brandId       Int
-  seriesId      Int
+  brandId       String
+  seriesId      String
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   isUpdated     Boolean       @default(false)
@@ -51,13 +51,14 @@ model Product {
 }
 
 model Item {
-  id            Int           @id @default(autoincrement())
+  id            String        @id @default(uuid())
   name          String
   nameExt       String?
   attr          String?
   isMaterial    Boolean       @default(false)
+  isAssembly    Boolean       @default(false)
   unitOfMeasure UnitOfMeasure @default(piece)
-  greenLogo     GreenLogo     @default(none)
+  greenLogo     GreenLogo     @default(RoHS)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   isUpdated     Boolean       @default(false)
@@ -68,9 +69,9 @@ model Item {
 }
 
 model ItemCode {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   code      String   @unique
-  itemId    Int
+  itemId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isUpdated Boolean  @default(false)
@@ -128,7 +129,9 @@ enum GreenLogo {
   none
   RoHS
   REACH
+  TSCA
   REACH_RoHS
+  RoHS_TSCA
 }
 
 enum UnitOfMeasure {

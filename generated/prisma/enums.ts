@@ -72,7 +72,9 @@ export const GreenLogo = {
   none: 'none',
   RoHS: 'RoHS',
   REACH: 'REACH',
-  REACH_RoHS: 'REACH_RoHS'
+  TSCA: 'TSCA',
+  REACH_RoHS: 'REACH_RoHS',
+  RoHS_TSCA: 'RoHS_TSCA'
 } as const
 
 export type GreenLogo = (typeof GreenLogo)[keyof typeof GreenLogo]

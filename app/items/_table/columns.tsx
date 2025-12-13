@@ -1,16 +1,16 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Check } from "lucide-react";
+import { Eye, Pencil, Check, Plus } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/table/common/data-table-column-header";
 import Link from "next/link";
 import { DeleteItemForm } from "@/components/forms";
 import { ItemWithRelations } from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
-import { cn, underscoreWithCommas } from "@/lib/utils";
+import { cn, truncateMiddle, underscoreWithCommas } from "@/lib/utils";
 
 export const columns: ColumnDef<ItemWithRelations>[] = [
   {
@@ -40,13 +40,19 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="ID" />;
     },
-    enableSorting: false,
-    enableHiding: false,
+    cell: ({ row }) => (
+      <span className="text-muted-foreground font-mono text-xs">
+        {truncateMiddle(row.getValue("id"), 8, 3)}
+      </span>
+    ),
   },
   {
     accessorKey: "name",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Name" />;
+    },
+    cell: ({ row }) => {
+      return <div className="font-medium">{row.getValue("name")}</div>;
     },
     enableHiding: false,
   },
@@ -66,6 +72,9 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Attribute" />;
     },
+    cell: ({ row }) => {
+      return <div className="font-medium">{row.getValue("attr")}</div>;
+    },
   },
   {
     accessorKey: "greenLogo",
@@ -73,13 +82,17 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       return <DataTableColumnHeader column={column} title="Green Logo" />;
     },
     cell: ({ row }) => {
-      const greenLogo = row.getValue("greenLogo");
+      const { greenLogo } = row.original;
 
       return (
         <>
-          {greenLogo === "none"
-            ? ""
-            : underscoreWithCommas(greenLogo as string)}
+          {greenLogo === "none" ? (
+            ""
+          ) : (
+            <div className="text-muted-foreground text-xs">
+              {underscoreWithCommas(greenLogo as string)}
+            </div>
+          )}
         </>
       );
     },
@@ -88,6 +101,23 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     accessorKey: "_count.itemCodes",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Codes In" />;
+    },
+    cell: ({ row }) => {
+      const { _count } = row.original;
+      let result;
+      if (_count.itemCodes === 0) {
+        result = (
+          <Link
+            href={"/item-codes/new"}
+            className={buttonVariants({ variant: "outline", size: "icon-sm" })}
+          >
+            <Plus className="size-4" />
+          </Link>
+        );
+      } else {
+        result = _count.itemCodes;
+      }
+      return result;
     },
     enableHiding: false,
   },
@@ -100,6 +130,17 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       const isMaterial = row.getValue("isMaterial");
 
       return <>{isMaterial === true && <Check className="size-4" />}</>;
+    },
+  },
+  {
+    accessorKey: "isAssembly",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Is Assembly" />;
+    },
+    cell: ({ row }) => {
+      const isAssembly = row.getValue("isAssembly");
+
+      return <>{isAssembly === true && <Check className="size-4" />}</>;
     },
   },
   {
@@ -152,7 +193,7 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
               <span className="sr-only">Edit</span>
             </Link>
           </Button>
-          <DeleteItemForm itemId={String(item.id)} />
+          <DeleteItemForm itemId={item.id} />
         </div>
       );
     },

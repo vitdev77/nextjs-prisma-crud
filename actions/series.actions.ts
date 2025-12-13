@@ -16,7 +16,7 @@ export async function getSeries() {
         },
       },
       orderBy: {
-        id: "asc",
+        updatedAt: "desc",
       },
     });
   } catch (err) {
@@ -30,7 +30,7 @@ export async function getSeriesById({ seriesId }: { seriesId: string }) {
   try {
     return await prisma.series.findFirst({
       where: {
-        id: Number(seriesId),
+        id: seriesId,
       },
     });
   } catch (err) {
@@ -48,7 +48,7 @@ export async function getProductsBySeriesId({
   try {
     return await prisma.product.findMany({
       where: {
-        seriesId: Number(seriesId),
+        seriesId: seriesId,
       },
       orderBy: {
         createdAt: "desc",
@@ -98,7 +98,7 @@ export async function editSeries({
   try {
     await prisma.series.update({
       where: {
-        id: Number(seriesId),
+        id: seriesId,
       },
       data: {
         name,
@@ -120,7 +120,7 @@ export async function deleteSeries({ seriesId }: { seriesId: string }) {
   try {
     await prisma.series.delete({
       where: {
-        id: Number(seriesId),
+        id: seriesId,
       },
     });
   } catch (err) {

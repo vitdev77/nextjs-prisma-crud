@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { addSpacesBeforeCaps } from "@/lib/utils";
 
 export function DataTableViewOptions<TData>({
   table,
@@ -43,7 +44,7 @@ export function DataTableViewOptions<TData>({
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {addSpacesBeforeCaps(column.id)}
               </DropdownMenuCheckboxItem>
             );
           })}

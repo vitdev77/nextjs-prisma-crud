@@ -23,15 +23,18 @@ export default async function Items() {
             <h1 className="text-4xl font-bold">Items</h1>
             <Button asChild>
               <Link href={"/items/new"}>
-                <Plus /> New item
+                <Plus /> New Item
               </Link>
             </Button>
           </div>
           <div className="flex h-5 items-center gap-2">
+            <ReturnButton btnVariant="link" href="/products" label="Products" />
+            <Separator orientation="vertical" />
             <ReturnButton
               btnVariant="link"
-              href="/products"
-              label="All Products Page"
+              href="/item-codes"
+              label="Item Codes"
+              showArrow={false}
             />
             <Separator orientation="vertical" />
             <Button variant={"ghost"} size={"icon-sm"} asChild>

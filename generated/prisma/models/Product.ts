@@ -20,47 +20,33 @@ export type ProductModel = runtime.Types.Result.DefaultSelection<Prisma.$Product
 
 export type AggregateProduct = {
   _count: ProductCountAggregateOutputType | null
-  _avg: ProductAvgAggregateOutputType | null
-  _sum: ProductSumAggregateOutputType | null
   _min: ProductMinAggregateOutputType | null
   _max: ProductMaxAggregateOutputType | null
 }
 
-export type ProductAvgAggregateOutputType = {
-  id: number | null
-  brandId: number | null
-  seriesId: number | null
-}
-
-export type ProductSumAggregateOutputType = {
-  id: number | null
-  brandId: number | null
-  seriesId: number | null
-}
-
 export type ProductMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   seriesAttr: $Enums.SeriesAttr | null
   color: $Enums.ProductColor | null
   displayPlaced: $Enums.DisplayPlaced | null
   businessType: $Enums.BusinessType | null
-  brandId: number | null
-  seriesId: number | null
+  brandId: string | null
+  seriesId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isUpdated: boolean | null
 }
 
 export type ProductMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   seriesAttr: $Enums.SeriesAttr | null
   color: $Enums.ProductColor | null
   displayPlaced: $Enums.DisplayPlaced | null
   businessType: $Enums.BusinessType | null
-  brandId: number | null
-  seriesId: number | null
+  brandId: string | null
+  seriesId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isUpdated: boolean | null
@@ -81,18 +67,6 @@ export type ProductCountAggregateOutputType = {
   _all: number
 }
 
-
-export type ProductAvgAggregateInputType = {
-  id?: true
-  brandId?: true
-  seriesId?: true
-}
-
-export type ProductSumAggregateInputType = {
-  id?: true
-  brandId?: true
-  seriesId?: true
-}
 
 export type ProductMinAggregateInputType = {
   id?: true
@@ -175,18 +149,6 @@ export type ProductAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: ProductAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: ProductSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: ProductMinAggregateInputType
@@ -217,27 +179,23 @@ export type ProductGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: ProductCountAggregateInputType | true
-  _avg?: ProductAvgAggregateInputType
-  _sum?: ProductSumAggregateInputType
   _min?: ProductMinAggregateInputType
   _max?: ProductMaxAggregateInputType
 }
 
 export type ProductGroupByOutputType = {
-  id: number
+  id: string
   name: string
   seriesAttr: $Enums.SeriesAttr
   color: $Enums.ProductColor
   displayPlaced: $Enums.DisplayPlaced
   businessType: $Enums.BusinessType
-  brandId: number
-  seriesId: number
+  brandId: string
+  seriesId: string
   createdAt: Date
   updatedAt: Date
   isUpdated: boolean
   _count: ProductCountAggregateOutputType | null
-  _avg: ProductAvgAggregateOutputType | null
-  _sum: ProductSumAggregateOutputType | null
   _min: ProductMinAggregateOutputType | null
   _max: ProductMaxAggregateOutputType | null
 }
@@ -261,14 +219,14 @@ export type ProductWhereInput = {
   AND?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   OR?: Prisma.ProductWhereInput[]
   NOT?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
-  id?: Prisma.IntFilter<"Product"> | number
+  id?: Prisma.StringFilter<"Product"> | string
   name?: Prisma.StringFilter<"Product"> | string
   seriesAttr?: Prisma.EnumSeriesAttrFilter<"Product"> | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFilter<"Product"> | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFilter<"Product"> | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFilter<"Product"> | $Enums.BusinessType
-  brandId?: Prisma.IntFilter<"Product"> | number
-  seriesId?: Prisma.IntFilter<"Product"> | number
+  brandId?: Prisma.StringFilter<"Product"> | string
+  seriesId?: Prisma.StringFilter<"Product"> | string
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   isUpdated?: Prisma.BoolFilter<"Product"> | boolean
@@ -293,7 +251,7 @@ export type ProductOrderByWithRelationInput = {
 }
 
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   name?: string
   AND?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   OR?: Prisma.ProductWhereInput[]
@@ -302,8 +260,8 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   color?: Prisma.EnumProductColorFilter<"Product"> | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFilter<"Product"> | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFilter<"Product"> | $Enums.BusinessType
-  brandId?: Prisma.IntFilter<"Product"> | number
-  seriesId?: Prisma.IntFilter<"Product"> | number
+  brandId?: Prisma.StringFilter<"Product"> | string
+  seriesId?: Prisma.StringFilter<"Product"> | string
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   isUpdated?: Prisma.BoolFilter<"Product"> | boolean
@@ -324,30 +282,29 @@ export type ProductOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   isUpdated?: Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
-  _avg?: Prisma.ProductAvgOrderByAggregateInput
   _max?: Prisma.ProductMaxOrderByAggregateInput
   _min?: Prisma.ProductMinOrderByAggregateInput
-  _sum?: Prisma.ProductSumOrderByAggregateInput
 }
 
 export type ProductScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductScalarWhereWithAggregatesInput | Prisma.ProductScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductScalarWhereWithAggregatesInput | Prisma.ProductScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Product"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Product"> | string
   name?: Prisma.StringWithAggregatesFilter<"Product"> | string
   seriesAttr?: Prisma.EnumSeriesAttrWithAggregatesFilter<"Product"> | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorWithAggregatesFilter<"Product"> | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedWithAggregatesFilter<"Product"> | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeWithAggregatesFilter<"Product"> | $Enums.BusinessType
-  brandId?: Prisma.IntWithAggregatesFilter<"Product"> | number
-  seriesId?: Prisma.IntWithAggregatesFilter<"Product"> | number
+  brandId?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  seriesId?: Prisma.StringWithAggregatesFilter<"Product"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   isUpdated?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
 }
 
 export type ProductCreateInput = {
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
@@ -361,20 +318,21 @@ export type ProductCreateInput = {
 }
 
 export type ProductUncheckedCreateInput = {
-  id?: number
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
   displayPlaced?: $Enums.DisplayPlaced
   businessType?: $Enums.BusinessType
-  brandId: number
-  seriesId: number
+  brandId: string
+  seriesId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
 }
 
 export type ProductUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
@@ -388,34 +346,35 @@ export type ProductUpdateInput = {
 }
 
 export type ProductUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFieldUpdateOperationsInput | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
-  brandId?: Prisma.IntFieldUpdateOperationsInput | number
-  seriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  brandId?: Prisma.StringFieldUpdateOperationsInput | string
+  seriesId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ProductCreateManyInput = {
-  id?: number
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
   displayPlaced?: $Enums.DisplayPlaced
   businessType?: $Enums.BusinessType
-  brandId: number
-  seriesId: number
+  brandId: string
+  seriesId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
 }
 
 export type ProductUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
@@ -427,14 +386,14 @@ export type ProductUpdateManyMutationInput = {
 }
 
 export type ProductUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFieldUpdateOperationsInput | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
-  brandId?: Prisma.IntFieldUpdateOperationsInput | number
-  seriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  brandId?: Prisma.StringFieldUpdateOperationsInput | string
+  seriesId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -464,12 +423,6 @@ export type ProductCountOrderByAggregateInput = {
   isUpdated?: Prisma.SortOrder
 }
 
-export type ProductAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  brandId?: Prisma.SortOrder
-  seriesId?: Prisma.SortOrder
-}
-
 export type ProductMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -496,12 +449,6 @@ export type ProductMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isUpdated?: Prisma.SortOrder
-}
-
-export type ProductSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  brandId?: Prisma.SortOrder
-  seriesId?: Prisma.SortOrder
 }
 
 export type ProductCreateNestedManyWithoutBrandInput = {
@@ -605,6 +552,7 @@ export type EnumBusinessTypeFieldUpdateOperationsInput = {
 }
 
 export type ProductCreateWithoutBrandInput = {
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
@@ -617,13 +565,13 @@ export type ProductCreateWithoutBrandInput = {
 }
 
 export type ProductUncheckedCreateWithoutBrandInput = {
-  id?: number
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
   displayPlaced?: $Enums.DisplayPlaced
   businessType?: $Enums.BusinessType
-  seriesId: number
+  seriesId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
@@ -659,20 +607,21 @@ export type ProductScalarWhereInput = {
   AND?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
   OR?: Prisma.ProductScalarWhereInput[]
   NOT?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
-  id?: Prisma.IntFilter<"Product"> | number
+  id?: Prisma.StringFilter<"Product"> | string
   name?: Prisma.StringFilter<"Product"> | string
   seriesAttr?: Prisma.EnumSeriesAttrFilter<"Product"> | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFilter<"Product"> | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFilter<"Product"> | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFilter<"Product"> | $Enums.BusinessType
-  brandId?: Prisma.IntFilter<"Product"> | number
-  seriesId?: Prisma.IntFilter<"Product"> | number
+  brandId?: Prisma.StringFilter<"Product"> | string
+  seriesId?: Prisma.StringFilter<"Product"> | string
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   isUpdated?: Prisma.BoolFilter<"Product"> | boolean
 }
 
 export type ProductCreateWithoutSeriesInput = {
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
@@ -685,13 +634,13 @@ export type ProductCreateWithoutSeriesInput = {
 }
 
 export type ProductUncheckedCreateWithoutSeriesInput = {
-  id?: number
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
   displayPlaced?: $Enums.DisplayPlaced
   businessType?: $Enums.BusinessType
-  brandId: number
+  brandId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
@@ -724,19 +673,20 @@ export type ProductUpdateManyWithWhereWithoutSeriesInput = {
 }
 
 export type ProductCreateManyBrandInput = {
-  id?: number
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
   displayPlaced?: $Enums.DisplayPlaced
   businessType?: $Enums.BusinessType
-  seriesId: number
+  seriesId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
 }
 
 export type ProductUpdateWithoutBrandInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
@@ -749,45 +699,46 @@ export type ProductUpdateWithoutBrandInput = {
 }
 
 export type ProductUncheckedUpdateWithoutBrandInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFieldUpdateOperationsInput | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
-  seriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  seriesId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ProductUncheckedUpdateManyWithoutBrandInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFieldUpdateOperationsInput | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
-  seriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  seriesId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ProductCreateManySeriesInput = {
-  id?: number
+  id?: string
   name: string
   seriesAttr?: $Enums.SeriesAttr
   color?: $Enums.ProductColor
   displayPlaced?: $Enums.DisplayPlaced
   businessType?: $Enums.BusinessType
-  brandId: number
+  brandId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
 }
 
 export type ProductUpdateWithoutSeriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
@@ -800,26 +751,26 @@ export type ProductUpdateWithoutSeriesInput = {
 }
 
 export type ProductUncheckedUpdateWithoutSeriesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFieldUpdateOperationsInput | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
-  brandId?: Prisma.IntFieldUpdateOperationsInput | number
+  brandId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ProductUncheckedUpdateManyWithoutSeriesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   seriesAttr?: Prisma.EnumSeriesAttrFieldUpdateOperationsInput | $Enums.SeriesAttr
   color?: Prisma.EnumProductColorFieldUpdateOperationsInput | $Enums.ProductColor
   displayPlaced?: Prisma.EnumDisplayPlacedFieldUpdateOperationsInput | $Enums.DisplayPlaced
   businessType?: Prisma.EnumBusinessTypeFieldUpdateOperationsInput | $Enums.BusinessType
-  brandId?: Prisma.IntFieldUpdateOperationsInput | number
+  brandId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -910,14 +861,14 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     series: Prisma.$SeriesPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     name: string
     seriesAttr: $Enums.SeriesAttr
     color: $Enums.ProductColor
     displayPlaced: $Enums.DisplayPlaced
     businessType: $Enums.BusinessType
-    brandId: number
-    seriesId: number
+    brandId: string
+    seriesId: string
     createdAt: Date
     updatedAt: Date
     isUpdated: boolean
@@ -1346,14 +1297,14 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
  * Fields of the Product model
  */
 export interface ProductFieldRefs {
-  readonly id: Prisma.FieldRef<"Product", 'Int'>
+  readonly id: Prisma.FieldRef<"Product", 'String'>
   readonly name: Prisma.FieldRef<"Product", 'String'>
   readonly seriesAttr: Prisma.FieldRef<"Product", 'SeriesAttr'>
   readonly color: Prisma.FieldRef<"Product", 'ProductColor'>
   readonly displayPlaced: Prisma.FieldRef<"Product", 'DisplayPlaced'>
   readonly businessType: Prisma.FieldRef<"Product", 'BusinessType'>
-  readonly brandId: Prisma.FieldRef<"Product", 'Int'>
-  readonly seriesId: Prisma.FieldRef<"Product", 'Int'>
+  readonly brandId: Prisma.FieldRef<"Product", 'String'>
+  readonly seriesId: Prisma.FieldRef<"Product", 'String'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly isUpdated: Prisma.FieldRef<"Product", 'Boolean'>

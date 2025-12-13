@@ -40,6 +40,7 @@ const newItemSchema = z.object({
   nameExt: z.string().optional(),
   attr: z.string().optional(),
   isMaterial: z.boolean().optional(),
+  isAssembly: z.boolean().optional(),
   unitOfMeasure: z.enum(UnitOfMeasure),
   greenLogo: z.enum(GreenLogo),
 });
@@ -67,8 +68,9 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
       nameExt: "",
       attr: "",
       isMaterial: false,
+      isAssembly: false,
       unitOfMeasure: UnitOfMeasure.piece || "piece",
-      greenLogo: GreenLogo.none || "none",
+      greenLogo: GreenLogo.RoHS || "RoHS",
     },
   });
 
@@ -185,6 +187,38 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
 
             <FormField
               control={form.control}
+              name="isAssembly"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Is Assembly</FormLabel>
+                    <Select
+                      onValueChange={(value) =>
+                        field.onChange(value === "true")
+                      } // Convert string to boolean
+                      defaultValue={field.value ? "true" : "false"} // Convert boolean to string for default value
+                      disabled={loading}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="false">No</SelectItem>
+                        <SelectItem value="true">Yes</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
               name="unitOfMeasure"
               render={({ field }) => {
                 return (
@@ -220,45 +254,45 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                 );
               }}
             />
-          </div>
 
-          <FormField
-            control={form.control}
-            name="greenLogo"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Green Logo</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full" disabled={loading}>
-                        <SelectValue placeholder="Select green logo" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Green logos</SelectLabel>
-                        {greenLogos.map((greenLogosItem) => (
-                          <SelectItem
-                            key={greenLogosItem.id}
-                            value={String(greenLogosItem.value)}
-                          >
-                            {underscoreWithCommas(greenLogosItem.value)}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+            <FormField
+              control={form.control}
+              name="greenLogo"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Green Logo</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full" disabled={loading}>
+                          <SelectValue placeholder="Select green logo" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Green logos</SelectLabel>
+                          {greenLogos.map((greenLogosItem) => (
+                            <SelectItem
+                              key={greenLogosItem.id}
+                              value={String(greenLogosItem.value)}
+                            >
+                              {underscoreWithCommas(greenLogosItem.value)}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </div>
 
           {error && (
             <div role="alert" className="text-destructive text-sm">

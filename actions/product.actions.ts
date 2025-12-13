@@ -40,7 +40,7 @@ export async function getProducts({
         brand: true,
       },
       orderBy: {
-        id: "asc",
+        updatedAt: "desc",
       },
     });
   } catch (err) {
@@ -54,7 +54,7 @@ export async function getProductById({ productId }: { productId: string }) {
   try {
     return await prisma.product.findFirst({
       where: {
-        id: Number(productId),
+        id: productId,
       },
     });
   } catch (err) {
@@ -89,8 +89,8 @@ export async function createProduct({
         color,
         displayPlaced,
         businessType,
-        seriesId: Number(seriesId),
-        brandId: Number(brandId),
+        seriesId: seriesId,
+        brandId: brandId,
       },
     });
   } catch (err) {
@@ -133,7 +133,7 @@ export async function editProduct({
   try {
     await prisma.product.update({
       where: {
-        id: Number(productId),
+        id: productId,
       },
       data: {
         name,
@@ -141,8 +141,8 @@ export async function editProduct({
         color,
         displayPlaced,
         businessType,
-        seriesId: Number(seriesId),
-        brandId: Number(brandId),
+        seriesId: seriesId,
+        brandId: brandId,
         isUpdated,
       },
     });
@@ -161,7 +161,7 @@ export async function deleteProduct({ productId }: { productId: string }) {
   try {
     await prisma.product.delete({
       where: {
-        id: Number(productId),
+        id: productId,
       },
     });
   } catch (err) {

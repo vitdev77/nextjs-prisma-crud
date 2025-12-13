@@ -70,7 +70,7 @@ interface Props {
 export function EditItemCodeForm({ itemCode, _onSubmit }: Props) {
   const [openCombobox, setOpenCombobox] = React.useState(false);
   const [items, setItems] = React.useState<
-    { id: number; name: string; attr: string | null }[]
+    { id: string; name: string; attr: string | null }[]
   >([]);
   const [error, setError] = React.useState<string | null>(null);
 

@@ -9,7 +9,7 @@ export async function getItemCodes() {
   try {
     return await prisma.itemCode.findMany({
       orderBy: {
-        id: "asc",
+        updatedAt: "desc",
       },
     });
   } catch (err) {
@@ -23,7 +23,7 @@ export async function getItemCodeById({ itemCodeId }: { itemCodeId: string }) {
   try {
     return await prisma.itemCode.findFirst({
       where: {
-        id: Number(itemCodeId),
+        id: itemCodeId,
       },
     });
   } catch (err) {
@@ -44,13 +44,15 @@ export async function createItemCode({
     await prisma.itemCode.create({
       data: {
         code,
-        itemId: Number(itemId),
+        itemId: itemId,
       },
     });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
-        return { error: "Item code already exists" };
+        return {
+          error: "Item CODE already exists in DB. Please insert another one.",
+        };
       }
     }
     console.error(err);
@@ -77,11 +79,11 @@ export async function editItemCode({
   try {
     await prisma.itemCode.update({
       where: {
-        id: Number(itemCodeId),
+        id: itemCodeId,
       },
       data: {
         code,
-        itemId: Number(itemId),
+        itemId: itemId,
         isUpdated,
       },
     });
@@ -100,7 +102,7 @@ export async function deleteItemCode({ itemCodeId }: { itemCodeId: string }) {
   try {
     await prisma.itemCode.delete({
       where: {
-        id: Number(itemCodeId),
+        id: itemCodeId,
       },
     });
   } catch (err) {

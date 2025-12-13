@@ -21,7 +21,7 @@ export async function getBrands() {
         // },
       },
       orderBy: {
-        id: "asc",
+        updatedAt: "desc",
       },
     });
   } catch (err) {
@@ -35,7 +35,7 @@ export async function getBrandById({ brandId }: { brandId: string }) {
   try {
     return await prisma.brand.findFirst({
       where: {
-        id: Number(brandId),
+        id: brandId,
       },
     });
   } catch (err) {
@@ -49,7 +49,7 @@ export async function getProductsByBrandId({ brandId }: { brandId: string }) {
   try {
     return await prisma.product.findMany({
       where: {
-        brandId: Number(brandId),
+        brandId: brandId,
       },
       orderBy: {
         createdAt: "desc",
@@ -99,7 +99,7 @@ export async function editBrand({
   try {
     await prisma.brand.update({
       where: {
-        id: Number(brandId),
+        id: brandId,
       },
       data: {
         name,
@@ -121,7 +121,7 @@ export async function deleteBrand({ brandId }: { brandId: string }) {
   try {
     await prisma.brand.delete({
       where: {
-        id: Number(brandId),
+        id: brandId,
       },
     });
   } catch (err) {

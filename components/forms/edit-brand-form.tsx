@@ -19,6 +19,7 @@ import { editBrand } from "@/actions/brand.actions";
 import { BrandWithRelations } from "@/@types/prisma";
 
 const editBrandSchema = z.object({
+  brandId: z.string().min(1, { message: "Brand ID is required" }),
   name: z
     .string()
     .min(1, { message: "Name is required" })
@@ -26,7 +27,6 @@ const editBrandSchema = z.object({
       message:
         "Name can only contain letters, numbers and spaces (only single spaces between words are allowed).",
     }),
-  brandId: z.string().min(1, { message: "Brand ID is required" }),
   isUpdated: z.boolean(),
 });
 
@@ -43,8 +43,8 @@ export function EditBrandForm({ brand, _onSubmit }: Props) {
   const form = useForm<EditBrandValues>({
     resolver: zodResolver(editBrandSchema),
     defaultValues: {
+      brandId: brand.id,
       name: brand.name || "",
-      brandId: String(brand.id),
       isUpdated: brand.isUpdated || true,
     },
   });

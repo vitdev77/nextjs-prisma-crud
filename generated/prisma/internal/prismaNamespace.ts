@@ -862,6 +862,7 @@ export const ItemScalarFieldEnum = {
   nameExt: 'nameExt',
   attr: 'attr',
   isMaterial: 'isMaterial',
+  isAssembly: 'isAssembly',
   unitOfMeasure: 'unitOfMeasure',
   greenLogo: 'greenLogo',
   createdAt: 'createdAt',
@@ -912,20 +913,6 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 /**
  * Field references
  */
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
 
 
 /**
@@ -1048,16 +1035,16 @@ export type ListEnumGreenLogoFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
- * Reference to a field of type 'Float'
+ * Reference to a field of type 'Int'
  */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
 /**
- * Reference to a field of type 'Float[]'
+ * Reference to a field of type 'Int[]'
  */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 /**

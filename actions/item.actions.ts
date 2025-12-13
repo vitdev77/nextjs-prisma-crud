@@ -17,7 +17,7 @@ export async function getItems() {
         },
       },
       orderBy: {
-        id: "asc",
+        updatedAt: "desc",
       },
     });
   } catch (err) {
@@ -31,7 +31,7 @@ export async function getItemById({ itemId }: { itemId: string }) {
   try {
     return await prisma.item.findFirst({
       where: {
-        id: Number(itemId),
+        id: itemId,
       },
     });
   } catch (err) {
@@ -46,6 +46,7 @@ export async function createItem({
   nameExt,
   attr,
   isMaterial,
+  isAssembly,
   unitOfMeasure,
   greenLogo,
 }: {
@@ -53,6 +54,7 @@ export async function createItem({
   nameExt?: string;
   attr?: string;
   isMaterial?: boolean;
+  isAssembly?: boolean;
   unitOfMeasure: UnitOfMeasure;
   greenLogo: GreenLogo;
 }) {
@@ -63,6 +65,7 @@ export async function createItem({
         nameExt,
         attr,
         isMaterial,
+        isAssembly,
         unitOfMeasure,
         greenLogo,
       },
@@ -84,6 +87,7 @@ export async function editItem({
   nameExt,
   attr,
   isMaterial,
+  isAssembly,
   unitOfMeasure,
   greenLogo,
   isUpdated,
@@ -93,6 +97,7 @@ export async function editItem({
   nameExt?: string;
   attr?: string;
   isMaterial?: boolean;
+  isAssembly?: boolean;
   unitOfMeasure: UnitOfMeasure;
   greenLogo: GreenLogo;
   isUpdated: boolean;
@@ -100,19 +105,28 @@ export async function editItem({
   try {
     await prisma.item.update({
       where: {
-        id: Number(itemId),
+        id: itemId,
       },
       data: {
         name,
         nameExt,
         attr,
         isMaterial,
+        isAssembly,
         unitOfMeasure,
         greenLogo,
         isUpdated,
       },
     });
   } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        return {
+          error:
+            "Item ATTRIBUTE already exists in DB. Please insert another one.",
+        };
+      }
+    }
     console.error(err);
     return {
       error: "[ITEM_EDIT]: SERVER ERROR",
@@ -127,7 +141,7 @@ export async function deleteItem({ itemId }: { itemId: string }) {
   try {
     await prisma.item.delete({
       where: {
-        id: Number(itemId),
+        id: itemId,
       },
     });
   } catch (err) {

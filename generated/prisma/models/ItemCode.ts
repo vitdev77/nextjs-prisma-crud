@@ -20,35 +20,23 @@ export type ItemCodeModel = runtime.Types.Result.DefaultSelection<Prisma.$ItemCo
 
 export type AggregateItemCode = {
   _count: ItemCodeCountAggregateOutputType | null
-  _avg: ItemCodeAvgAggregateOutputType | null
-  _sum: ItemCodeSumAggregateOutputType | null
   _min: ItemCodeMinAggregateOutputType | null
   _max: ItemCodeMaxAggregateOutputType | null
 }
 
-export type ItemCodeAvgAggregateOutputType = {
-  id: number | null
-  itemId: number | null
-}
-
-export type ItemCodeSumAggregateOutputType = {
-  id: number | null
-  itemId: number | null
-}
-
 export type ItemCodeMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   code: string | null
-  itemId: number | null
+  itemId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isUpdated: boolean | null
 }
 
 export type ItemCodeMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   code: string | null
-  itemId: number | null
+  itemId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isUpdated: boolean | null
@@ -64,16 +52,6 @@ export type ItemCodeCountAggregateOutputType = {
   _all: number
 }
 
-
-export type ItemCodeAvgAggregateInputType = {
-  id?: true
-  itemId?: true
-}
-
-export type ItemCodeSumAggregateInputType = {
-  id?: true
-  itemId?: true
-}
 
 export type ItemCodeMinAggregateInputType = {
   id?: true
@@ -141,18 +119,6 @@ export type ItemCodeAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: ItemCodeAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: ItemCodeSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: ItemCodeMinAggregateInputType
@@ -183,22 +149,18 @@ export type ItemCodeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: ItemCodeCountAggregateInputType | true
-  _avg?: ItemCodeAvgAggregateInputType
-  _sum?: ItemCodeSumAggregateInputType
   _min?: ItemCodeMinAggregateInputType
   _max?: ItemCodeMaxAggregateInputType
 }
 
 export type ItemCodeGroupByOutputType = {
-  id: number
+  id: string
   code: string
-  itemId: number
+  itemId: string
   createdAt: Date
   updatedAt: Date
   isUpdated: boolean
   _count: ItemCodeCountAggregateOutputType | null
-  _avg: ItemCodeAvgAggregateOutputType | null
-  _sum: ItemCodeSumAggregateOutputType | null
   _min: ItemCodeMinAggregateOutputType | null
   _max: ItemCodeMaxAggregateOutputType | null
 }
@@ -222,9 +184,9 @@ export type ItemCodeWhereInput = {
   AND?: Prisma.ItemCodeWhereInput | Prisma.ItemCodeWhereInput[]
   OR?: Prisma.ItemCodeWhereInput[]
   NOT?: Prisma.ItemCodeWhereInput | Prisma.ItemCodeWhereInput[]
-  id?: Prisma.IntFilter<"ItemCode"> | number
+  id?: Prisma.StringFilter<"ItemCode"> | string
   code?: Prisma.StringFilter<"ItemCode"> | string
-  itemId?: Prisma.IntFilter<"ItemCode"> | number
+  itemId?: Prisma.StringFilter<"ItemCode"> | string
   createdAt?: Prisma.DateTimeFilter<"ItemCode"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ItemCode"> | Date | string
   isUpdated?: Prisma.BoolFilter<"ItemCode"> | boolean
@@ -242,12 +204,12 @@ export type ItemCodeOrderByWithRelationInput = {
 }
 
 export type ItemCodeWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   code?: string
   AND?: Prisma.ItemCodeWhereInput | Prisma.ItemCodeWhereInput[]
   OR?: Prisma.ItemCodeWhereInput[]
   NOT?: Prisma.ItemCodeWhereInput | Prisma.ItemCodeWhereInput[]
-  itemId?: Prisma.IntFilter<"ItemCode"> | number
+  itemId?: Prisma.StringFilter<"ItemCode"> | string
   createdAt?: Prisma.DateTimeFilter<"ItemCode"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ItemCode"> | Date | string
   isUpdated?: Prisma.BoolFilter<"ItemCode"> | boolean
@@ -262,25 +224,24 @@ export type ItemCodeOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   isUpdated?: Prisma.SortOrder
   _count?: Prisma.ItemCodeCountOrderByAggregateInput
-  _avg?: Prisma.ItemCodeAvgOrderByAggregateInput
   _max?: Prisma.ItemCodeMaxOrderByAggregateInput
   _min?: Prisma.ItemCodeMinOrderByAggregateInput
-  _sum?: Prisma.ItemCodeSumOrderByAggregateInput
 }
 
 export type ItemCodeScalarWhereWithAggregatesInput = {
   AND?: Prisma.ItemCodeScalarWhereWithAggregatesInput | Prisma.ItemCodeScalarWhereWithAggregatesInput[]
   OR?: Prisma.ItemCodeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ItemCodeScalarWhereWithAggregatesInput | Prisma.ItemCodeScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"ItemCode"> | number
+  id?: Prisma.StringWithAggregatesFilter<"ItemCode"> | string
   code?: Prisma.StringWithAggregatesFilter<"ItemCode"> | string
-  itemId?: Prisma.IntWithAggregatesFilter<"ItemCode"> | number
+  itemId?: Prisma.StringWithAggregatesFilter<"ItemCode"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ItemCode"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ItemCode"> | Date | string
   isUpdated?: Prisma.BoolWithAggregatesFilter<"ItemCode"> | boolean
 }
 
 export type ItemCodeCreateInput = {
+  id?: string
   code: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -289,15 +250,16 @@ export type ItemCodeCreateInput = {
 }
 
 export type ItemCodeUncheckedCreateInput = {
-  id?: number
+  id?: string
   code: string
-  itemId: number
+  itemId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
 }
 
 export type ItemCodeUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -306,24 +268,25 @@ export type ItemCodeUpdateInput = {
 }
 
 export type ItemCodeUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ItemCodeCreateManyInput = {
-  id?: number
+  id?: string
   code: string
-  itemId: number
+  itemId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   isUpdated?: boolean
 }
 
 export type ItemCodeUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,9 +294,9 @@ export type ItemCodeUpdateManyMutationInput = {
 }
 
 export type ItemCodeUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isUpdated?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -358,11 +321,6 @@ export type ItemCodeCountOrderByAggregateInput = {
   isUpdated?: Prisma.SortOrder
 }
 
-export type ItemCodeAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  itemId?: Prisma.SortOrder
-}
-
 export type ItemCodeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
@@ -379,11 +337,6 @@ export type ItemCodeMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isUpdated?: Prisma.SortOrder
-}
-
-export type ItemCodeSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  itemId?: Prisma.SortOrder
 }
 
 export type ItemCodeCreateNestedManyWithoutItemInput = {
@@ -429,6 +382,7 @@ export type ItemCodeUncheckedUpdateManyWithoutItemNestedInput = {
 }
 
 export type ItemCodeCreateWithoutItemInput = {
+  id?: string
   code: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -436,7 +390,7 @@ export type ItemCodeCreateWithoutItemInput = {
 }
 
 export type ItemCodeUncheckedCreateWithoutItemInput = {
-  id?: number
+  id?: string
   code: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -473,16 +427,16 @@ export type ItemCodeScalarWhereInput = {
   AND?: Prisma.ItemCodeScalarWhereInput | Prisma.ItemCodeScalarWhereInput[]
   OR?: Prisma.ItemCodeScalarWhereInput[]
   NOT?: Prisma.ItemCodeScalarWhereInput | Prisma.ItemCodeScalarWhereInput[]
-  id?: Prisma.IntFilter<"ItemCode"> | number
+  id?: Prisma.StringFilter<"ItemCode"> | string
   code?: Prisma.StringFilter<"ItemCode"> | string
-  itemId?: Prisma.IntFilter<"ItemCode"> | number
+  itemId?: Prisma.StringFilter<"ItemCode"> | string
   createdAt?: Prisma.DateTimeFilter<"ItemCode"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ItemCode"> | Date | string
   isUpdated?: Prisma.BoolFilter<"ItemCode"> | boolean
 }
 
 export type ItemCodeCreateManyItemInput = {
-  id?: number
+  id?: string
   code: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -490,6 +444,7 @@ export type ItemCodeCreateManyItemInput = {
 }
 
 export type ItemCodeUpdateWithoutItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -497,7 +452,7 @@ export type ItemCodeUpdateWithoutItemInput = {
 }
 
 export type ItemCodeUncheckedUpdateWithoutItemInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -505,7 +460,7 @@ export type ItemCodeUncheckedUpdateWithoutItemInput = {
 }
 
 export type ItemCodeUncheckedUpdateManyWithoutItemInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -570,9 +525,9 @@ export type $ItemCodePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     item: Prisma.$ItemPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     code: string
-    itemId: number
+    itemId: string
     createdAt: Date
     updatedAt: Date
     isUpdated: boolean
@@ -1000,9 +955,9 @@ export interface Prisma__ItemCodeClient<T, Null = never, ExtArgs extends runtime
  * Fields of the ItemCode model
  */
 export interface ItemCodeFieldRefs {
-  readonly id: Prisma.FieldRef<"ItemCode", 'Int'>
+  readonly id: Prisma.FieldRef<"ItemCode", 'String'>
   readonly code: Prisma.FieldRef<"ItemCode", 'String'>
-  readonly itemId: Prisma.FieldRef<"ItemCode", 'Int'>
+  readonly itemId: Prisma.FieldRef<"ItemCode", 'String'>
   readonly createdAt: Prisma.FieldRef<"ItemCode", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ItemCode", 'DateTime'>
   readonly isUpdated: Prisma.FieldRef<"ItemCode", 'Boolean'>

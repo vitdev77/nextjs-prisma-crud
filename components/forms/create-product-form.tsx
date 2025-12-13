@@ -59,10 +59,10 @@ type NewProductValues = z.infer<typeof newProductSchema>;
 
 export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
   const [brands, setBrands] = React.useState<
-    { id: number; name: string | null }[]
+    { id: string; name: string | null }[]
   >([]);
   const [series, setSeries] = React.useState<
-    { id: number; name: string | null }[]
+    { id: string; name: string | null }[]
   >([]);
   const [error, setError] = React.useState<string | null>(null);
 
