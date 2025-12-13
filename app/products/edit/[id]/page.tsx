@@ -30,7 +30,7 @@ export default async function EditProductPage(props: {
         label="All Products Page"
       />
       <Card>
-        <CardContent>
+        <CardContent className="max-w-sm">
           <EditProductComponent product={product} />
         </CardContent>
       </Card>

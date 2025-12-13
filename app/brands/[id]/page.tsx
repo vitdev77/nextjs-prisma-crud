@@ -30,7 +30,7 @@ export default async function BrandPage(props: {
         label="All Brands Page"
       />
       <Card className="min-w-xs">
-        <CardContent>
+        <CardContent className="max-w-sm">
           <ViewBrandComponent brand={brand} />
         </CardContent>
       </Card>

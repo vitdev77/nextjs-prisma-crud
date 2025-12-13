@@ -15,7 +15,7 @@ export default function NewBrandPage() {
         href={"/brands"}
         label="All Brands Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <CreateBrandComponent />
         </CardContent>

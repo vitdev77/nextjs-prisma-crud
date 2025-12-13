@@ -29,7 +29,7 @@ export default async function EditItemCodePage(props: {
         href={"/item-codes"}
         label="All Item Codes Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <EditItemCodeComponent itemCode={itemCode} />
         </CardContent>

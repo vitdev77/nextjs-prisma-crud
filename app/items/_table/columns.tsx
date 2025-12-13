@@ -11,6 +11,7 @@ import { DeleteItemForm } from "@/components/forms";
 import { ItemWithRelations } from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
 import { cn, truncateMiddle, underscoreWithCommas } from "@/lib/utils";
+import { CopyButton } from "@/components/copy-button";
 
 export const columns: ColumnDef<ItemWithRelations>[] = [
   {
@@ -41,9 +42,15 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       return <DataTableColumnHeader column={column} title="ID" />;
     },
     cell: ({ row }) => (
-      <span className="text-muted-foreground font-mono text-xs">
-        {truncateMiddle(row.getValue("id"), 8, 3)}
-      </span>
+      <div className="group flex w-full items-center gap-1">
+        <span className="text-muted-foreground font-mono text-xs">
+          {truncateMiddle(row.getValue("id"), 8, 3)}
+        </span>
+        <CopyButton
+          value={row.getValue("id")}
+          className="pl-2 opacity-0 transition-all duration-300 ease-in-out group-hover:pl-0 group-hover:opacity-100"
+        />
+      </div>
     ),
   },
   {
@@ -100,24 +107,28 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
   {
     accessorKey: "_count.itemCodes",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Codes In" />;
+      return <DataTableColumnHeader column={column} title="Codes Count" />;
     },
     cell: ({ row }) => {
-      const { _count } = row.original;
-      let result;
-      if (_count.itemCodes === 0) {
-        result = (
-          <Link
-            href={"/item-codes/new"}
-            className={buttonVariants({ variant: "outline", size: "icon-sm" })}
-          >
-            <Plus className="size-4" />
-          </Link>
-        );
-      } else {
-        result = _count.itemCodes;
-      }
-      return result;
+      const { _count, id } = row.original;
+
+      return (
+        <div className="text-center">
+          {_count.itemCodes === 0 ? (
+            <Link
+              href={"/item-codes/new?itemId=" + id}
+              className={buttonVariants({
+                variant: "outline",
+                size: "icon-sm",
+              })}
+            >
+              <Plus className="size-4" />
+            </Link>
+          ) : (
+            _count.itemCodes
+          )}
+        </div>
+      );
     },
     enableHiding: false,
   },

@@ -15,7 +15,7 @@ export default function NewItemPage() {
         href={"/items"}
         label="All Items Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <CreateItemComponent />
         </CardContent>

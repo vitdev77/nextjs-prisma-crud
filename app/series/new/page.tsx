@@ -15,7 +15,7 @@ export default function NewSeriesPage() {
         href={"/series"}
         label="All Series Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <CreateSeriesComponent />
         </CardContent>

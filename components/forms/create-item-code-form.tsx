@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -33,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -64,25 +66,68 @@ export function CreateItemCodeForm({
 }: {
   _onSubmit?: VoidFunction;
 }) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const currentItemId = searchParams.get("itemId");
+
+  const [selectedValue, setSelectedValue] = React.useState<string | undefined>(
+    currentItemId || "",
+  );
   const [openCombobox, setOpenCombobox] = React.useState(false);
   const [items, setItems] = React.useState<
-    { id: string; name: string; attr: string | null }[]
+    { id: string; name: string; nameExt: string | null; attr: string | null }[]
   >([]);
   const [error, setError] = React.useState<string | null>(null);
+  const [isLoadingItemsData, setIsLoadingItemsData] = React.useState(true);
+
+  const sortedItems = [...items].sort((a, b) => a.name.localeCompare(b.name));
 
   React.useEffect(() => {
     async function getAllitems() {
-      const fetchItemsData = await getItems();
-      setItems(fetchItemsData);
+      setIsLoadingItemsData(true);
+      try {
+        const fetchItemsData = await getItems();
+        setItems(fetchItemsData);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingItemsData(false);
+      }
     }
     getAllitems();
   }, []);
+
+  // Ensure the UI stays in sync if the URL changes through other means (e.g., browser back/forward)
+  React.useEffect(() => {
+    setSelectedValue(currentItemId || "");
+  }, [currentItemId]);
+
+  function handleValueChange(value: string) {
+    setSelectedValue("");
+    const params = new URLSearchParams(searchParams);
+    if (value) {
+      params.set("itemId", value);
+    } else {
+      // Optional: remove the param if an empty/reset value is selected
+      params.delete("itemId");
+    }
+    // Update the URL without a full page reload
+    replace(`${pathname}?${params.toString()}`);
+  }
+
+  function removeAllQueryParams() {
+    const url = new URL(window.location.href);
+    url.search = "";
+    window.history.replaceState(null, "", url.toString());
+    form.reset({ itemId: "" });
+  }
 
   const form = useForm<NewItemCodeValues>({
     resolver: zodResolver(newItemCodeSchema),
     defaultValues: {
       code: "",
-      itemId: "",
+      itemId: selectedValue || "",
     },
   });
 
@@ -130,52 +175,54 @@ export function CreateItemCodeForm({
             )}
           />
 
-          {/* <FormField
+          <FormField
             control={form.control}
             name="itemId"
             render={({ field }) => {
               return (
                 <FormItem>
                   <FormLabel>Item</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger
-                        className="w-full"
-                        disabled={loading || items.length === 0}
-                      >
-                        <SelectValue placeholder="Select item" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Items</SelectLabel>
-                        {items.map((item) => (
-                          <SelectItem
-                            className="flex justify-between gap-2"
-                            key={item.id}
-                            value={String(item.id)}
-                          >
-                            {item.name}{" "}
-                            <span className="text-muted-foreground">
-                              {item.attr}
-                            </span>
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  {isLoadingItemsData ? (
+                    <Skeleton className="text-muted-foreground flex h-9 w-full items-center px-4 text-sm">
+                      Loading items list...
+                    </Skeleton>
+                  ) : (
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger
+                          className="w-full"
+                          disabled={loading || sortedItems.length === 0}
+                        >
+                          <SelectValue placeholder="Select item" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-100">
+                        <SelectGroup>
+                          <SelectLabel>Items</SelectLabel>
+                          {sortedItems.map((item) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                              <span className="text-muted-foreground">
+                                {item.attr}
+                              </span>
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
                   <FormMessage />
                 </FormItem>
               );
             }}
-          /> */}
+          />
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="itemId"
             render={({ field }) => (
@@ -190,13 +237,12 @@ export function CreateItemCodeForm({
                       className="w-full justify-between"
                     >
                       {field.value
-                        ? items.find((item) => String(item.id) === field.value)
-                            ?.attr
+                        ? items.find((item) => item.id === field.value)?.name
                         : "Select item"}
-                      <ChevronsUpDown className="opacity-50" />
+                      <ChevronsUpDown className="ml-auto opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-94 p-0">
+                  <PopoverContent className="w-83.5 p-0">
                     <Command>
                       <CommandInput placeholder="Search..." className="h-9" />
                       <CommandList>
@@ -207,7 +253,7 @@ export function CreateItemCodeForm({
                               key={item.id}
                               value={String(item.id)}
                               onSelect={() => {
-                                field.onChange(String(item.id));
+                                field.onChange(item.id);
                                 setOpenCombobox(false);
                               }}
                             >
@@ -235,7 +281,7 @@ export function CreateItemCodeForm({
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           {error && (
             <div role="alert" className="text-destructive text-sm">
@@ -244,12 +290,19 @@ export function CreateItemCodeForm({
           )}
 
           <div className="space-y-2">
-            <LoadingButton type="submit" className="w-full" loading={loading}>
+            <LoadingButton
+              type="submit"
+              className="w-full"
+              loading={loading}
+              disabled={sortedItems.length === 0 || isLoadingItemsData}
+            >
               Submit
             </LoadingButton>
             <Button
-              onClick={() => form.reset()}
-              disabled={loading || items.length === 0}
+              onClick={removeAllQueryParams}
+              disabled={
+                loading || sortedItems.length === 0 || isLoadingItemsData
+              }
               variant={"ghost"}
               className="w-full"
               type="reset"

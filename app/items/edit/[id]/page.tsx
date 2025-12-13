@@ -30,8 +30,9 @@ export default async function EditItemPage(props: {
         label="All Items Page"
       />
       <Card>
-        <CardContent>
-          <EditItemComponent item={item} />
+        <CardContent className="max-w-sm">
+          {/* <EditItemComponent item={item} /> */}
+          <EditItemComponent item={item as any} />
         </CardContent>
       </Card>
     </div>

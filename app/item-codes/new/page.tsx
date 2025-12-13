@@ -15,7 +15,7 @@ export default function NewItemCodePage() {
         href={"/item-codes"}
         label="All Item Codes Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <CreateItemCodeComponent />
         </CardContent>

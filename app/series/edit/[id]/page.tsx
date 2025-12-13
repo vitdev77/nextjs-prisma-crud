@@ -29,7 +29,7 @@ export default async function EditSeriesPage(props: {
         href={"/series"}
         label="All Series Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <EditSeriesComponent series={series} />
         </CardContent>

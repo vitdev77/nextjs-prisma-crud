@@ -15,7 +15,7 @@ export default function NewProductPage() {
         href={"/products"}
         label="All Products Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <CreateProductComponent />
         </CardContent>

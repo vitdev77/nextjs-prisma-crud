@@ -29,7 +29,7 @@ export default async function EditBrandPage(props: {
         href={"/brands"}
         label="All Brands Page"
       />
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <EditBrandComponent brand={brand} />
         </CardContent>
