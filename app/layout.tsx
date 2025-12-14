@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto_Flex } from "next/font/google";
+import { Geist, Geist_Mono, Roboto_Flex, Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -7,13 +7,18 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { RefreshPageButton } from "@/components/refresh-page-button";
 // import { TopLoaderComponent } from "@/components/top-loader-component";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const robotoFlex = Roboto_Flex({
-  variable: "--font-roboto-flex",
+// const robotoFlex = Roboto_Flex({
+//   variable: "--font-sans",
+//   subsets: ["latin"],
+// });
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -38,9 +43,9 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body
-        className={`${robotoFlex.className} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

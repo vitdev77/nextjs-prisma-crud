@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { CheckIcon, MinusIcon } from "lucide-react";
+import { Checkbox as CheckboxPrimitive } from "radix-ui";
 
 import { cn } from "@/lib/utils";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Remove01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 
 function Checkbox({
   className,
@@ -21,10 +22,18 @@ function Checkbox({
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="grid place-content-center text-current transition-none"
+        className="grid place-content-center text-current transition-none [&>svg]:size-3.5"
       >
-        <MinusIcon className="hidden size-3.5 stroke-3 group-data-[state=indeterminate]:block" />
-        <CheckIcon className="hidden size-3.5 stroke-3 group-data-[state=checked]:block" />
+        <HugeiconsIcon
+          icon={Remove01Icon}
+          strokeWidth={3}
+          className="hidden group-data-[state=indeterminate]:block"
+        />
+        <HugeiconsIcon
+          icon={Tick02Icon}
+          strokeWidth={3}
+          className="hidden group-data-[state=checked]:block"
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

@@ -79,18 +79,18 @@ export function DataTable<TData, TValue>({
       rowSelection,
       globalFilter,
     },
-    // initialState: {
-    //   pagination: {
-    //     pageSize: 20,
-    //   },
-    // },
+    initialState: {
+      pagination: {
+        pageSize: 20,
+      },
+    },
   });
 
   return (
     <div className="flex flex-col gap-4">
       <DataTableToolbar table={table} />
 
-      <div className="overflow-hidden rounded-md border">
+      <div className="overflow-hidden rounded-lg border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -1,8 +1,8 @@
 "use client";
 
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Cancel01Icon, Search01Icon } from "@hugeicons/core-free-icons";
 import { Table } from "@tanstack/react-table";
-import { Search, X } from "lucide-react";
-
 import {
   InputGroup,
   InputGroupAddon,
@@ -25,7 +25,7 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center gap-2">
         <InputGroup className="max-w-sm">
           <InputGroupAddon>
-            <Search />
+            <HugeiconsIcon icon={Search01Icon} strokeWidth={2} />
           </InputGroupAddon>
           <InputGroupInput
             placeholder="Search all columns..."
@@ -42,7 +42,7 @@ export function DataTableToolbar<TData>({
                 onClick={() => table.setGlobalFilter("")}
               >
                 <span className="sr-only">Reset</span>
-                <X />
+                <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} />
               </InputGroupButton>
             </InputGroupAddon>
           )}

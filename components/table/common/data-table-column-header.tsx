@@ -2,6 +2,12 @@ import { Column } from "@tanstack/react-table";
 import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  ArrowDown01Icon,
+  ArrowUp01Icon,
+  UnfoldMoreIcon,
+} from "@hugeicons/core-free-icons";
 
 interface DataTableColumnHeaderProps<
   TData,
@@ -27,11 +33,23 @@ export function DataTableColumnHeader<TData, TValue>({
     >
       {title}
       {column.getIsSorted() === "desc" ? (
-        <ChevronUp className="size-4" />
+        <HugeiconsIcon
+          icon={ArrowUp01Icon}
+          strokeWidth={2}
+          className="size-4"
+        />
       ) : column.getIsSorted() === "asc" ? (
-        <ChevronDown className="size-4" />
+        <HugeiconsIcon
+          icon={ArrowDown01Icon}
+          strokeWidth={2}
+          className="size-4"
+        />
       ) : (
-        <ChevronsUpDown className="stroke-muted-foreground/30 group-hover:stroke-primary size-4 transition duration-300 ease-in-out" />
+        <HugeiconsIcon
+          icon={UnfoldMoreIcon}
+          strokeWidth={2}
+          className="text-muted-foreground/30 group-hover:text-primary size-4 transition duration-300 ease-in-out"
+        />
       )}
     </button>
   );

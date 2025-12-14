@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowLeftIcon } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowLeft02Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 
 interface ReturnButtonProps {
@@ -24,7 +25,10 @@ export const ReturnButton = ({
   return (
     <Button size="sm" variant={btnVariant} asChild tabIndex={-1}>
       <Link href={href}>
-        {showArrow === true && <ArrowLeftIcon />} {label}
+        {showArrow === true && (
+          <HugeiconsIcon icon={ArrowLeft02Icon} strokeWidth={2} />
+        )}{" "}
+        {label}
       </Link>
     </Button>
   );

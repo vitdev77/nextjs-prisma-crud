@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { RefreshIcon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
-import { RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RefreshPageButtonProps {
@@ -47,7 +48,9 @@ export function RefreshPageButton({
       disabled={isPageLoading || isPending || localLoading}
       title="Refresh Page"
     >
-      <RefreshCw
+      <HugeiconsIcon
+        icon={RefreshIcon}
+        strokeWidth={2}
         className={cn(
           isPageLoading || isPending || localLoading ? "animate-spin" : "",
         )}

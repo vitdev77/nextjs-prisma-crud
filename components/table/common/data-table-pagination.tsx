@@ -1,10 +1,11 @@
-import { Table } from "@tanstack/react-table";
+import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  ChevronFirst,
-  ChevronLast,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+  ArrowLeft02Icon,
+  ArrowLeft03Icon,
+  ArrowRight02Icon,
+  ArrowRight03Icon,
+} from "@hugeicons/core-free-icons";
+import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -49,7 +50,7 @@ export function DataTablePagination<TData>({
             </SelectContent>
           </Select>
         </div>
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+        <div className="flex w-25 items-center justify-center text-sm font-medium">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </div>
@@ -62,7 +63,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to first page</span>
-            <ChevronFirst />
+            <HugeiconsIcon icon={ArrowLeft03Icon} strokeWidth={2} />
           </Button>
           <Button
             variant="outline"
@@ -71,7 +72,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to previous page</span>
-            <ChevronLeft />
+            <HugeiconsIcon icon={ArrowLeft02Icon} strokeWidth={2} />
           </Button>
           <Button
             variant="outline"
@@ -80,7 +81,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to next page</span>
-            <ChevronRight />
+            <HugeiconsIcon icon={ArrowRight02Icon} strokeWidth={2} />
           </Button>
           <Button
             variant="outline"
@@ -90,7 +91,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to last page</span>
-            <ChevronLast />
+            <HugeiconsIcon icon={ArrowRight03Icon} strokeWidth={2} />
           </Button>
         </div>
       </div>

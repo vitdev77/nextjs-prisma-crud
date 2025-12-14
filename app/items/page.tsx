@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Home, Plus } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add01Icon, Home01Icon } from "@hugeicons/core-free-icons";
 import { ReturnButton } from "@/components/return-button";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -23,7 +24,7 @@ export default async function Items() {
             <h1 className="text-4xl font-bold">Items</h1>
             <Button asChild>
               <Link href={"/items/new"}>
-                <Plus /> New Item
+                <HugeiconsIcon icon={Add01Icon} strokeWidth={2} /> New Item
               </Link>
             </Button>
           </div>
@@ -39,7 +40,7 @@ export default async function Items() {
             <Separator orientation="vertical" />
             <Button variant={"ghost"} size={"icon-sm"} asChild>
               <Link href={"/"}>
-                <Home />
+                <HugeiconsIcon icon={Home01Icon} strokeWidth={2} />
                 <span className="sr-only">Back to Home</span>
               </Link>
             </Button>

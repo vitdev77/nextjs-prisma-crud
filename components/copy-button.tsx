@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Copy01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,7 +11,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Check, Copy } from "lucide-react";
 
 export function copyToClipboard(value: string) {
   navigator.clipboard.writeText(value);
@@ -50,9 +51,17 @@ export function CopyButton({
         >
           <span className="sr-only">Copy</span>
           {hasCopied ? (
-            <Check className="size-3" />
+            <HugeiconsIcon
+              icon={Tick02Icon}
+              strokeWidth={2}
+              className="size-3"
+            />
           ) : (
-            <Copy className="size-3" />
+            <HugeiconsIcon
+              icon={Copy01Icon}
+              strokeWidth={2}
+              className="size-3"
+            />
           )}
         </Button>
       </TooltipTrigger>

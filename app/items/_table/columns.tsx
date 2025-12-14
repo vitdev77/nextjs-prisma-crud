@@ -1,9 +1,14 @@
 "use client";
 
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Add01Icon,
+  Edit04Icon,
+  Tick02Icon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Check, Plus } from "lucide-react";
-
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/table/common/data-table-column-header";
 import Link from "next/link";
@@ -115,15 +120,11 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       return (
         <div className="text-center">
           {_count.itemCodes === 0 ? (
-            <Link
-              href={"/item-codes/new?itemId=" + id}
-              className={buttonVariants({
-                variant: "outline",
-                size: "icon-sm",
-              })}
-            >
-              <Plus className="size-4" />
-            </Link>
+            <Button variant={"outline"} size={"icon-sm"} asChild>
+              <Link href={"/item-codes/new?itemId=" + id}>
+                <HugeiconsIcon icon={Add01Icon} strokeWidth={2} />
+              </Link>
+            </Button>
           ) : (
             _count.itemCodes
           )}
@@ -140,7 +141,13 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     cell: ({ row }) => {
       const isMaterial = row.getValue("isMaterial");
 
-      return <>{isMaterial === true && <Check className="size-4" />}</>;
+      return (
+        <>
+          {isMaterial === true && (
+            <HugeiconsIcon icon={Tick02Icon} strokeWidth={2} />
+          )}
+        </>
+      );
     },
   },
   {
@@ -151,7 +158,13 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
     cell: ({ row }) => {
       const isAssembly = row.getValue("isAssembly");
 
-      return <>{isAssembly === true && <Check className="size-4" />}</>;
+      return (
+        <>
+          {isAssembly === true && (
+            <HugeiconsIcon icon={Tick02Icon} strokeWidth={2} />
+          )}
+        </>
+      );
     },
   },
   {
@@ -194,13 +207,13 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
         <div className="flex flex-row items-center justify-end gap-2">
           <Button size={"icon-sm"} variant={"ghost"} asChild>
             <Link href={`/items/${item.id}`}>
-              <Eye />
+              <HugeiconsIcon icon={ViewIcon} strokeWidth={2} />
               <span className="sr-only">View</span>
             </Link>
           </Button>
           <Button size={"icon-sm"} variant={"ghost"} asChild>
             <Link href={`/items/edit/${item.id}`}>
-              <Pencil />
+              <HugeiconsIcon icon={Edit04Icon} strokeWidth={2} />
               <span className="sr-only">Edit</span>
             </Link>
           </Button>
