@@ -1,31 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto_Flex, Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
-import "./globals.css";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { fontVariables } from "@/lib/fonts";
+import { ModeSwitcher } from "@/components/mode-switcher";
 import { RefreshPageButton } from "@/components/refresh-page-button";
 // import { TopLoaderComponent } from "@/components/top-loader-component";
-
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-// const robotoFlex = Roboto_Flex({
-//   variable: "--font-sans",
-//   subsets: ["latin"],
-// });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -43,10 +23,8 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning className={fontVariables}>
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -58,7 +36,7 @@ export default function RootLayout({
           <div className="fixed top-8 right-8 z-10">
             <div className="flex flex-wrap items-center justify-center gap-2">
               <RefreshPageButton />
-              <ThemeToggle />
+              <ModeSwitcher />
             </div>
           </div>
           {children}

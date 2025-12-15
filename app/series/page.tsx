@@ -1,4 +1,11 @@
 import { Metadata } from "next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Add01Icon,
+  Edit04Icon,
+  Home01Icon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,7 +16,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Eye, Home, Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { DeleteSeriesForm } from "@/components/forms";
 import { getSeries } from "@/actions/series.actions";
@@ -33,20 +39,16 @@ export default async function Series() {
             <h1 className="text-4xl font-bold">Series</h1>
             <Button asChild>
               <Link href={"/series/new"}>
-                <Plus /> New series
+                <HugeiconsIcon icon={Add01Icon} strokeWidth={2} /> New Series
               </Link>
             </Button>
           </div>
           <div className="flex h-5 items-center gap-2">
-            <ReturnButton
-              btnVariant="link"
-              href="/products"
-              label="All Products Page"
-            />
+            <ReturnButton btnVariant="link" href="/products" label="Products" />
             <Separator orientation="vertical" />
             <Button variant={"ghost"} size={"icon-sm"} asChild>
               <Link href={"/"}>
-                <Home />
+                <HugeiconsIcon icon={Home01Icon} strokeWidth={2} />
                 <span className="sr-only">Back to Home</span>
               </Link>
             </Button>
@@ -58,7 +60,7 @@ export default async function Series() {
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
-                <TableHead className="w-[100px]">ID</TableHead>
+                <TableHead className="w-25">ID</TableHead>
                 <TableHead>Series</TableHead>
                 <TableHead>Products In</TableHead>
                 <TableHead>Created At</TableHead>
@@ -113,13 +115,13 @@ export default async function Series() {
                       <div className="flex flex-row items-center justify-end gap-2">
                         <Button size={"icon-sm"} variant={"ghost"} asChild>
                           <Link href={`/series/${seriesItem.id}`}>
-                            <Eye />
+                            <HugeiconsIcon icon={ViewIcon} strokeWidth={2} />
                             <span className="sr-only">View</span>
                           </Link>
                         </Button>
                         <Button size={"icon-sm"} variant={"ghost"} asChild>
                           <Link href={`/series/edit/${seriesItem.id}`}>
-                            <Pencil />
+                            <HugeiconsIcon icon={Edit04Icon} strokeWidth={2} />
                             <span className="sr-only">Edit</span>
                           </Link>
                         </Button>

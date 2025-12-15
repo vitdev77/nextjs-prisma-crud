@@ -1,4 +1,11 @@
 import { Metadata } from "next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Add01Icon,
+  Edit04Icon,
+  Home01Icon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,7 +16,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Eye, Home, Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { DeleteBrandForm } from "@/components/forms";
 import { getBrands } from "@/actions/brand.actions";
@@ -33,20 +39,16 @@ export default async function Brands() {
             <h1 className="text-4xl font-bold">Brands</h1>
             <Button asChild>
               <Link href={"/brands/new"}>
-                <Plus /> New brand
+                <HugeiconsIcon icon={Add01Icon} strokeWidth={2} /> New Brand
               </Link>
             </Button>
           </div>
           <div className="flex h-5 items-center gap-2">
-            <ReturnButton
-              btnVariant="link"
-              href="/products"
-              label="All Products Page"
-            />
+            <ReturnButton btnVariant="link" href="/products" label="Products" />
             <Separator orientation="vertical" />
             <Button variant={"ghost"} size={"icon-sm"} asChild>
               <Link href={"/"}>
-                <Home />
+                <HugeiconsIcon icon={Home01Icon} strokeWidth={2} />
                 <span className="sr-only">Back to Home</span>
               </Link>
             </Button>
@@ -58,7 +60,7 @@ export default async function Brands() {
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
-                <TableHead className="w-[100px]">ID</TableHead>
+                <TableHead className="w-25">ID</TableHead>
                 <TableHead>Brand</TableHead>
                 <TableHead>Products In</TableHead>
                 {/* <TableHead>In Series</TableHead> */}
@@ -113,13 +115,13 @@ export default async function Brands() {
                       <div className="flex flex-row items-center justify-end gap-2">
                         <Button size={"icon-sm"} variant={"ghost"} asChild>
                           <Link href={`/brands/${brand.id}`}>
-                            <Eye />
+                            <HugeiconsIcon icon={ViewIcon} strokeWidth={2} />
                             <span className="sr-only">View</span>
                           </Link>
                         </Button>
                         <Button size={"icon-sm"} variant={"ghost"} asChild>
                           <Link href={`/brands/edit/${brand.id}`}>
-                            <Pencil />
+                            <HugeiconsIcon icon={Edit04Icon} strokeWidth={2} />
                             <span className="sr-only">Edit</span>
                           </Link>
                         </Button>

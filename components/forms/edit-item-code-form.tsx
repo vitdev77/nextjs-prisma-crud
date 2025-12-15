@@ -3,6 +3,16 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxTrigger,
+  ComboboxValue,
+} from "@/components/ui/combobox";
+import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -135,7 +145,7 @@ export function EditItemCodeForm({ itemCode, _onSubmit }: Props) {
             )}
           />
 
-          {/* <FormField
+          <FormField
             control={form.control}
             name="itemId"
             render={({ field }) => {
@@ -178,9 +188,54 @@ export function EditItemCodeForm({ itemCode, _onSubmit }: Props) {
                 </FormItem>
               );
             }}
+          />
+
+          {/* <FormField
+            control={form.control}
+            name="itemId"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Item</FormLabel>
+                  <Combobox
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={loading}
+                    {...field}
+                    items={items}
+                  >
+                    <ComboboxTrigger
+                      render={
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between font-normal"
+                        />
+                      }
+                    >
+                      <ComboboxValue />
+                    </ComboboxTrigger>
+                    <ComboboxContent>
+                      <ComboboxInput
+                        showTrigger={false}
+                        placeholder="Search item..."
+                      />
+                      <ComboboxEmpty>No items found.</ComboboxEmpty>
+                      <ComboboxList>
+                        {items.map((item) => (
+                          <ComboboxItem key={item.id} value={item.id}>
+                            {item.name}
+                          </ComboboxItem>
+                        ))}
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </Combobox>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           /> */}
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="itemId"
             render={({ field }) => (
@@ -240,7 +295,7 @@ export function EditItemCodeForm({ itemCode, _onSubmit }: Props) {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           {error && (
             <div role="alert" className="text-destructive text-sm">

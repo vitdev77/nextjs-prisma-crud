@@ -79,11 +79,11 @@ export function DataTable<TData, TValue>({
       rowSelection,
       globalFilter,
     },
-    initialState: {
-      pagination: {
-        pageSize: 20,
-      },
-    },
+    // initialState: {
+    //   pagination: {
+    //     pageSize: 20,
+    //   },
+    // },
   });
 
   return (

@@ -1,4 +1,11 @@
 import { Metadata } from "next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Add01Icon,
+  Edit04Icon,
+  Home01Icon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,7 +16,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Eye, Home, Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { DeleteProductForm } from "@/components/forms";
 import { ReturnButton } from "@/components/return-button";
@@ -21,7 +27,6 @@ import {
   underscoreWithHyphensToUppercasedText,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import prisma from "@/lib/prisma";
 import PaginationComponent from "@/components/pagination";
 
 export const metadata: Metadata = {
@@ -77,7 +82,7 @@ export default async function Products({
             <h1 className="text-4xl font-bold">Products</h1>
             <Button asChild>
               <Link href={"/products/new"}>
-                <Plus /> New product
+                <HugeiconsIcon icon={Add01Icon} strokeWidth={2} /> New Product
               </Link>
             </Button>
           </div>
@@ -85,20 +90,20 @@ export default async function Products({
             <ReturnButton
               btnVariant="link"
               href="/series"
-              label="All Series Page"
+              label="Series"
               showArrow={false}
             />
             <Separator orientation="vertical" />
             <ReturnButton
               btnVariant="link"
               href="/brands"
-              label="All Brands Page"
+              label="Brands"
               showArrow={false}
             />
             <Separator orientation="vertical" />
             <Button variant={"ghost"} size={"icon-sm"} asChild>
               <Link href={"/"}>
-                <Home />
+                <HugeiconsIcon icon={Home01Icon} strokeWidth={2} />
                 <span className="sr-only">Back to Home</span>
               </Link>
             </Button>
@@ -110,7 +115,7 @@ export default async function Products({
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
-                <TableHead className="w-[100px]">ID</TableHead>
+                <TableHead className="w-25">ID</TableHead>
                 <TableHead>Model</TableHead>
                 <TableHead>Brand</TableHead>
                 <TableHead>Series</TableHead>
@@ -182,13 +187,13 @@ export default async function Products({
                       <div className="flex flex-row items-center justify-end gap-2">
                         <Button size={"icon-sm"} variant={"ghost"} asChild>
                           <Link href={`/products/${product.id}`}>
-                            <Eye />
+                            <HugeiconsIcon icon={ViewIcon} strokeWidth={2} />
                             <span className="sr-only">View</span>
                           </Link>
                         </Button>
                         <Button size={"icon-sm"} variant={"ghost"} asChild>
                           <Link href={`/products/edit/${product.id}`}>
-                            <Pencil />
+                            <HugeiconsIcon icon={Edit04Icon} strokeWidth={2} />
                             <span className="sr-only">Edit</span>
                           </Link>
                         </Button>

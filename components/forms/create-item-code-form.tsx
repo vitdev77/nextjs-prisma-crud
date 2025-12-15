@@ -1,8 +1,28 @@
 "use client";
 
 import * as React from "react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { UnfoldMoreIcon } from "@hugeicons/core-free-icons";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxCollection,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  ComboboxValue,
+  useComboboxAnchor,
+} from "@/components/ui/combobox";
 import {
   Command,
   CommandEmpty,
@@ -34,7 +54,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -42,8 +61,6 @@ import { LoadingButton } from "@/components/loading-button";
 import { toast } from "sonner";
 import { createItemCode } from "@/actions/itemCode.actions";
 import { getItems } from "@/actions/item.actions";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const newItemCodeSchema = z.object({
   code: z
@@ -183,9 +200,14 @@ export function CreateItemCodeForm({
                 <FormItem>
                   <FormLabel>Item</FormLabel>
                   {isLoadingItemsData ? (
-                    <Skeleton className="text-muted-foreground flex h-9 w-full items-center px-4 text-sm">
-                      Loading items list...
-                    </Skeleton>
+                    <div className="bg-muted text-muted-foreground/50 border-input flex h-8 w-full items-center justify-between rounded-lg border pr-2 pl-2.5 text-sm">
+                      <span>Loading items list...</span>
+                      <HugeiconsIcon
+                        icon={UnfoldMoreIcon}
+                        strokeWidth={2}
+                        className="pointer-events-none size-4"
+                      />
+                    </div>
                   ) : (
                     <Select
                       onValueChange={field.onChange}
@@ -221,6 +243,66 @@ export function CreateItemCodeForm({
               );
             }}
           />
+
+          {/* <FormField
+            control={form.control}
+            name="itemId"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Item ID</FormLabel>
+                  {isLoadingItemsData ? (
+                    <div className="bg-muted text-muted-foreground/50 border-input flex h-8 w-full items-center justify-between rounded-lg border pr-2 pl-2.5 text-sm">
+                      <span>Loading items list...</span>
+                      <HugeiconsIcon
+                        icon={UnfoldMoreIcon}
+                        strokeWidth={2}
+                        className="pointer-events-none size-4"
+                      />
+                    </div>
+                  ) : (
+                    <Combobox
+                      items={sortedItems}
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <ComboboxTrigger
+                        render={
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between font-normal"
+                          />
+                        }
+                      >
+                        <ComboboxValue />
+                      </ComboboxTrigger>
+                      <ComboboxContent>
+                        <ComboboxInput
+                          showTrigger={false}
+                          placeholder="Select item"
+                          showClear
+                        />
+                        <ComboboxEmpty>No items found.</ComboboxEmpty>
+                        <ComboboxList>
+                          {(item) => (
+                            <ComboboxItem key={item.id} value={item.id}>
+                              {item.name}{" "}
+                              <span className="text-muted-foreground text-xs">
+                                {item.attr}
+                              </span>
+                            </ComboboxItem>
+                          )}
+                        </ComboboxList>
+                      </ComboboxContent>
+                    </Combobox>
+                  )}
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          /> */}
 
           {/* <FormField
             control={form.control}

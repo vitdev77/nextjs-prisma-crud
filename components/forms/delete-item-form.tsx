@@ -13,8 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import { deleteItem } from "@/actions/item.actions";
 import { toast } from "sonner";
 
@@ -62,10 +61,7 @@ export function DeleteItemForm({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={handleDelete}
-            className={cn(buttonVariants({ variant: "destructive" }))}
-          >
+          <AlertDialogAction variant={"destructive"} onClick={handleDelete}>
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>

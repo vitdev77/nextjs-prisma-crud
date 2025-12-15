@@ -1,5 +1,7 @@
 "use client";
 
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Delete02Icon } from "@hugeicons/core-free-icons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,8 +14,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { deleteSeries } from "@/actions/series.actions";
 import { toast } from "sonner";
 
@@ -31,7 +31,11 @@ export function DeleteSeriesForm({ seriesId }: { seriesId: string }) {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button size={"icon-sm"} variant={"ghost"}>
-          <Trash2 className="stroke-destructive" />
+          <HugeiconsIcon
+            icon={Delete02Icon}
+            strokeWidth={2}
+            className="text-destructive"
+          />
           <span className="sr-only">Delete</span>
         </Button>
       </AlertDialogTrigger>
@@ -48,10 +52,7 @@ export function DeleteSeriesForm({ seriesId }: { seriesId: string }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={handleDelete}
-            className={cn(buttonVariants({ variant: "destructive" }))}
-          >
+          <AlertDialogAction variant={"destructive"} onClick={handleDelete}>
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>

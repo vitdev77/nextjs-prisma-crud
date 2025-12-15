@@ -5,23 +5,14 @@ import { useRouter } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { RefreshIcon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-interface RefreshPageButtonProps {
-  btnSize?: "icon" | "icon-sm" | "icon-lg";
-  btnVariant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-}
-
-export function RefreshPageButton({
-  btnSize,
-  btnVariant,
-}: RefreshPageButtonProps) {
+export function RefreshPageButton() {
   const [isPending, startTransition] = React.useTransition();
   const [localLoading, setLocalLoading] = React.useState(false); // Optional: for specific button actions
   const [isPageLoading, setIsPageLoading] = React.useState(true);
@@ -41,20 +32,26 @@ export function RefreshPageButton({
   };
 
   return (
-    <Button
-      variant={btnVariant || "ghost"}
-      size={btnSize || "icon"}
-      onClick={handleRefresh}
-      disabled={isPageLoading || isPending || localLoading}
-      title="Refresh Page"
-    >
-      <HugeiconsIcon
-        icon={RefreshIcon}
-        strokeWidth={2}
-        className={cn(
-          isPageLoading || isPending || localLoading ? "animate-spin" : "",
-        )}
-      />
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleRefresh}
+          disabled={isPageLoading || isPending || localLoading}
+        >
+          <HugeiconsIcon
+            icon={RefreshIcon}
+            strokeWidth={2}
+            className={cn(
+              isPageLoading || isPending || localLoading ? "animate-spin" : "",
+            )}
+          />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Refresh Page</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }

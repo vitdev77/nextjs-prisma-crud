@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Copy01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -12,45 +10,50 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export function copyToClipboard(value: string) {
-  navigator.clipboard.writeText(value);
+interface CopyButtonProps extends React.ComponentProps<typeof Button> {
+  value: string;
+  tooltip?: string;
 }
 
 export function CopyButton({
   value,
-  className,
   variant = "ghost",
   tooltip = "Copy to Clipboard",
+  className,
   ...props
-}: React.ComponentProps<typeof Button> & {
-  value: string;
-  tooltip?: string;
-}) {
-  const [hasCopied, setHasCopied] = React.useState(false);
+}: CopyButtonProps) {
+  const [copied, setCopied] = React.useState(false);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      setHasCopied(false);
-    }, 2000);
-  }, []);
+  const copyToClipboard = async () => {
+    try {
+      if (!value) {
+        console.error("No text reference to copy");
+        return;
+      }
+
+      await navigator.clipboard.writeText(value);
+
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  };
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
           data-slot="copy-button"
-          data-copied={hasCopied}
+          data-copied={copied}
           size="icon-sm"
           variant={variant}
-          className={cn("size-7", className)}
-          onClick={() => {
-            copyToClipboard(value);
-            setHasCopied(true);
-          }}
+          className={className}
+          onClick={copyToClipboard}
           {...props}
         >
           <span className="sr-only">Copy</span>
-          {hasCopied ? (
+          {copied ? (
             <HugeiconsIcon
               icon={Tick02Icon}
               strokeWidth={2}
@@ -65,7 +68,7 @@ export function CopyButton({
           )}
         </Button>
       </TooltipTrigger>
-      <TooltipContent>{hasCopied ? "Copied" : tooltip}</TooltipContent>
+      <TooltipContent>{copied ? "Copied!" : tooltip}</TooltipContent>
     </Tooltip>
   );
 }
