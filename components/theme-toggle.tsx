@@ -3,11 +3,7 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  DarkModeIcon,
-  Moon02Icon,
-  Sun03Icon,
-} from "@hugeicons/core-free-icons";
+import { LayerMask02Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 
 export const ThemeToggle: React.FC = () => {
@@ -20,7 +16,7 @@ export const ThemeToggle: React.FC = () => {
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       title="Toggle Theme"
     >
-      <HugeiconsIcon icon={DarkModeIcon} strokeWidth={2} />
+      <HugeiconsIcon icon={LayerMask02Icon} strokeWidth={2} />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

@@ -1,8 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Link2Icon } from "lucide-react";
-
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Edit04Icon, Link05Icon, ViewIcon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/table/common/data-table-column-header";
@@ -11,6 +11,7 @@ import { DeleteItemCodeForm } from "@/components/forms";
 import { ItemCodeWithRelations } from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
 import { cn, truncateMiddle } from "@/lib/utils";
+import { CopyButton } from "@/components/copy-button";
 
 export const columns: ColumnDef<ItemCodeWithRelations>[] = [
   {
@@ -41,9 +42,15 @@ export const columns: ColumnDef<ItemCodeWithRelations>[] = [
       return <DataTableColumnHeader column={column} title="ID" />;
     },
     cell: ({ row }) => (
-      <span className="text-muted-foreground font-mono text-xs">
-        {truncateMiddle(row.getValue("id"), 8, 3)}
-      </span>
+      <div className="group flex w-full items-center gap-1">
+        <span className="text-muted-foreground font-mono text-xs">
+          {truncateMiddle(row.getValue("id"), 8, 3)}
+        </span>
+        <CopyButton
+          value={row.getValue("id")}
+          className="pl-2 opacity-0 transition-all duration-300 ease-in-out group-hover:pl-0 group-hover:opacity-100"
+        />
+      </div>
     ),
   },
   {
@@ -72,7 +79,11 @@ export const columns: ColumnDef<ItemCodeWithRelations>[] = [
           className="group text-muted-foreground hover:text-primary flex items-center gap-2 font-mono text-xs underline-offset-4 transition-all duration-300 ease-in-out hover:underline"
         >
           {truncateMiddle(itemId, 8, 3)}{" "}
-          <Link2Icon className="stroke-muted-foreground/30 group-hover:stroke-primary size-3" />
+          <HugeiconsIcon
+            icon={Link05Icon}
+            strokeWidth={2}
+            className="text-muted-foreground/30 group-hover:text-primary size-4"
+          />
         </Link>
       );
     },
@@ -118,13 +129,13 @@ export const columns: ColumnDef<ItemCodeWithRelations>[] = [
         <div className="flex flex-row items-center justify-end gap-2">
           <Button size={"icon-sm"} variant={"ghost"} asChild>
             <Link href={`/item-codes/${item.id}`}>
-              <Eye />
+              <HugeiconsIcon icon={ViewIcon} strokeWidth={2} />
               <span className="sr-only">View</span>
             </Link>
           </Button>
           <Button size={"icon-sm"} variant={"ghost"} asChild>
             <Link href={`/item-codes/edit/${item.id}`}>
-              <Pencil />
+              <HugeiconsIcon icon={Edit04Icon} strokeWidth={2} />
               <span className="sr-only">Edit</span>
             </Link>
           </Button>

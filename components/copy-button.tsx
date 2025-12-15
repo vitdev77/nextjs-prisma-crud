@@ -54,13 +54,13 @@ export function CopyButton({
             <HugeiconsIcon
               icon={Tick02Icon}
               strokeWidth={2}
-              className="size-3"
+              className="size-4"
             />
           ) : (
             <HugeiconsIcon
               icon={Copy01Icon}
               strokeWidth={2}
-              className="size-3"
+              className="size-4"
             />
           )}
         </Button>
