@@ -1,8 +1,8 @@
 import {
   Geist_Mono as FontMono,
-  Geist as FontSans,
+  Geist,
   Inter,
-  Roboto_Flex,
+  Roboto_Flex as FontSans,
 } from "next/font/google";
 
 import { cn } from "@/lib/utils";
@@ -23,13 +23,14 @@ const fontInter = Inter({
   variable: "--font-inter",
 });
 
-const fontRobotoFlex = Roboto_Flex({
+const fontGeist = Geist({
   subsets: ["latin"],
-  variable: "--font-roboto-flex",
+  variable: "--font-geist",
 });
 
 export const fontVariables = cn(
   fontSans.variable,
   fontMono.variable,
   fontInter.variable,
+  fontGeist.variable,
 );

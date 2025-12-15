@@ -3,6 +3,8 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Add01Icon,
+  BorderNone02Icon,
+  CheckmarkSquare02Icon,
   Edit04Icon,
   Tick02Icon,
   ViewIcon,
@@ -57,6 +59,7 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
         />
       </div>
     ),
+    enableHiding: false,
   },
   {
     accessorKey: "name",
@@ -118,16 +121,24 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       const { _count, id } = row.original;
 
       return (
-        <div className="text-center">
-          {_count.itemCodes === 0 ? (
-            <Button variant={"outline"} size={"icon-sm"} asChild>
-              <Link href={"/item-codes/new?itemId=" + id}>
-                <HugeiconsIcon icon={Add01Icon} strokeWidth={2} />
-              </Link>
-            </Button>
-          ) : (
-            _count.itemCodes
-          )}
+        <div className="flex w-full items-center gap-2 text-center">
+          <span
+            className={cn(
+              _count.itemCodes === 0 && "text-muted-foreground/50",
+              "w-8 text-right",
+            )}
+          >
+            {_count.itemCodes}
+          </span>{" "}
+          <Button
+            variant={_count.itemCodes === 0 ? "outline" : "secondary"}
+            size={"icon-sm"}
+            asChild
+          >
+            <Link href={"/item-codes/new?itemId=" + id}>
+              <HugeiconsIcon icon={Add01Icon} strokeWidth={2} />
+            </Link>
+          </Button>
         </div>
       );
     },
@@ -142,11 +153,11 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       const isMaterial = row.getValue("isMaterial");
 
       return (
-        <>
-          {isMaterial === true && (
-            <HugeiconsIcon icon={Tick02Icon} strokeWidth={2} />
-          )}
-        </>
+        <HugeiconsIcon
+          icon={isMaterial === false ? BorderNone02Icon : CheckmarkSquare02Icon}
+          strokeWidth={1.5}
+          className={cn(isMaterial === false && "text-muted-foreground/10")}
+        />
       );
     },
   },
@@ -159,11 +170,11 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       const isAssembly = row.getValue("isAssembly");
 
       return (
-        <>
-          {isAssembly === true && (
-            <HugeiconsIcon icon={Tick02Icon} strokeWidth={2} />
-          )}
-        </>
+        <HugeiconsIcon
+          icon={isAssembly === false ? BorderNone02Icon : CheckmarkSquare02Icon}
+          strokeWidth={1.5}
+          className={cn(isAssembly === false && "text-muted-foreground/10")}
+        />
       );
     },
   },

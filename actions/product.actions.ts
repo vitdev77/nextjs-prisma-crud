@@ -21,20 +21,9 @@ export async function countProducts({ where }: { where?: {} }) {
 }
 
 // Get all products
-export async function getProducts({
-  where,
-  skip,
-  take,
-}: {
-  where?: {};
-  skip?: number;
-  take?: number;
-}) {
+export async function getProducts() {
   try {
     return await prisma.product.findMany({
-      where,
-      skip,
-      take,
       include: {
         series: true,
         brand: true,

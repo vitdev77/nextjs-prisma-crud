@@ -1,19 +1,37 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Edit04Icon, Link05Icon, ViewIcon } from "@hugeicons/core-free-icons";
+import {
+  Add01Icon,
+  BorderNone02Icon,
+  CheckmarkSquare02Icon,
+  Edit04Icon,
+  Tick02Icon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
+import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/table/common/data-table-column-header";
 import Link from "next/link";
-import { DeleteItemCodeForm } from "@/components/forms";
-import { ItemCodeWithRelations } from "@/@types/prisma";
+import { DeleteProductForm } from "@/components/forms";
+import {
+  ProductWithRelations,
+  BrandWithRelations,
+  SeriesWithRelations,
+} from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
-import { truncateMiddle } from "@/lib/utils";
+import {
+  cn,
+  truncateMiddle,
+  underscoreToCapitalizedText,
+  underscoreWithCommas,
+  underscoreWithHyphensToUppercasedText,
+} from "@/lib/utils";
 import { CopyButton } from "@/components/copy-button";
+import { Badge } from "@/components/ui/badge";
 
-export const columns: ColumnDef<ItemCodeWithRelations>[] = [
+export const columns: ColumnDef<ProductWithRelations>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -55,46 +73,87 @@ export const columns: ColumnDef<ItemCodeWithRelations>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "code",
+    accessorKey: "name",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Code" />;
+      return <DataTableColumnHeader column={column} title="Model" />;
     },
     cell: ({ row }) => {
-      const { code } = row.original;
-
-      return <div className="font-medium">{code}</div>;
+      return <div className="font-medium">{row.getValue("name")}</div>;
     },
     enableHiding: false,
   },
   {
-    accessorKey: "_count.itemCodes",
+    accessorKey: "brandId",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Codes In" />;
+      return <DataTableColumnHeader column={column} title="Brand" />;
     },
     cell: ({ row }) => {
-      const { itemId } = row.original;
+      const productByBrand = row.original.brand.name;
+
+      return <>{productByBrand}</>;
+    },
+    enableHiding: false,
+  },
+  {
+    accessorKey: "seriesId",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Series" />;
+    },
+    cell: ({ row }) => {
+      const productBySeries = row.original.series.name;
+
+      return <>{productBySeries}</>;
+    },
+    enableHiding: false,
+  },
+  {
+    accessorKey: "seriesAttr",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Series Attribute" />;
+    },
+    cell: ({ row }) => {
+      const productSeriesAttr = row.original.seriesAttr;
 
       return (
-        <div className="group flex w-full items-center gap-1">
-          <Link
-            href={"/items/" + itemId}
-            className="group text-muted-foreground hover:text-primary flex items-center gap-2 font-mono text-xs underline-offset-4 transition-all duration-300 ease-in-out hover:underline"
-          >
-            {truncateMiddle(itemId, 8, 3)}{" "}
-            <HugeiconsIcon
-              icon={Link05Icon}
-              strokeWidth={2}
-              className="text-muted-foreground/30 group-hover:text-primary size-4"
-            />
-          </Link>
-          <CopyButton
-            value={itemId}
-            className="pl-2 opacity-0 transition-all duration-300 ease-in-out group-hover:pl-0 group-hover:opacity-100"
-          />
-        </div>
+        <>
+          {productSeriesAttr === "NONE" ? (
+            ""
+          ) : (
+            <Badge>
+              {underscoreWithHyphensToUppercasedText(productSeriesAttr)}
+            </Badge>
+          )}
+        </>
       );
     },
     enableHiding: false,
+  },
+  {
+    accessorKey: "color",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Color" />;
+    },
+    cell: ({ row }) => {
+      return <>{underscoreToCapitalizedText(row.getValue("color"))}</>;
+    },
+  },
+  {
+    accessorKey: "displayPlaced",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Display" />;
+    },
+    cell: ({ row }) => {
+      return <>{underscoreToCapitalizedText(row.getValue("displayPlaced"))}</>;
+    },
+  },
+  {
+    accessorKey: "businessType",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Business Type" />;
+    },
+    cell: ({ row }) => {
+      return <>{row.getValue("businessType")}</>;
+    },
   },
   {
     accessorKey: "createdAt",
@@ -130,23 +189,23 @@ export const columns: ColumnDef<ItemCodeWithRelations>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const item = row.original;
+      const product = row.original;
 
       return (
         <div className="flex flex-row items-center justify-end gap-2">
           <Button size={"icon-sm"} variant={"ghost"} asChild>
-            <Link href={`/item-codes/${item.id}`}>
+            <Link href={`/products/${product.id}`}>
               <HugeiconsIcon icon={ViewIcon} strokeWidth={2} />
               <span className="sr-only">View</span>
             </Link>
           </Button>
           <Button size={"icon-sm"} variant={"ghost"} asChild>
-            <Link href={`/item-codes/edit/${item.id}`}>
+            <Link href={`/products/edit/${product.id}`}>
               <HugeiconsIcon icon={Edit04Icon} strokeWidth={2} />
               <span className="sr-only">Edit</span>
             </Link>
           </Button>
-          <DeleteItemCodeForm itemCodeId={item.id} />
+          <DeleteProductForm productId={product.id} />
         </div>
       );
     },

@@ -51,10 +51,7 @@ export function DeleteItemCodeForm({ itemCodeId }: { itemCodeId: string }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={handleDelete}
-            className={cn(buttonVariants({ variant: "destructive" }))}
-          >
+          <AlertDialogAction variant={"destructive"} onClick={handleDelete}>
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>

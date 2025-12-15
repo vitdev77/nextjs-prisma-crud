@@ -6,11 +6,22 @@ import {
   Series,
 } from "@/generated/prisma/client";
 
-export type SeriesWithRelations = Series;
+export type SeriesWithRelations = Series & {
+  _count: {
+    products: number;
+  };
+};
 
-export type BrandWithRelations = Brand;
+export type BrandWithRelations = Brand & {
+  _count: {
+    products: number;
+  };
+};
 
-export type ProductWithRelations = Product;
+export type ProductWithRelations = Product & {
+  brand: Brand;
+  series: Series;
+};
 
 export type ItemWithRelations = Item & {
   _count: {

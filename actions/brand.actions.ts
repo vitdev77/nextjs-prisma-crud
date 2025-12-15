@@ -14,14 +14,9 @@ export async function getBrands() {
             products: true,
           },
         },
-        // brand: {
-        //   select: {
-        //     _count: true,
-        //   },
-        // },
       },
       orderBy: {
-        updatedAt: "desc",
+        createdAt: "desc",
       },
     });
   } catch (err) {
