@@ -88,9 +88,9 @@ export function CreateItemCodeForm({
   const { replace } = useRouter();
   const currentItemId = searchParams.get("itemId");
 
-  const [selectedValue, setSelectedValue] = React.useState<string | undefined>(
-    currentItemId || "",
-  );
+  const [selectedItemValue, setSelectedItemValue] = React.useState<
+    string | undefined
+  >(currentItemId || "");
   const [openCombobox, setOpenCombobox] = React.useState(false);
   const [items, setItems] = React.useState<
     { id: string; name: string; nameExt: string | null; attr: string | null }[]
@@ -101,7 +101,7 @@ export function CreateItemCodeForm({
   const sortedItems = [...items].sort((a, b) => a.name.localeCompare(b.name));
 
   React.useEffect(() => {
-    async function getAllitems() {
+    async function getAllItems() {
       setIsLoadingItemsData(true);
       try {
         const fetchItemsData = await getItems();
@@ -112,26 +112,26 @@ export function CreateItemCodeForm({
         setIsLoadingItemsData(false);
       }
     }
-    getAllitems();
+    getAllItems();
   }, []);
 
   // Ensure the UI stays in sync if the URL changes through other means (e.g., browser back/forward)
   React.useEffect(() => {
-    setSelectedValue(currentItemId || "");
+    setSelectedItemValue(currentItemId || "");
   }, [currentItemId]);
 
-  function handleValueChange(value: string) {
-    setSelectedValue("");
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set("itemId", value);
-    } else {
-      // Optional: remove the param if an empty/reset value is selected
-      params.delete("itemId");
-    }
-    // Update the URL without a full page reload
-    replace(`${pathname}?${params.toString()}`);
-  }
+  // function handleValueChange(value: string) {
+  //   setSelectedValue("");
+  //   const params = new URLSearchParams(searchParams);
+  //   if (value) {
+  //     params.set("itemId", value);
+  //   } else {
+  //     // Optional: remove the param if an empty/reset value is selected
+  //     params.delete("itemId");
+  //   }
+  //   // Update the URL without a full page reload
+  //   replace(`${pathname}?${params.toString()}`);
+  // }
 
   function removeAllQueryParams() {
     const url = new URL(window.location.href);
@@ -144,7 +144,7 @@ export function CreateItemCodeForm({
     resolver: zodResolver(newItemCodeSchema),
     defaultValues: {
       code: "",
-      itemId: selectedValue || "",
+      itemId: selectedItemValue || "",
     },
   });
 

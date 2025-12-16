@@ -1,6 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { UnfoldMoreIcon } from "@hugeicons/core-free-icons";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -58,6 +61,18 @@ const newProductSchema = z.object({
 type NewProductValues = z.infer<typeof newProductSchema>;
 
 export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const currentBrandId = searchParams.get("brandId");
+  const currentSeriesId = searchParams.get("seriesId");
+
+  const [selectedBrandValue, setSelectedBrandValue] = React.useState<
+    string | undefined
+  >(currentBrandId || "");
+  const [selectedSeriesValue, setSelectedSeriesValue] = React.useState<
+    string | undefined
+  >(currentSeriesId || "");
   const [brands, setBrands] = React.useState<
     { id: string; name: string | null }[]
   >([]);
@@ -65,6 +80,21 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
     { id: string; name: string | null }[]
   >([]);
   const [error, setError] = React.useState<string | null>(null);
+  const [isLoadingBrandsData, setIsLoadingBrandsData] = React.useState(true);
+  const [isLoadingSeriesData, setIsLoadingSeriesData] = React.useState(true);
+
+  const sortedBrands = [...brands].sort((a, b) => {
+    const strA = a.name ?? "";
+    const strB = b.name ?? "";
+
+    return strA.localeCompare(strB);
+  });
+  const sortedSeries = [...series].sort((a, b) => {
+    const strA = a.name ?? "";
+    const strB = b.name ?? "";
+
+    return strA.localeCompare(strB);
+  });
 
   const productSeriesAttr = Object.values(SeriesAttr).map(
     (seriesAttrName, i) => ({
@@ -91,17 +121,56 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
 
   React.useEffect(() => {
     async function getAllBrands() {
-      const fetchBrandsData = await getBrands();
-      setBrands(fetchBrandsData);
+      setIsLoadingBrandsData(true);
+      try {
+        const fetchBrandsData = await getBrands();
+        setBrands(fetchBrandsData);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingBrandsData(false);
+      }
     }
     async function getAllSeries() {
-      const fetchSeriesData = await getSeries();
-      setSeries(fetchSeriesData);
+      setIsLoadingSeriesData(true);
+      try {
+        const fetchSeriesData = await getSeries();
+        setSeries(fetchSeriesData);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingSeriesData(false);
+      }
     }
 
     getAllBrands();
     getAllSeries();
   }, []);
+
+  // Ensure the UI stays in sync if the URL changes through other means (e.g., browser back/forward)
+  React.useEffect(() => {
+    setSelectedSeriesValue(currentSeriesId || "");
+  }, [currentSeriesId]);
+
+  // function handleValueChange(value: string) {
+  //   setSelectedSeriesValue("");
+  //   const params = new URLSearchParams(searchParams);
+  //   if (value) {
+  //     params.set("seriesId", value);
+  //   } else {
+  //     // Optional: remove the param if an empty/reset value is selected
+  //     params.delete("seriesId");
+  //   }
+  //   // Update the URL without a full page reload
+  //   replace(`${pathname}?${params.toString()}`);
+  // }
+
+  function removeAllQueryParams() {
+    const url = new URL(window.location.href);
+    url.search = "";
+    window.history.replaceState(null, "", url.toString());
+    form.reset({ brandId: "", seriesId: "" });
+  }
 
   const form = useForm<NewProductValues>({
     resolver: zodResolver(newProductSchema),
@@ -111,8 +180,8 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
       color: ProductColor.WHITE || "WHITE",
       displayPlaced: DisplayPlaced.ON_DOOR || "ON_DOOR",
       businessType: BusinessType.OBM || "OBM",
-      brandId: "",
-      seriesId: "",
+      brandId: selectedBrandValue || "",
+      seriesId: selectedSeriesValue || "",
     },
   });
 
@@ -167,35 +236,46 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
               return (
                 <FormItem>
                   <FormLabel>Brand</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger
-                        className="w-full"
-                        disabled={loading || brands.length === 0}
-                      >
-                        <SelectValue placeholder="Select brand" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Brands</SelectLabel>
-                        {brands.map((brand) => (
-                          <SelectItem
-                            className="flex justify-between gap-2"
-                            key={brand.id}
-                            value={String(brand.id)}
-                          >
-                            {brand.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  {isLoadingSeriesData ? (
+                    <div className="bg-muted text-muted-foreground/50 border-input flex h-8 w-full items-center justify-between rounded-lg border pr-2 pl-2.5 text-sm">
+                      <span>Loading brands list...</span>
+                      <HugeiconsIcon
+                        icon={UnfoldMoreIcon}
+                        strokeWidth={2}
+                        className="pointer-events-none size-4"
+                      />
+                    </div>
+                  ) : (
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger
+                          className="w-full"
+                          disabled={loading || sortedBrands.length === 0}
+                        >
+                          <SelectValue placeholder="Select brand" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Brands</SelectLabel>
+                          {sortedBrands.map((brand) => (
+                            <SelectItem
+                              className="flex justify-between gap-2"
+                              key={brand.id}
+                              value={String(brand.id)}
+                            >
+                              {brand.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
                   <FormMessage />
                 </FormItem>
               );
@@ -209,35 +289,46 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
               return (
                 <FormItem>
                   <FormLabel>Series</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={loading}
-                    {...field}
-                  >
-                    <FormControl>
-                      <SelectTrigger
-                        className="w-full"
-                        disabled={loading || series.length === 0}
-                      >
-                        <SelectValue placeholder="Select series" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Series</SelectLabel>
-                        {series.map((seriesItem) => (
-                          <SelectItem
-                            className="flex justify-between gap-2"
-                            key={seriesItem.id}
-                            value={String(seriesItem.id)}
-                          >
-                            {seriesItem.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  {isLoadingSeriesData ? (
+                    <div className="bg-muted text-muted-foreground/50 border-input flex h-8 w-full items-center justify-between rounded-lg border pr-2 pl-2.5 text-sm">
+                      <span>Loading series list...</span>
+                      <HugeiconsIcon
+                        icon={UnfoldMoreIcon}
+                        strokeWidth={2}
+                        className="pointer-events-none size-4"
+                      />
+                    </div>
+                  ) : (
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                      {...field}
+                    >
+                      <FormControl>
+                        <SelectTrigger
+                          className="w-full"
+                          disabled={loading || sortedSeries.length === 0}
+                        >
+                          <SelectValue placeholder="Select series" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Series</SelectLabel>
+                          {sortedSeries.map((seriesItem) => (
+                            <SelectItem
+                              className="flex justify-between gap-2"
+                              key={seriesItem.id}
+                              value={String(seriesItem.id)}
+                            >
+                              {seriesItem.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
                   <FormMessage />
                 </FormItem>
               );
@@ -419,13 +510,19 @@ export function CreateProductForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
               type="submit"
               className="w-full"
               loading={loading}
-              disabled={series.length === 0 || brands.length === 0}
+              disabled={sortedBrands.length === 0 || sortedSeries.length === 0}
             >
               Submit
             </LoadingButton>
             <Button
-              onClick={() => form.reset()}
-              disabled={loading}
+              onClick={removeAllQueryParams}
+              disabled={
+                loading ||
+                sortedBrands.length === 0 ||
+                sortedSeries.length === 0 ||
+                isLoadingBrandsData ||
+                isLoadingSeriesData
+              }
               variant={"ghost"}
               className="w-full"
               type="reset"
