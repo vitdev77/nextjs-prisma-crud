@@ -5,7 +5,7 @@ import Script from "next/script";
 import { useTheme } from "next-themes";
 
 import { HugeiconsIcon } from "@hugeicons/react";
-import { LayerMask02Icon } from "@hugeicons/core-free-icons";
+import { BackgroundIcon, LayerMask02Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
 import {
@@ -53,7 +53,7 @@ export function ModeSwitcher() {
           className="group/toggle extend-touch-target size-8"
           onClick={toggleTheme}
         >
-          <HugeiconsIcon icon={LayerMask02Icon} strokeWidth={2} />
+          <HugeiconsIcon icon={BackgroundIcon} strokeWidth={2} />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </TooltipTrigger>

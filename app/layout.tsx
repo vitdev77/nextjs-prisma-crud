@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { fontVariables } from "@/lib/fonts";
-import { ModeSwitcher } from "@/components/mode-switcher";
-import { RefreshPageButton } from "@/components/refresh-page-button";
 // import { TopLoaderComponent } from "@/components/top-loader-component";
-import "./globals.css";
+import "@/styles/globals.css";
+import { LayoutProvider } from "@/hooks/use-layout";
 
 export const metadata: Metadata = {
   title: {
@@ -24,25 +23,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={fontVariables}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.layout) {
+                  document.documentElement.classList.add('layout-' + localStorage.layout)
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {/* TODO: Have hydration error with dark mode select. Solve it later... */}
-          {/* <TopLoaderComponent /> */}
-          <div className="fixed top-8 right-8 z-10">
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <RefreshPageButton />
-              <ModeSwitcher />
-            </div>
-          </div>
-          {children}
-          {modal}
-          <Toaster position={"top-center"} />
-        </ThemeProvider>
+        <LayoutProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {/* TODO: Have hydration error with dark mode select. Solve it later... */}
+            {/* <TopLoaderComponent /> */}
+            {children}
+            {modal}
+            <Toaster position={"top-center"} />
+          </ThemeProvider>
+        </LayoutProvider>
       </body>
     </html>
   );

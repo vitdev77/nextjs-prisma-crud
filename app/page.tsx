@@ -2,12 +2,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const nav = [
-  { title: "Series", link: "/series" },
   { title: "Brands", link: "/brands" },
+  { title: "Series", link: "/series" },
   { title: "Products", link: "/products" },
   { title: "Items", link: "/items" },
   { title: "Item Codes", link: "/item-codes" },
-  { title: "Table Test", link: "/table-test" },
+  { title: "Test Page", link: "/test" },
 ];
 
 export default async function Home() {
