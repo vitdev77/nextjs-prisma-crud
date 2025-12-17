@@ -3,26 +3,29 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import {
-  Blocks,
-  Database,
-  Gauge,
-  Hexagon,
-  List,
-  Palette,
-  Settings,
-  Users,
-} from "lucide-react";
+  Atom01Icon,
+  BinaryCodeIcon,
+  FlowConnectionIcon,
+  FlowIcon,
+  Home01Icon,
+  RefrigeratorIcon,
+  Settings02Icon,
+  TestTube01Icon,
+  UserMultiple03Icon,
+} from "@hugeicons/core-free-icons";
 
 const NavItems = [
-  { label: "Dashboard", link: "/admin", icon: Gauge },
-  { label: "Brands", link: "/admin/brands", icon: Hexagon },
-  { label: "Series", link: "/admin/series", icon: Blocks },
-  { label: "Colors", link: "/admin/colors", icon: Palette },
-  { label: "Products", link: "/admin/products", icon: Database },
-  { label: "Items", link: "/admin/items", icon: List },
-  { label: "Users", link: "/admin/users", icon: Users },
-  { label: "Settings", link: "/admin/settings", icon: Settings },
+  { label: "Home", link: "/", icon: Home01Icon },
+  { label: "Test", link: "/test", icon: TestTube01Icon },
+  { label: "Brands", link: "/brands", icon: Atom01Icon },
+  { label: "Series", link: "/series", icon: FlowIcon },
+  { label: "Products", link: "/products", icon: RefrigeratorIcon },
+  { label: "Items", link: "/items", icon: FlowConnectionIcon },
+  { label: "Item Codes", link: "/item-codes", icon: BinaryCodeIcon },
+  { label: "Users", link: "/users", icon: UserMultiple03Icon },
+  { label: "Settings", link: "/settings", icon: Settings02Icon },
 ];
 
 interface SidebarProps {
@@ -33,21 +36,26 @@ export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <div className={cn("min-w-3xs border-r border-dashed py-6", className)}>
-      <ul>
+    <div className={cn("min-w-45 border-r border-dashed py-6 pr-6", className)}>
+      <ul className="flex w-full min-w-0 flex-col gap-1">
         {NavItems.map((navItem, key) => {
-          const IconComponent = navItem.icon;
+          const IconComponent = navItem.icon as IconSvgElement;
           return (
             <li key={key}>
               <Link
                 className={cn(
-                  "hover:bg-primary/15 flex w-full items-center gap-2 px-4 py-2 text-left",
+                  "hover:bg-muted/50 flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm",
                   pathname === navItem.link &&
-                    "bg-primary text-primary-foreground hover:bg-primary",
+                    "bg-accent hover:bg-accent font-medium",
                 )}
                 href={navItem.link}
               >
-                <IconComponent className="size-4" /> {navItem.label}
+                <HugeiconsIcon
+                  icon={IconComponent}
+                  strokeWidth={2}
+                  className="size-4"
+                />{" "}
+                {navItem.label}
               </Link>
             </li>
           );

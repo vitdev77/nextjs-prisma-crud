@@ -17,7 +17,7 @@ export const Footer: React.FC<Props> = ({ className }) => {
       <Container>
         <div className="w-full py-4 text-center">
           <p className="text-muted-foreground text-xs">
-            &copy; {new Date().getFullYear()} Next MDB. (demo)
+            &copy; {new Date().getFullYear()} Nextjs-Prisma-CRUD
           </p>
         </div>
       </Container>

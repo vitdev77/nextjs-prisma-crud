@@ -1,7 +1,7 @@
 "use client";
 
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ListSettingIcon } from "@hugeicons/core-free-icons";
+import { FilterHorizontalIcon } from "@hugeicons/core-free-icons";
 import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export function DataTableViewOptions<TData>({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="ml-auto hidden lg:flex">
-          <HugeiconsIcon icon={ListSettingIcon} strokeWidth={2} />
+          <HugeiconsIcon icon={FilterHorizontalIcon} strokeWidth={2} />
           View
         </Button>
       </DropdownMenuTrigger>

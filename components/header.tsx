@@ -28,7 +28,7 @@ export function Header() {
             className="mx-2 hidden sm:mx-4 lg:flex"
           />
           <div className="text-muted-foreground hidden text-sm font-medium lg:flex">
-            Test Page Title
+            Nextjs-Prisma-CRUD
           </div>
         </div>
         <div className="fixed inset-x-0 bottom-0 ml-auto flex flex-1 items-center gap-2 px-4.5 pb-4 sm:static sm:justify-end sm:p-0 lg:ml-0 xl:justify-center">
