@@ -11,21 +11,20 @@ import {
   FlowIcon,
   Home01Icon,
   RefrigeratorIcon,
-  Settings02Icon,
-  TestTube01Icon,
+  Settings01Icon,
   UserMultiple03Icon,
 } from "@hugeicons/core-free-icons";
 
 const NavItems = [
   { label: "Home", link: "/", icon: Home01Icon },
-  { label: "Test", link: "/test", icon: TestTube01Icon },
+  // { label: "Test", link: "/test", icon: TestTube01Icon },
   { label: "Brands", link: "/brands", icon: Atom01Icon },
   { label: "Series", link: "/series", icon: FlowIcon },
   { label: "Products", link: "/products", icon: RefrigeratorIcon },
   { label: "Items", link: "/items", icon: FlowConnectionIcon },
   { label: "Item Codes", link: "/item-codes", icon: BinaryCodeIcon },
   { label: "Users", link: "/users", icon: UserMultiple03Icon },
-  { label: "Settings", link: "/settings", icon: Settings02Icon },
+  { label: "Settings", link: "/settings", icon: Settings01Icon },
 ];
 
 interface SidebarProps {
@@ -36,7 +35,7 @@ export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <div className={cn("min-w-45 border-r border-dashed py-6 pr-6", className)}>
+    <div className={cn("min-w-45 py-6", className)}>
       <ul className="flex w-full min-w-0 flex-col gap-1">
         {NavItems.map((navItem, key) => {
           const IconComponent = navItem.icon as IconSvgElement;

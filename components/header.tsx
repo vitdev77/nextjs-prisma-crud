@@ -11,7 +11,7 @@ import { Logo } from "@/components/logo";
 
 export function Header() {
   return (
-    <header className="bg-background/60 sticky top-0 z-50 w-full border-b border-dashed backdrop-blur-sm">
+    <header className="bg-background sticky top-0 z-50 w-full border-b border-dashed">
       <Container>
         <div className="flex items-center xl:w-1/3">
           <Button

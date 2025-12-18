@@ -31,7 +31,7 @@ export function SiteConfig({ className }: React.ComponentProps<typeof Button>) {
       title="Toggle layout"
     >
       <span className="sr-only">Toggle layout</span>
-      <HugeiconsIcon icon={CarouselHorizontal02Icon} strokeWidth={2} />
+      <HugeiconsIcon icon={CarouselHorizontalIcon} strokeWidth={2} />
     </Button>
   );
 }

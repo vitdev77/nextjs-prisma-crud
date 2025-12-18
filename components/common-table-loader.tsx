@@ -3,8 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CommonTableLoader() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-8">
-      <div className="mx-auto flex min-w-7xl flex-col gap-8">
+    <div className="no-scrollbar w-full overflow-x-hidden pt-6 pb-15">
+      <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap items-center gap-4">
             <Skeleton className="h-10 w-25" />

@@ -48,7 +48,7 @@ export default function RootLayout({
             {/* <TopLoaderComponent /> */}
             {children}
             {modal}
-            <Toaster position={"top-center"} />
+            <Toaster />
           </ThemeProvider>
         </LayoutProvider>
       </body>

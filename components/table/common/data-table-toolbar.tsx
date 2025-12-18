@@ -21,7 +21,7 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().globalFilter.length > 0;
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between px-1">
       <div className="flex flex-1 items-center gap-2">
         <InputGroup className="max-w-sm">
           <InputGroupAddon>
