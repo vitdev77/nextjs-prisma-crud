@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   BackgroundIcon,
+  LayerMask01Icon,
   LayerMask02Icon,
   Moon02Icon,
   Progress03Icon,
@@ -59,7 +60,7 @@ export function ModeSwitcher() {
           className="group/toggle extend-touch-target size-8"
           onClick={toggleTheme}
         >
-          <HugeiconsIcon icon={Progress03Icon} strokeWidth={2} />
+          <HugeiconsIcon icon={LayerMask01Icon} strokeWidth={2} />
           {/* <HugeiconsIcon
             icon={resolvedTheme === "dark" ? Moon02Icon : Sun03Icon}
             strokeWidth={2}

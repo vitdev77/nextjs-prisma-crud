@@ -7,6 +7,7 @@ import { SiteConfig } from "@/components/site-config";
 import { ModeSwitcher } from "@/components/mode-switcher";
 import { RefreshPageButton } from "@/components/refresh-page-button";
 import { Container } from "@/components/container";
+import { Logo } from "@/components/logo";
 
 export function Header() {
   return (
@@ -32,7 +33,7 @@ export function Header() {
           </div>
         </div>
         <div className="fixed inset-x-0 bottom-0 ml-auto flex flex-1 items-center gap-2 px-4.5 pb-4 sm:static sm:justify-end sm:p-0 lg:ml-0 xl:justify-center">
-          filteredItems
+          <Logo className="text-foreground h-9 w-auto" />
           <Separator
             orientation="vertical"
             className="mr-2 hidden sm:flex xl:hidden"
