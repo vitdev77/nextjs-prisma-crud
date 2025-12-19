@@ -5,7 +5,7 @@ import {
   UserIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-} from "@heroicons/react/24/outline";
+} from "lucide-react";
 
 export interface NavItem {
   title: string;
