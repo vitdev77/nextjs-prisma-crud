@@ -35,7 +35,7 @@ export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <div className={cn("min-w-45 py-6", className)}>
+    <div className={cn("min-w-45 py-8", className)}>
       <ul className="flex w-full min-w-0 flex-col gap-1">
         {NavItems.map((navItem, key) => {
           const IconComponent = navItem.icon as IconSvgElement;

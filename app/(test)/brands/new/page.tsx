@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function NewBrandPage() {
   return (
-    <div className="bg-muted flex min-h-screen flex-col items-center justify-center gap-6">
+    <div className="bg-muted my-8 flex w-full flex-col items-center justify-center gap-6 rounded-2xl">
       <ReturnButton
         btnVariant={"link"}
         href={"/brands"}
