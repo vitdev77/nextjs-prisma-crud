@@ -1,58 +1,66 @@
-import React, { useState } from "react";
+"use client";
+
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import {
-  HomeIcon,
-  CogIcon,
-  UserIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from "lucide-react";
+  ArrowDown01Icon,
+  ArrowRight01Icon,
+  Atom01Icon,
+  BinaryCodeIcon,
+  FlowConnectionIcon,
+  FlowIcon,
+  Home01Icon,
+  RefrigeratorIcon,
+  Settings01Icon,
+  UserMultiple03Icon,
+} from "@hugeicons/core-free-icons";
+import { cn } from "@/lib/utils";
 
 export interface NavItem {
-  title: string;
-  icon?: React.ElementType; // Using React.ElementType for icon components
-  path?: string;
+  label: string;
+  icon?: IconSvgElement;
+  link?: string;
   children?: NavItem[]; // The key for nested menus
 }
 
 export const navItems: NavItem[] = [
+  { label: "Home", link: "/", icon: Home01Icon },
+  { label: "Brands", link: "/brands", icon: Atom01Icon },
+  { label: "Series", link: "/series", icon: FlowIcon },
+  { label: "Products", link: "/products", icon: RefrigeratorIcon },
+  { label: "Items", link: "/items", icon: FlowConnectionIcon },
+  { label: "Item Codes", link: "/item-codes", icon: BinaryCodeIcon },
+  { label: "Users", link: "/users", icon: UserMultiple03Icon },
   {
-    title: "Dashboard",
-    icon: HomeIcon,
-    path: "/",
-  },
-  {
-    title: "Settings",
-    icon: CogIcon,
+    label: "Settings",
+    icon: Settings01Icon,
     children: [
       // Nested children
       {
-        title: "Profile",
-        path: "/settings/profile",
+        label: "Profile",
+        link: "/settings/profile",
       },
       {
-        title: "Security",
-        path: "/settings/security",
+        label: "Security",
+        link: "/settings/security",
       },
       {
-        title: "Advanced",
+        label: "Advanced",
         children: [
           // Deep nesting
           {
-            title: "Billing",
-            path: "/settings/advanced/billing",
+            label: "Billing",
+            link: "/settings/advanced/billing",
           },
           {
-            title: "API",
-            path: "/settings/advanced/api",
+            label: "API",
+            link: "/settings/advanced/api",
           },
         ],
       },
     ],
-  },
-  {
-    title: "Users",
-    icon: UserIcon,
-    path: "/users",
   },
 ];
 
@@ -61,7 +69,8 @@ interface SidebarItemProps {
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ item }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const pathname = usePathname();
+  const [isExpanded, setIsExpanded] = React.useState(false);
   const hasChildren = !!item.children;
   const Icon = item.icon;
 
@@ -71,39 +80,122 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item }) => {
     }
   };
 
-  const baseClasses =
-    "flex items-center p-3 text-sm font-medium rounded-lg text-gray-900 hover:bg-gray-100 cursor-pointer transition duration-150";
+  const ConditionalWrapper = ({
+    children,
+    link,
+    handleClick,
+    className,
+  }: {
+    children: React.ReactNode;
+    link?: string;
+    handleClick?: () => void;
+    className?: string;
+  }) => {
+    if (link) {
+      return (
+        <Link href={link} className={className}>
+          {children}
+        </Link>
+      );
+    }
+
+    return (
+      <div className={className} onClick={handleClick}>
+        {children}
+      </div>
+    );
+  };
 
   return (
-    <div>
-      <div className={baseClasses} onClick={toggleExpansion}>
-        {Icon && <Icon className="mr-3 h-5 w-5 text-gray-500" />}
-        <span className="flex-1">{item.title}</span>
-        {hasChildren &&
-          (isExpanded ? (
-            <ChevronDownIcon className="h-4 w-4" />
-          ) : (
-            <ChevronRightIcon className="h-4 w-4" />
-          ))}
-      </div>
+    <>
+      <ConditionalWrapper
+        link={item.link}
+        handleClick={toggleExpansion}
+        className={cn(
+          "hover:bg-muted/50 flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm transition duration-150",
+          pathname === item.link && "bg-accent hover:bg-accent font-medium",
+        )}
+      >
+        {Icon && (
+          <HugeiconsIcon
+            icon={Icon}
+            strokeWidth={2}
+            className="text-muted-foreground size-4"
+          />
+        )}
+        <span className="flex-1">{item.label}</span>
+        {hasChildren && (
+          <HugeiconsIcon
+            icon={ArrowRight01Icon}
+            strokeWidth={2}
+            className={cn(
+              "size-4 transition duration-150",
+              isExpanded ? "rotate-90" : "rotate-0",
+            )}
+          />
+        )}
+      </ConditionalWrapper>
+
+      {/* {!item.link ? (
+        <div
+          className="hover:bg-muted/50 flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-medium transition duration-150"
+          onClick={toggleExpansion}
+        >
+          {Icon && (
+            <HugeiconsIcon
+              icon={Icon}
+              strokeWidth={2}
+              className="text-muted-foreground size-4"
+            />
+          )}
+          <span className="flex-1">{item.label}</span>
+          {hasChildren && (
+            <HugeiconsIcon
+              icon={ArrowRight01Icon}
+              strokeWidth={2}
+              className={cn(
+                "size-4 transition duration-150",
+                isExpanded ? "rotate-90" : "rotate-0",
+              )}
+            />
+          )}
+        </div>
+      ) : (
+        <Link
+          href={item.link}
+          className={cn(
+            "hover:bg-muted/50 flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm transition duration-150",
+            pathname === item.link && "bg-accent hover:bg-accent font-medium",
+          )}
+        >
+          {" "}
+          {Icon && (
+            <HugeiconsIcon
+              icon={Icon}
+              strokeWidth={2}
+              className="text-muted-foreground size-4"
+            />
+          )}
+          <span className="flex-1">{item.label}</span>
+        </Link>
+      )} */}
 
       {hasChildren && isExpanded && (
-        <div className="mt-1 ml-6 space-y-1 border-l-2 border-gray-200 pl-4">
+        <div className="ml-4 space-y-1 border-l pl-4">
           {item.children?.map((child, index) => (
             // Recursively render children
             <SidebarItem key={index} item={child} />
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
-const Sidebar: React.FC = () => {
+const Sidebar2: React.FC = () => {
   return (
-    <aside className="min-h-screen w-64 bg-white p-4 shadow-md">
-      <div className="p-4 text-xl font-bold text-gray-800">My App</div>
-      <nav className="mt-4 space-y-2">
+    <aside className="min-w-45 py-8">
+      <nav className="space-y-2">
         {navItems.map((item, index) => (
           <SidebarItem key={index} item={item} />
         ))}
@@ -112,4 +204,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar;
+export default Sidebar2;
