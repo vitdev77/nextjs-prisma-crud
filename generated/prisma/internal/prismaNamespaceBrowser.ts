@@ -120,6 +120,7 @@ export const ItemScalarFieldEnum = {
   attr: 'attr',
   isMaterial: 'isMaterial',
   isAssembly: 'isAssembly',
+  parts: 'parts',
   unitOfMeasure: 'unitOfMeasure',
   greenLogo: 'greenLogo',
   createdAt: 'createdAt',

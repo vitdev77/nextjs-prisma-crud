@@ -57,6 +57,7 @@ model Item {
   attr          String?
   isMaterial    Boolean       @default(false)
   isAssembly    Boolean       @default(false)
+  parts         String[]
   unitOfMeasure UnitOfMeasure @default(piece)
   greenLogo     GreenLogo     @default(RoHS)
   createdAt     DateTime      @default(now())
