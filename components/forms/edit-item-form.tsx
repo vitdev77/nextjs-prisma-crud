@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -162,15 +163,24 @@ export function EditItemForm({ item, _onSubmit }: Props) {
             )}
           />
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="border-input grid grid-cols-2 gap-4 rounded-lg border border-dashed">
             <FormField
               control={form.control}
               name="isMaterial"
               render={({ field }) => {
                 return (
-                  <FormItem>
-                    <FormLabel>Is Material</FormLabel>
-                    <Select
+                  <FormItem className="flex w-full flex-row items-center gap-2 p-2">
+                    {/* <FormLabel>Is Material</FormLabel> */}
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel className="cursor-pointer">
+                      Is Material
+                    </FormLabel>
+                    {/* <Select
                       onValueChange={(value) =>
                         field.onChange(value === "true")
                       } // Convert string to boolean
@@ -186,7 +196,7 @@ export function EditItemForm({ item, _onSubmit }: Props) {
                         <SelectItem value="false">No</SelectItem>
                         <SelectItem value="true">Yes</SelectItem>
                       </SelectContent>
-                    </Select>
+                    </Select> */}
                     <FormMessage />
                   </FormItem>
                 );
@@ -198,9 +208,18 @@ export function EditItemForm({ item, _onSubmit }: Props) {
               name="isAssembly"
               render={({ field }) => {
                 return (
-                  <FormItem>
-                    <FormLabel>Is Assembly</FormLabel>
-                    <Select
+                  <FormItem className="flex w-full flex-row items-center gap-2 p-2">
+                    {/* <FormLabel>Is Assembly</FormLabel> */}
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel className="cursor-pointer">
+                      Is Assembly
+                    </FormLabel>
+                    {/* <Select
                       onValueChange={(value) =>
                         field.onChange(value === "true")
                       } // Convert string to boolean
@@ -216,7 +235,7 @@ export function EditItemForm({ item, _onSubmit }: Props) {
                         <SelectItem value="false">No</SelectItem>
                         <SelectItem value="true">Yes</SelectItem>
                       </SelectContent>
-                    </Select>
+                    </Select> */}
                     <FormMessage />
                   </FormItem>
                 );

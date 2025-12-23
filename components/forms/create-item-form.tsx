@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -24,8 +25,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoadingButton } from "@/components/loading-button";
+import { MultiSelect } from "@/components/multi-select";
 import { toast } from "sonner";
-import { createItem } from "@/actions/item.actions";
+import { createItem, getItems } from "@/actions/item.actions";
 import { GreenLogo, UnitOfMeasure } from "@/generated/prisma/enums";
 import { underscoreWithCommas } from "@/lib/utils";
 
@@ -39,16 +41,39 @@ const newItemSchema = z.object({
     }),
   nameExt: z.string().optional(),
   attr: z.string().optional(),
-  isMaterial: z.boolean().optional(),
-  isAssembly: z.boolean().optional(),
+  isMaterial: z.boolean().default(false).optional(),
+  isAssembly: z.boolean().default(false).optional(),
+  parts: z.array(z.string()).optional(),
   unitOfMeasure: z.enum(UnitOfMeasure),
   greenLogo: z.enum(GreenLogo),
 });
 
+const partsList = [
+  { value: "next.js", label: "Next.js" },
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue.js" },
+  { value: "angular", label: "Angular" },
+];
+
+const defaultValues = {
+  name: "",
+  nameExt: "",
+  attr: "",
+  isMaterial: false,
+  isAssembly: false,
+  unitOfMeasure: UnitOfMeasure.piece || "piece",
+  greenLogo: GreenLogo.RoHS || "RoHS",
+  parts: [],
+};
+
 type NewItemValues = z.infer<typeof newItemSchema>;
 
 export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
+  const [items, setItems] = React.useState<
+    { id: string; name: string; nameExt: string | null; attr: string | null }[]
+  >([]);
   const [error, setError] = React.useState<string | null>(null);
+  const [isLoadingItemsData, setIsLoadingItemsData] = React.useState(true);
 
   const unitsOfMeasure = Object.values(UnitOfMeasure).map(
     (unitOfMeasureName, i) => ({
@@ -61,18 +86,30 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
     value: greenLogoName,
   }));
 
+  const sortedItems = [...items].sort((a, b) => a.name.localeCompare(b.name));
+
+  React.useEffect(() => {
+    async function getAllItems() {
+      setIsLoadingItemsData(true);
+      try {
+        const fetchItemsData = await getItems();
+        setItems(fetchItemsData);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingItemsData(false);
+      }
+    }
+    getAllItems();
+  }, []);
+
   const form = useForm<NewItemValues>({
     resolver: zodResolver(newItemSchema),
-    defaultValues: {
-      name: "",
-      nameExt: "",
-      attr: "",
-      isMaterial: false,
-      isAssembly: false,
-      unitOfMeasure: UnitOfMeasure.piece || "piece",
-      greenLogo: GreenLogo.RoHS || "RoHS",
-    },
+    defaultValues,
   });
+
+  // Watch the value of the first select field
+  const isAssemblyValue = form.watch("isAssembly");
 
   const onSubmit = form.handleSubmit(async (data) => {
     const res = await createItem(data);
@@ -84,6 +121,10 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
       form.reset();
     }
   });
+
+  const handleReset = () => {
+    form.reset(defaultValues); // Pass the original default values
+  };
 
   const loading = form.formState.isSubmitting;
 
@@ -154,15 +195,24 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
             )}
           />
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="border-input grid grid-cols-2 gap-4 rounded-lg border border-dashed">
             <FormField
               control={form.control}
               name="isMaterial"
               render={({ field }) => {
                 return (
-                  <FormItem>
-                    <FormLabel>Is Material</FormLabel>
-                    <Select
+                  <FormItem className="flex w-full flex-row items-center gap-2 p-2">
+                    {/* <FormLabel>Is Material</FormLabel> */}
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel className="cursor-pointer">
+                      Is Material
+                    </FormLabel>
+                    {/* <Select
                       onValueChange={(value) =>
                         field.onChange(value === "true")
                       } // Convert string to boolean
@@ -178,7 +228,7 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                         <SelectItem value="false">No</SelectItem>
                         <SelectItem value="true">Yes</SelectItem>
                       </SelectContent>
-                    </Select>
+                    </Select> */}
                     <FormMessage />
                   </FormItem>
                 );
@@ -190,9 +240,18 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
               name="isAssembly"
               render={({ field }) => {
                 return (
-                  <FormItem>
-                    <FormLabel>Is Assembly</FormLabel>
-                    <Select
+                  <FormItem className="flex w-full flex-row items-center gap-2 p-2">
+                    {/* <FormLabel>Is Assembly</FormLabel> */}
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel className="cursor-pointer">
+                      Is Assembly
+                    </FormLabel>
+                    {/* <Select
                       onValueChange={(value) =>
                         field.onChange(value === "true")
                       } // Convert string to boolean
@@ -208,13 +267,35 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                         <SelectItem value="false">No</SelectItem>
                         <SelectItem value="true">Yes</SelectItem>
                       </SelectContent>
-                    </Select>
+                    </Select> */}
                     <FormMessage />
                   </FormItem>
                 );
               }}
             />
           </div>
+
+          {isAssemblyValue === true && (
+            <FormField
+              control={form.control}
+              name="parts"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select Parts (Items) for Assembly</FormLabel>
+                  <FormControl>
+                    <MultiSelect
+                      options={partsList}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      placeholder="Choose parts..."
+                      disabled={loading || sortedItems.length === 0}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <div className="grid grid-cols-2 gap-4">
             <FormField
@@ -305,7 +386,7 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
               Submit
             </LoadingButton>
             <Button
-              onClick={() => form.reset()}
+              onClick={handleReset}
               disabled={loading}
               variant={"ghost"}
               className="w-full"

@@ -23,12 +23,8 @@ export default async function EditSeriesPage(props: {
   }
 
   return (
-    <div className="bg-muted flex min-h-screen flex-col items-center justify-center gap-6">
-      <ReturnButton
-        btnVariant={"link"}
-        href={"/series"}
-        label="All Series Page"
-      />
+    <div className="bg-muted my-8 flex w-full flex-col items-center justify-center gap-6 rounded-2xl">
+      <ReturnButton btnVariant={"link"} href={"/series"} label="All Series" />
       <Card className="max-w-sm">
         <CardContent>
           <EditSeriesComponent series={series} />

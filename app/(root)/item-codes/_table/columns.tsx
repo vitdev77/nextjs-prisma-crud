@@ -12,6 +12,7 @@ import { ItemCodeWithRelations } from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
 import { truncateMiddle } from "@/lib/utils";
 import { CopyButton } from "@/components/copy-button";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<ItemCodeWithRelations>[] = [
   {
@@ -62,7 +63,15 @@ export const columns: ColumnDef<ItemCodeWithRelations>[] = [
     cell: ({ row }) => {
       const { code } = row.original;
 
-      return <div className="font-medium">{code}</div>;
+      return (
+        <div className="group flex w-full items-center gap-1">
+          <div className="font-medium">{code}</div>
+          <CopyButton
+            value={code}
+            className="pl-2 opacity-0 transition-all duration-300 ease-in-out group-hover:pl-0 group-hover:opacity-100"
+          />
+        </div>
+      );
     },
     enableHiding: false,
   },
