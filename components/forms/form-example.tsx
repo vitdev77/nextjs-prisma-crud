@@ -15,6 +15,19 @@ import {
 } from "@/components/ui/form";
 import { LoadingButton } from "@/components/loading-button";
 import { MultiSelect } from "@/components/multi-select";
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
+  useComboboxAnchor,
+} from "@/components/ui/combobox";
+import * as React from "react";
 
 const FormSchema = z.object({
   parts: z
@@ -28,6 +41,14 @@ const partsList = [
   { value: "vue", label: "Vue.js" },
   { value: "angular", label: "Angular" },
 ];
+
+const frameworks = [
+  "Next.js",
+  "SvelteKit",
+  "Nuxt.js",
+  "Remix",
+  "Astro",
+] as const;
 
 export default function FormExample() {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -43,6 +64,8 @@ export default function FormExample() {
 
   const loading = form.formState.isSubmitting;
 
+  const anchor = useComboboxAnchor();
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -53,13 +76,44 @@ export default function FormExample() {
             <FormItem>
               <FormLabel>Select Parts</FormLabel>
               <FormControl>
-                <MultiSelect
+                {/* <MultiSelect
                   options={partsList}
                   value={field.value}
                   onValueChange={field.onChange}
                   placeholder="Choose parts..."
                   disabled={loading}
-                />
+                /> */}
+                {/* Combobox START */}
+                <Combobox
+                  multiple
+                  autoHighlight
+                  items={frameworks}
+                  // defaultValue={[frameworks[0]]}
+                >
+                  <ComboboxChips ref={anchor}>
+                    <ComboboxValue>
+                      {(values) => (
+                        <React.Fragment>
+                          {values.map((value: string) => (
+                            <ComboboxChip key={value}>{value}</ComboboxChip>
+                          ))}
+                          <ComboboxChipsInput />
+                        </React.Fragment>
+                      )}
+                    </ComboboxValue>
+                  </ComboboxChips>
+                  <ComboboxContent anchor={anchor}>
+                    <ComboboxEmpty>No items found.</ComboboxEmpty>
+                    <ComboboxList>
+                      {(item) => (
+                        <ComboboxItem key={item} value={item}>
+                          {item}
+                        </ComboboxItem>
+                      )}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+                {/* Combobox END */}
               </FormControl>
               <FormMessage />
             </FormItem>
