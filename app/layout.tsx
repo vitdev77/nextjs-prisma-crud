@@ -22,7 +22,12 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={fontVariables}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      className={fontVariables}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
