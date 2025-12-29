@@ -78,9 +78,11 @@ const multiSelectVariants = cva("m-1 transition-all duration-300 ease-in-out", {
  */
 interface MultiSelectOption {
   /** The text to display for the option. */
-  label: string;
+  // label: string;
+  name: string;
   /** The unique value associated with the option. */
-  value: string;
+  // value: string;
+  id: string;
   /** Optional icon component to display alongside the option. */
   icon?: React.ComponentType<{ className?: string }>;
   /** Whether this option is disabled */
@@ -121,7 +123,7 @@ interface MultiSelectProps
    * Callback function triggered when the selected values change.
    * Receives an array of the new selected values.
    */
-  onValueChange: (value: string[]) => void;
+  onValueChange: (id: string[]) => void;
 
   /** The default selected values when the component mounts. */
   defaultValue?: string[];
@@ -538,13 +540,13 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       const duplicates: string[] = [];
       const uniqueOptions: MultiSelectOption[] = [];
       allOptions.forEach((option) => {
-        if (valueSet.has(option.value)) {
-          duplicates.push(option.value);
+        if (valueSet.has(option.id)) {
+          duplicates.push(option.id);
           if (!deduplicateOptions) {
             uniqueOptions.push(option);
           }
         } else {
-          valueSet.add(option.value);
+          valueSet.add(option.id);
           uniqueOptions.push(option);
         }
       });
@@ -568,7 +570,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 
     const getOptionByValue = React.useCallback(
       (value: string): MultiSelectOption | undefined => {
-        const option = getAllOptions().find((option) => option.value === value);
+        const option = getAllOptions().find((option) => option.id === value);
         if (!option && process.env.NODE_ENV === "development") {
           console.warn(
             `MultiSelect: Option with value "${value}" not found in options list`,
@@ -588,18 +590,16 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
             ...group,
             options: group.options.filter(
               (option) =>
-                option.label
-                  .toLowerCase()
-                  .includes(searchValue.toLowerCase()) ||
-                option.value.toLowerCase().includes(searchValue.toLowerCase()),
+                option.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                option.name.toLowerCase().includes(searchValue.toLowerCase()),
             ),
           }))
           .filter((group) => group.options.length > 0);
       }
       return options.filter(
         (option) =>
-          option.label.toLowerCase().includes(searchValue.toLowerCase()) ||
-          option.value.toLowerCase().includes(searchValue.toLowerCase()),
+          option.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          option.name.toLowerCase().includes(searchValue.toLowerCase()),
       );
     }, [options, searchValue, searchable, isGroupedOptions]);
 
@@ -657,7 +657,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       if (selectedValues.length === allOptions.length) {
         handleClear();
       } else {
-        const allValues = allOptions.map((option) => option.value);
+        const allValues = allOptions.map((option) => option.id);
         setSelectedValues(allValues);
         onValueChange(allValues);
       }
@@ -706,9 +706,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
         if (diff > 0) {
           const addedItems = selectedValues.slice(-diff);
           const addedLabels = addedItems
-            .map(
-              (value) => allOptions.find((opt) => opt.value === value)?.label,
-            )
+            .map((value) => allOptions.find((opt) => opt.name === value)?.name)
             .filter(Boolean);
 
           if (addedLabels.length === 1) {
@@ -746,8 +744,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
         if (searchValue && isPopoverOpen) {
           const filteredCount = allOptions.filter(
             (opt) =>
-              opt.label.toLowerCase().includes(searchValue.toLowerCase()) ||
-              opt.value.toLowerCase().includes(searchValue.toLowerCase()),
+              opt.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+              opt.name.toLowerCase().includes(searchValue.toLowerCase()),
           ).length;
 
           announce(
@@ -786,7 +784,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
               : `${selectedValues.length} option${
                   selectedValues.length === 1 ? "" : "s"
                 } selected: ${selectedValues
-                  .map((value) => getOptionByValue(value)?.label)
+                  .map((value) => getOptionByValue(value)?.name)
                   .filter(Boolean)
                   .join(", ")}`}
           </div>
@@ -891,7 +889,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                                 strokeWidth={2}
                                 className="size-4"
                               />
-                              {option.label}
+                              {option.name}
                             </span>
                             <div
                               role="button"
@@ -910,7 +908,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                                   toggleOption(value);
                                 }
                               }}
-                              aria-label={`Remove ${option.label} from selection`}
+                              aria-label={`Remove ${option.name} from selection`}
                               className="-m-0.5 ml-2 h-4 w-4 cursor-pointer rounded-sm p-0.5 hover:bg-white/20 focus:ring-1 focus:ring-white/50 focus:outline-none"
                             >
                               <HugeiconsIcon
@@ -928,7 +926,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                       .filter(Boolean)}
                     {selectedValues.length > responsiveSettings.maxCount && (
                       <Badge
-                        className="bg-muted-foreground/10 text-primary m-0 h-auto w-full justify-between rounded-sm border-none px-2"
+                        className="bg-muted-foreground/10 text-primary m-0 h-auto w-full justify-center rounded-sm border-none px-2"
                         style={{
                           animationDuration: `${
                             animationConfig?.duration || animation
@@ -1099,17 +1097,15 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                   filteredOptions.map((group) => (
                     <CommandGroup key={group.heading} heading={group.heading}>
                       {group.options.map((option) => {
-                        const isSelected = selectedValues.includes(
-                          option.value,
-                        );
+                        const isSelected = selectedValues.includes(option.id);
                         return (
                           <CommandItem
-                            key={option.value}
-                            onSelect={() => toggleOption(option.value)}
+                            key={option.id}
+                            onSelect={() => toggleOption(option.id)}
                             role="option"
                             aria-selected={isSelected}
                             aria-disabled={option.disabled}
-                            aria-label={`${option.label}${
+                            aria-label={`${option.name}${
                               isSelected ? ", selected" : ", not selected"
                             }${option.disabled ? ", disabled" : ""}`}
                             className={cn(
@@ -1140,24 +1136,24 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                                 aria-hidden="true"
                               />
                             )}
-                            <span>{option.label}</span>
+                            <span>{option.name}</span>
                           </CommandItem>
                         );
                       })}
                     </CommandGroup>
                   ))
                 ) : (
-                  <CommandGroup>
+                  <CommandGroup className="overflow-y-auto py-2">
                     {filteredOptions.map((option) => {
-                      const isSelected = selectedValues.includes(option.value);
+                      const isSelected = selectedValues.includes(option.id);
                       return (
                         <CommandItem
-                          key={option.value}
-                          onSelect={() => toggleOption(option.value)}
+                          key={option.id}
+                          onSelect={() => toggleOption(option.id)}
                           role="option"
                           aria-selected={isSelected}
                           aria-disabled={option.disabled}
-                          aria-label={`${option.label}${
+                          aria-label={`${option.name}${
                             isSelected ? ", selected" : ", not selected"
                           }${option.disabled ? ", disabled" : ""}`}
                           className={cn(
@@ -1187,7 +1183,12 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                               aria-hidden="true"
                             />
                           )}
-                          <span>{option.label}</span>
+                          <div className="flex flex-col">
+                            {option.name}
+                            <span className="text-muted-foreground/50 font-mono text-xs">
+                              {option.id}
+                            </span>
+                          </div>
                         </CommandItem>
                       );
                     })}

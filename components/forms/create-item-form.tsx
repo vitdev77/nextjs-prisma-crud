@@ -284,7 +284,7 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                   <FormLabel>Select Parts (Items) for Assembly</FormLabel>
                   <FormControl>
                     <MultiSelect
-                      options={partsList}
+                      options={sortedItems}
                       value={field.value}
                       onValueChange={field.onChange}
                       placeholder="Choose parts..."
