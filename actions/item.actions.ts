@@ -49,6 +49,7 @@ export async function createItem({
   isAssembly,
   unitOfMeasure,
   greenLogo,
+  parts,
 }: {
   name: string;
   nameExt?: string;
@@ -57,6 +58,7 @@ export async function createItem({
   isAssembly?: boolean;
   unitOfMeasure: UnitOfMeasure;
   greenLogo: GreenLogo;
+  parts?: string[];
 }) {
   try {
     await prisma.item.create({
@@ -68,6 +70,7 @@ export async function createItem({
         isAssembly,
         unitOfMeasure,
         greenLogo,
+        parts,
       },
     });
   } catch (err) {
@@ -90,6 +93,7 @@ export async function editItem({
   isAssembly,
   unitOfMeasure,
   greenLogo,
+  parts,
   isUpdated,
 }: {
   itemId: string;
@@ -100,6 +104,7 @@ export async function editItem({
   isAssembly?: boolean;
   unitOfMeasure: UnitOfMeasure;
   greenLogo: GreenLogo;
+  parts?: string[];
   isUpdated: boolean;
 }) {
   try {
@@ -115,6 +120,7 @@ export async function editItem({
         isAssembly,
         unitOfMeasure,
         greenLogo,
+        parts,
         isUpdated,
       },
     });

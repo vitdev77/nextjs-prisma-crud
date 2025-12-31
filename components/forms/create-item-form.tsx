@@ -26,10 +26,83 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoadingButton } from "@/components/loading-button";
 import { MultiSelect } from "@/components/multi-select";
+import MultipleSelector from "@/components/multi-select-2";
 import { toast } from "sonner";
 import { createItem, getItems } from "@/actions/item.actions";
 import { GreenLogo, UnitOfMeasure } from "@/generated/prisma/enums";
 import { underscoreWithCommas } from "@/lib/utils";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { UnfoldMoreIcon } from "@hugeicons/core-free-icons";
+import { Label } from "../ui/label";
+
+const categories = [
+  {
+    value: "clothing",
+    label: "Clothing",
+  },
+  {
+    value: "footwear",
+    label: "Footwear",
+  },
+  {
+    value: "accessories",
+    label: "Accessories",
+  },
+  {
+    value: "jewelry",
+    label: "Jewelry",
+    disable: true,
+  },
+  {
+    value: "outerwear",
+    label: "Outerwear",
+  },
+  {
+    value: "fragrance",
+    label: "Fragrance",
+  },
+  {
+    value: "makeup",
+    label: "Makeup",
+  },
+  {
+    value: "skincare",
+    label: "Skincare",
+  },
+  {
+    value: "furniture",
+    label: "Furniture",
+  },
+  {
+    value: "lighting",
+    label: "Lighting",
+  },
+  {
+    value: "kitchenware",
+    label: "Kitchenware",
+    disable: true,
+  },
+  {
+    value: "computers",
+    label: "Computers",
+  },
+  {
+    value: "audio",
+    label: "Audio",
+  },
+  {
+    value: "wearables",
+    label: "Wearables",
+  },
+  {
+    value: "supplements",
+    label: "Supplements",
+  },
+  {
+    value: "sportswear",
+    label: "Sportswear",
+  },
+];
 
 const newItemSchema = z.object({
   name: z
@@ -47,13 +120,6 @@ const newItemSchema = z.object({
   unitOfMeasure: z.enum(UnitOfMeasure),
   greenLogo: z.enum(GreenLogo),
 });
-
-const partsList = [
-  { value: "next.js", label: "Next.js" },
-  { value: "react", label: "React" },
-  { value: "vue", label: "Vue.js" },
-  { value: "angular", label: "Angular" },
-];
 
 const defaultValues = {
   name: "",
@@ -282,15 +348,60 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Select Parts (Items) for Assembly</FormLabel>
-                  <FormControl>
-                    <MultiSelect
-                      options={sortedItems}
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      placeholder="Choose parts..."
-                      disabled={loading || sortedItems.length === 0}
-                    />
-                  </FormControl>
+                  {isLoadingItemsData ? (
+                    <div className="bg-muted text-muted-foreground/50 border-input flex h-8 w-full items-center justify-between rounded-lg border pr-2 pl-2.5 text-sm">
+                      <span>Loading parts list...</span>
+                      <HugeiconsIcon
+                        icon={UnfoldMoreIcon}
+                        strokeWidth={2}
+                        className="pointer-events-none size-4"
+                      />
+                    </div>
+                  ) : (
+                    <FormControl>
+                      {/* <MultiSelect
+                        options={sortedItems}
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Choose parts..."
+                        disabled={loading || sortedItems.length === 0}
+                      /> */}
+                      {/* <MultipleSelector
+                        commandProps={{
+                          label: "Select parts",
+                        }}
+                        value={categories.slice(0, 2)}
+                        defaultOptions={categories}
+                        placeholder="Select parts"
+                        hideClearAllButton
+                        hidePlaceholderWhenSelected
+                        emptyIndicator={
+                          <p className="text-center text-sm">
+                            No results found
+                          </p>
+                        }
+                        className="w-full"
+                      /> */}
+                      <div className="dark:bg-input/30 flex max-h-96 w-full flex-col rounded-lg border bg-transparent p-2">
+                        <div className="flex flex-col gap-4 overflow-y-auto">
+                          {sortedItems.map((item) => (
+                            <div
+                              key={item.id}
+                              className="flex items-start gap-3"
+                            >
+                              <Checkbox id={item.id} />
+                              <div className="grid gap-1">
+                                <Label htmlFor={item.id}>{item.name}</Label>
+                                <p className="text-muted-foreground font-mono text-xs">
+                                  {item.id}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </FormControl>
+                  )}
                   <FormMessage />
                 </FormItem>
               )}
@@ -382,12 +493,16 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
           )}
 
           <div className="space-y-2">
-            <LoadingButton type="submit" className="w-full" loading={loading}>
+            <LoadingButton
+              type="submit"
+              className="w-full"
+              loading={loading || isLoadingItemsData}
+            >
               Submit
             </LoadingButton>
             <Button
               onClick={handleReset}
-              disabled={loading}
+              disabled={loading || isLoadingItemsData}
               variant={"ghost"}
               className="w-full"
               type="reset"

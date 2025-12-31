@@ -3,6 +3,7 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Add01Icon,
+  AlertSquareIcon,
   BorderNone02Icon,
   CheckmarkSquare02Icon,
   Edit04Icon,
@@ -19,6 +20,7 @@ import { ItemWithRelations } from "@/@types/prisma";
 import DateTimeTemplate from "@/components/date-time-template";
 import { cn, truncateMiddle, underscoreWithCommas } from "@/lib/utils";
 import { CopyButton } from "@/components/copy-button";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<ItemWithRelations>[] = [
   {
@@ -167,14 +169,30 @@ export const columns: ColumnDef<ItemWithRelations>[] = [
       return <DataTableColumnHeader column={column} title="Is Assembly" />;
     },
     cell: ({ row }) => {
-      const isAssembly = row.getValue("isAssembly");
+      const { isAssembly, parts } = row.original;
 
       return (
-        <HugeiconsIcon
-          icon={isAssembly === false ? BorderNone02Icon : CheckmarkSquare02Icon}
-          strokeWidth={1.5}
-          className={cn(isAssembly === false && "text-muted-foreground/10")}
-        />
+        <div className="flex flex-wrap items-center gap-1">
+          {isAssembly === false && parts.length !== 0 ? (
+            <HugeiconsIcon
+              icon={AlertSquareIcon}
+              strokeWidth={2}
+              className="text-destructive"
+            />
+          ) : (
+            <HugeiconsIcon
+              icon={
+                isAssembly === false ? BorderNone02Icon : CheckmarkSquare02Icon
+              }
+              strokeWidth={1.5}
+              className={cn(isAssembly === false && "text-muted-foreground/10")}
+            />
+          )}
+
+          {isAssembly === false && parts.length !== 0 && (
+            <Badge variant={"destructive"}>Have parts</Badge>
+          )}
+        </div>
       );
     },
   },

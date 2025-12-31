@@ -1185,7 +1185,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                           )}
                           <div className="flex flex-col">
                             {option.name}
-                            <span className="text-muted-foreground/50 font-mono text-xs">
+                            <span className="text-muted-foreground font-mono text-xs">
+                              <span className="text-blue-400">ID:</span>{" "}
                               {option.id}
                             </span>
                           </div>

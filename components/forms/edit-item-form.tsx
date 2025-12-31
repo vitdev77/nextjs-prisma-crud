@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { UnfoldMoreIcon } from "@hugeicons/core-free-icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -24,8 +26,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoadingButton } from "@/components/loading-button";
+import { MultiSelect } from "@/components/multi-select";
 import { toast } from "sonner";
-import { editItem } from "@/actions/item.actions";
+import { editItem, getItems } from "@/actions/item.actions";
 import { GreenLogo, UnitOfMeasure } from "@/generated/prisma/enums";
 import { ItemWithRelations } from "@/@types/prisma";
 import { underscoreWithCommas } from "@/lib/utils";
@@ -43,6 +46,7 @@ const editItemSchema = z.object({
   attr: z.string().optional(),
   isMaterial: z.boolean().optional(),
   isAssembly: z.boolean().optional(),
+  parts: z.array(z.string()).optional(),
   unitOfMeasure: z.enum(UnitOfMeasure),
   greenLogo: z.enum(GreenLogo),
   isUpdated: z.boolean(),
@@ -56,7 +60,11 @@ interface Props {
 }
 
 export function EditItemForm({ item, _onSubmit }: Props) {
+  const [items, setItems] = React.useState<
+    { id: string; name: string; nameExt: string | null; attr: string | null }[]
+  >([]);
   const [error, setError] = React.useState<string | null>(null);
+  const [isLoadingItemsData, setIsLoadingItemsData] = React.useState(true);
 
   const unitsOfMeasure = Object.values(UnitOfMeasure).map(
     (unitOfMeasureName, i) => ({
@@ -69,6 +77,23 @@ export function EditItemForm({ item, _onSubmit }: Props) {
     value: greenLogoName,
   }));
 
+  const sortedItems = [...items].sort((a, b) => a.name.localeCompare(b.name));
+
+  React.useEffect(() => {
+    async function getAllItems() {
+      setIsLoadingItemsData(true);
+      try {
+        const fetchItemsData = await getItems();
+        setItems(fetchItemsData);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingItemsData(false);
+      }
+    }
+    getAllItems();
+  }, []);
+
   const form = useForm<EditItemValues>({
     resolver: zodResolver(editItemSchema),
     defaultValues: {
@@ -78,11 +103,15 @@ export function EditItemForm({ item, _onSubmit }: Props) {
       attr: item.attr || "",
       isMaterial: item.isMaterial || false,
       isAssembly: item.isAssembly || false,
+      parts: item.parts,
       unitOfMeasure: item.unitOfMeasure,
       greenLogo: item.greenLogo,
       isUpdated: item.isUpdated || true,
     },
   });
+
+  // Watch the value of the first select field
+  const isAssemblyValue = form.watch("isAssembly");
 
   const onSubmit = form.handleSubmit(async (data) => {
     const res = await editItem(data);
@@ -242,6 +271,40 @@ export function EditItemForm({ item, _onSubmit }: Props) {
               }}
             />
           </div>
+
+          {isAssemblyValue === true && (
+            <FormField
+              control={form.control}
+              name="parts"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select Parts (Items) for Assembly</FormLabel>
+                  {isLoadingItemsData ? (
+                    <div className="bg-muted text-muted-foreground/50 border-input flex h-8 w-full items-center justify-between rounded-lg border pr-2 pl-2.5 text-sm">
+                      <span>Loading parts list...</span>
+                      <HugeiconsIcon
+                        icon={UnfoldMoreIcon}
+                        strokeWidth={2}
+                        className="pointer-events-none size-4"
+                      />
+                    </div>
+                  ) : (
+                    <FormControl>
+                      <MultiSelect
+                        options={sortedItems}
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Choose parts..."
+                        disabled={loading || sortedItems.length === 0}
+                      />
+                    </FormControl>
+                  )}
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <div className="grid grid-cols-2 gap-4">
             <FormField

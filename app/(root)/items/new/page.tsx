@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function NewItemPage() {
   return (
-    <div className="bg-muted my-8 flex w-full flex-col items-center justify-center gap-6 rounded-2xl">
+    <div className="bg-muted my-8 flex h-full w-full flex-col items-center justify-center gap-6 rounded-2xl">
       <ReturnButton btnVariant={"link"} href={"/items"} label="All Items" />
       <Card className="max-w-sm">
         <CardContent>
