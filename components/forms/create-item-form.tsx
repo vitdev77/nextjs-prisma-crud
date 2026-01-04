@@ -391,10 +391,15 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                             >
                               <Checkbox id={item.id} />
                               <div className="grid gap-1">
-                                <Label htmlFor={item.id}>{item.name}</Label>
-                                <p className="text-muted-foreground font-mono text-xs">
-                                  {item.id}
-                                </p>
+                                <Label
+                                  htmlFor={item.id}
+                                  className="flex flex-wrap gap-1"
+                                >
+                                  {item.name}
+                                  <p className="text-muted-foreground font-mono text-xs">
+                                    {item.id}
+                                  </p>
+                                </Label>
                               </div>
                             </div>
                           ))}
