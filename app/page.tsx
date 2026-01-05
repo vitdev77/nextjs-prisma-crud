@@ -8,6 +8,7 @@ const nav = [
   { title: "Items", link: "/items" },
   { title: "Item Codes", link: "/item-codes" },
   { title: "Test Page", link: "/test" },
+  { title: "Test Page 2", link: "/test2" },
 ];
 
 export default async function Home() {
