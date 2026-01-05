@@ -18,8 +18,8 @@ export default function TestLayout({
   return (
     <div className="bg-background relative z-10 flex min-h-svh flex-col">
       <Header />
-      <main className="flex flex-1 flex-col justify-center">
-        <Container className="min-h-[calc(100vh-(114px))] gap-8">
+      <main className="flex flex-1 flex-col">
+        <Container className="min-h-[calc(100vh-[(114px)])] gap-8">
           <Sidebar2 />
           {children}
         </Container>

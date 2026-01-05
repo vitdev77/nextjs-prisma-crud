@@ -18,7 +18,7 @@ export const Container: React.FC<React.PropsWithChildren<Props>> = ({
     >
       <div
         className={cn(
-          "3xl:fixed:container flex h-(--header-height) gap-2 **:data-[slot=separator]:h-4!",
+          "3xl:fixed:container flex gap-2 **:data-[slot=separator]:h-4!",
           className,
         )}
       >

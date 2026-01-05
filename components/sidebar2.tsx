@@ -194,7 +194,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item }) => {
 
 const Sidebar2: React.FC = () => {
   return (
-    <aside className="min-w-45 py-8">
+    <aside className="sticky top-[calc(var(--header-height)+1px)] h-full min-w-45 py-8">
       <nav className="space-y-2">
         {navItems.map((item, index) => (
           <SidebarItem key={index} item={item} />

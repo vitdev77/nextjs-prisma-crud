@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -33,7 +34,6 @@ import { GreenLogo, UnitOfMeasure } from "@/generated/prisma/enums";
 import { underscoreWithCommas } from "@/lib/utils";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { UnfoldMoreIcon } from "@hugeicons/core-free-icons";
-import { Label } from "../ui/label";
 
 const categories = [
   {
@@ -382,7 +382,7 @@ export function CreateItemForm({ _onSubmit }: { _onSubmit?: VoidFunction }) {
                         }
                         className="w-full"
                       /> */}
-                      <div className="dark:bg-input/30 flex max-h-96 w-full flex-col rounded-lg border bg-transparent p-2">
+                      <div className="dark:bg-input/30 flex max-h-76 w-full flex-col rounded-lg border bg-transparent p-2">
                         <div className="flex flex-col gap-4 overflow-y-auto">
                           {sortedItems.map((item) => (
                             <div

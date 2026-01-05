@@ -12,7 +12,7 @@ import { Logo } from "@/components/logo";
 export function Header() {
   return (
     <header className="bg-background sticky top-0 z-50 w-full border-b border-dashed">
-      <Container>
+      <Container className="h-(--header-height)">
         <div className="flex items-center xl:w-1/3">
           <Button
             asChild
