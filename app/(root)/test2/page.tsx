@@ -14,7 +14,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Cancel01Icon, Search01Icon } from "@hugeicons/core-free-icons";
 
 const items = [
-  { id: "react", name: "React" },
+  { id: "d58463b5-6c18-47d5-8ba7-59a129378b16", name: "Color masterbatch" },
   { id: "next", name: "Next.js" },
   { id: "vue", name: "Vue" },
   { id: "angular", name: "Angular" },
@@ -43,7 +43,7 @@ export default function CheckboxGroupWithSearch() {
   };
 
   return (
-    <div className="bg-muted my-8 flex min-h-auto w-full flex-col items-center justify-center gap-6 rounded-2xl py-8">
+    <div className="bg-muted my-6 flex min-h-auto w-full flex-col items-center justify-center gap-6 rounded-2xl py-8">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Select Parts (Items) for Assembly</CardTitle>
@@ -72,32 +72,33 @@ export default function CheckboxGroupWithSearch() {
               )}
             </InputGroup>
           </div>
-          <div className="max-h-50 space-y-3 overflow-y-auto">
-            {" "}
-            {/* Using max-h and overflow for scrollability */}
-            {sortedItems.map((item) => (
-              <div key={item.id} className="flex items-start space-x-2">
-                <Checkbox
-                  id={item.id}
-                  checked={selectedItems.includes(item.id)}
-                  onCheckedChange={(checked) =>
-                    handleCheckedChange(!!checked, item.id)
-                  }
-                />
-                <Label
-                  htmlFor={item.id}
-                  className="flex w-full cursor-pointer flex-col items-start gap-1 py-0.5"
-                >
-                  {item.name}
-                  <div className="text-muted-foreground">{item.id}</div>
-                </Label>
-              </div>
-            ))}
-            {filteredItems.length === 0 && (
-              <p className="text-muted-foreground w-full text-center text-sm">
-                No items found.
-              </p>
-            )}
+          <div className="dark:bg-input/30 flex max-h-76 w-full flex-col rounded-lg border bg-transparent p-2">
+            <div className="flex flex-col gap-4 overflow-y-auto">
+              {sortedItems.map((item) => (
+                <div key={item.id} className="flex items-start gap-3">
+                  <Checkbox
+                    id={item.id}
+                    checked={selectedItems.includes(item.id)}
+                    onCheckedChange={(checked) =>
+                      handleCheckedChange(!!checked, item.id)
+                    }
+                  />
+                  <div className="grid gap-1">
+                    <Label htmlFor={item.id} className="flex flex-wrap gap-1">
+                      {item.name}
+                      <p className="text-muted-foreground font-mono text-xs">
+                        {item.id}
+                      </p>
+                    </Label>
+                  </div>
+                </div>
+              ))}
+              {filteredItems.length === 0 && (
+                <p className="text-muted-foreground w-full text-center text-sm">
+                  No items found.
+                </p>
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>

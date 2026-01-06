@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const nav = [
+  { title: "Dashboard", link: "/dashboard" },
   { title: "Brands", link: "/brands" },
   { title: "Series", link: "/series" },
   { title: "Products", link: "/products" },

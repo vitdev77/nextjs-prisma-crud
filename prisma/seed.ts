@@ -446,6 +446,7 @@ async function up() {
         name: "Door Gasket of Freezer",
         attr: "A1630-343",
         isAssembly: true,
+        parts: [],
       },
       {
         name: "PVC",
@@ -458,6 +459,7 @@ async function up() {
         attr: "A1630-113",
         greenLogo: GreenLogo.REACH_RoHS,
         isAssembly: true,
+        parts: [],
       },
       {
         name: "F Bottom Drawer",

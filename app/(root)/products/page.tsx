@@ -21,7 +21,7 @@ export default async function Products() {
       <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap items-center gap-4">
-            <h1 className="text-4xl font-bold">Items</h1>
+            <h1 className="text-4xl font-bold">Products</h1>
             <Button asChild>
               <Link href={"/products/new"}>
                 <HugeiconsIcon icon={Add01Icon} strokeWidth={2} /> New Product
