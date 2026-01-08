@@ -64,8 +64,11 @@ export default function CheckboxGroupWithSearch() {
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton
                     onClick={handleClear}
+                    variant={"ghost"}
+                    size={"icon-xs"}
                     onMouseDown={(e) => e.preventDefault()}
                   >
+                    <span className="sr-only">Reset</span>
                     <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} />
                   </InputGroupButton>
                 </InputGroupAddon>
