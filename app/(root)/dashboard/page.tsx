@@ -22,7 +22,7 @@ export default async function Dashboard() {
         <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
           {brands.map((brand) => (
             <Link
-              href={"/"}
+              href={"/products"}
               className="bg-accent/50 text-surface-foreground hover:bg-accent flex min-h-48 w-full flex-col items-center justify-center gap-2 rounded-2xl p-6 transition-colors sm:p-10"
               key={brand.id}
             >
