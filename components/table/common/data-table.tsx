@@ -15,6 +15,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTableSearchParams } from "tanstack-table-search-params";
 
 import {
   Table,
@@ -59,7 +61,15 @@ export function DataTable<TData, TValue>({
   const [rowSelection, setRowSelection] = React.useState({});
   const [globalFilter, setGlobalFilter] = React.useState("");
 
+  const { replace } = useRouter();
+  const stateAndOnChanges = useTableSearchParams({
+    pathname: usePathname(),
+    query: useSearchParams(),
+    replace,
+  });
+
   const table = useReactTable({
+    ...stateAndOnChanges,
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
