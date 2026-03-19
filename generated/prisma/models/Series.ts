@@ -1088,6 +1088,11 @@ export type SeriesFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Skip the first `n` Series.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Series.
+   */
   distinct?: Prisma.SeriesScalarFieldEnum | Prisma.SeriesScalarFieldEnum[]
 }
 
