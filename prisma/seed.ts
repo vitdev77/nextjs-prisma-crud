@@ -20,6 +20,8 @@ async function up() {
       { name: "Weissgauff" },
       { name: "Comfee" },
       { name: "HOME" },
+      { name: "KRAFT technology" },
+      { name: "Toshiba" },
     ],
   });
 

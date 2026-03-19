@@ -16,15 +16,17 @@ export const brands = [
   { id: 7, name: "Weissgauff" },
   { id: 8, name: "Comfee" },
   { id: 9, name: "HOME" },
+  { id: 10, name: "KRAFT technology" },
+  { id: 11, name: "Toshiba" },
 ];
 
 export const series = [
+  { id: 5, name: "BCD335" },
   { id: 1, name: "BCD345" },
+  { id: 6, name: "BCD375" },
   { id: 2, name: "BCD385" },
   { id: 3, name: "BCD405" },
   { id: 4, name: "BCD445" },
-  { id: 5, name: "BCD335" },
-  { id: 6, name: "BCD375" },
 ];
 
 export const products = [

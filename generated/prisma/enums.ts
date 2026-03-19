@@ -11,16 +11,19 @@
 
 export const ProductColor = {
   WHITE: 'WHITE',
-  BLACK: 'BLACK',
+  ENTRY_WHITE: 'ENTRY_WHITE',
+  PREMIUM_WHITE: 'PREMIUM_WHITE',
   BEIGE: 'BEIGE',
+  MARBLE_BEIGE: 'MARBLE_BEIGE',
+  BLACK: 'BLACK',
+  INOX: 'INOX',
+  ENTRY_INOX: 'ENTRY_INOX',
+  PREMIUM_INOX: 'PREMIUM_INOX',
+  SILVER: 'SILVER',
   BASALT_GRAY: 'BASALT_GRAY',
   DARK_GRAY: 'DARK_GRAY',
   STEEL_GRAY: 'STEEL_GRAY',
-  INOX: 'INOX',
-  ENTRY_WHITE: 'ENTRY_WHITE',
-  ENTRY_INOX: 'ENTRY_INOX',
-  PREMIUM_WHITE: 'PREMIUM_WHITE',
-  PREMIUM_INOX: 'PREMIUM_INOX'
+  SKY_CLOUD_GRAY: 'SKY_CLOUD_GRAY'
 } as const
 
 export type ProductColor = (typeof ProductColor)[keyof typeof ProductColor]
@@ -44,15 +47,15 @@ export type BusinessType = (typeof BusinessType)[keyof typeof BusinessType]
 
 export const SeriesAttr = {
   NONE: 'NONE',
+  CE_BCD335WX_JQ: 'CE_BCD335WX_JQ',
   CE_BCD345WE_ST: 'CE_BCD345WE_ST',
   CE_BCD345WE1_ST: 'CE_BCD345WE1_ST',
+  CE_BCD375WX_JQ: 'CE_BCD375WX_JQ',
   CE_BCD385WX1_JT: 'CE_BCD385WX1_JT',
   CE_BCD385WX2_JT: 'CE_BCD385WX2_JT',
   CE_BCD405WX_JQ: 'CE_BCD405WX_JQ',
   CE_BCD445WX_JQ: 'CE_BCD445WX_JQ',
-  CE_BCD445WZ_JQ: 'CE_BCD445WZ_JQ',
-  CE_BCD335WX_JQ: 'CE_BCD335WX_JQ',
-  CE_BCD375WX_JQ: 'CE_BCD375WX_JQ'
+  CE_BCD445WZ_JQ: 'CE_BCD445WZ_JQ'
 } as const
 
 export type SeriesAttr = (typeof SeriesAttr)[keyof typeof SeriesAttr]
