@@ -165,7 +165,7 @@ export type ItemCodeGroupByOutputType = {
   _max: ItemCodeMaxAggregateOutputType | null
 }
 
-type GetItemCodeGroupByPayload<T extends ItemCodeGroupByArgs> = Prisma.PrismaPromise<
+export type GetItemCodeGroupByPayload<T extends ItemCodeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ItemCodeGroupByOutputType, T['by']> &
       {
